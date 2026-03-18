@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 01-01-PLAN.md
-last_updated: "2026-03-18T07:09:10.027Z"
+stopped_at: "Checkpoint: Task 2 human-verify 01-03-PLAN.md"
+last_updated: "2026-03-18T07:15:18.940Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
+  completed_plans: 3
   percent: 0
 ---
 
@@ -52,6 +52,7 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 01-data-foundation P02 | 110s | 2 tasks | 7 files |
 | Phase 01-data-foundation P01 | 6 | 2 tasks | 16 files |
+| Phase 01-data-foundation P03 | 4min | 1 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,8 @@ Recent decisions affecting current work:
 - [Phase 01-01]: Used Next.js 16.1.7 (latest) instead of pinning to 14 — template resolves latest; all App Router patterns identical
 - [Phase 01-01]: SUPABASE_SERVICE_ROLE_KEY isolated to lib/supabase/service.ts only — never exposed to browser via NEXT_PUBLIC_ variable
 - [Phase 01-01]: Replaced PUBLISHABLE_KEY with ANON_KEY throughout — plan spec requires ANON_KEY naming for consistency across all phases
+- [Phase 01-data-foundation]: Next.js 16 uses proxy.ts not middleware.ts — updateSession helper in lib/supabase/middleware.ts, wired via proxy.ts
+- [Phase 01-data-foundation]: Dashboard layout uses Suspense+AuthGate async component pattern to support Next.js 16 cacheComponents partial prerender
 
 ### Pending Todos
 
@@ -84,6 +87,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-18T07:09:10.024Z
-Stopped at: Completed 01-01-PLAN.md
+Last session: 2026-03-18T07:15:18.937Z
+Stopped at: Checkpoint: Task 2 human-verify 01-03-PLAN.md
 Resume file: None
