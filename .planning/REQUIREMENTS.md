@@ -8,10 +8,10 @@
 ### Authentication & Multi-Tenancy
 
 - [ ] **AUTH-01**: User can log in to the admin dashboard with email and password via Supabase Auth
-- [ ] **AUTH-02**: Tenant admin session is scoped — admin sees only their own tenant's bots and data
-- [ ] **AUTH-03**: Super-admin (Navien) can view and manage all tenants and bots across the platform
-- [ ] **AUTH-04**: All database queries are scoped by `bot_id` — RLS enforced on every bot_id-scoped table
-- [ ] **AUTH-05**: New tenant onboards by creating a tenant + bot + uploading documents, with no code changes required
+- [x] **AUTH-02**: Tenant admin session is scoped — admin sees only their own tenant's bots and data
+- [x] **AUTH-03**: Super-admin (Navien) can view and manage all tenants and bots across the platform
+- [x] **AUTH-04**: All database queries are scoped by `bot_id` — RLS enforced on every bot_id-scoped table
+- [x] **AUTH-05**: New tenant onboards by creating a tenant + bot + uploading documents, with no code changes required
 
 ### Knowledge Base & Ingestion
 
@@ -161,10 +161,10 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | AUTH-01 | Phase 1 — Data Foundation | Pending |
-| AUTH-02 | Phase 1 — Data Foundation | Pending |
-| AUTH-03 | Phase 1 — Data Foundation | Pending |
-| AUTH-04 | Phase 1 — Data Foundation | Pending |
-| AUTH-05 | Phase 1 — Data Foundation | Pending |
+| AUTH-02 | Phase 1 — Data Foundation | Complete |
+| AUTH-03 | Phase 1 — Data Foundation | Complete |
+| AUTH-04 | Phase 1 — Data Foundation | Complete |
+| AUTH-05 | Phase 1 — Data Foundation | Complete |
 | KB-01 | Phase 2 — RAG Pipeline | Pending |
 | KB-02 | Phase 2 — RAG Pipeline | Pending |
 | KB-03 | Phase 2 — RAG Pipeline | Pending |

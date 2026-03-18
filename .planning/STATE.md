@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Phase 1 context gathered
-last_updated: "2026-03-18T02:44:29.380Z"
+stopped_at: Completed 01-data-foundation-02-PLAN.md
+last_updated: "2026-03-18T07:04:07.439Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 3
+  completed_plans: 1
   percent: 0
 ---
 
@@ -50,6 +50,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: -
 
 *Updated after each plan completion*
+| Phase 01-data-foundation P02 | 110s | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -63,6 +64,9 @@ Recent decisions affecting current work:
 - pgvector for RAG via Supabase — no extra infra needed
 - Booking state machine persisted in conversation.metadata jsonb — stateful without extra tables
 - Feature-flagged booking module — platform reusable for non-booking clients
+- [Phase 01-data-foundation]: bot_id is the universal isolation key for all content tables (documents, chunks, conversations, messages, faqs, response_templates)
+- [Phase 01-data-foundation]: supabase_auth_admin granted SELECT on profiles before RLS to allow custom_access_token_hook to read user role/tenant_id
+- [Phase 01-data-foundation]: HNSW index uses cosine distance operator (vector_cosine_ops) matching the <=> RAG query operator
 
 ### Pending Todos
 
@@ -76,6 +80,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-18T02:44:29.377Z
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-data-foundation/01-CONTEXT.md
+Last session: 2026-03-18T07:04:07.436Z
+Stopped at: Completed 01-data-foundation-02-PLAN.md
+Resume file: None
