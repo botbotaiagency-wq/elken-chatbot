@@ -1,3 +1,18 @@
+import { Suspense } from 'react'
+import { redirect } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+
+async function AuthGate({ children }: { children: React.ReactNode }) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) {
+    redirect('/login')
+  }
+
+  return <>{children}</>
+}
+
 export default function DashboardLayout({
   children,
 }: {
@@ -16,7 +31,11 @@ export default function DashboardLayout({
           <a href="/dashboard/settings" className="block px-3 py-2 rounded-md hover:bg-muted">Settings</a>
         </nav>
       </aside>
-      <main className="flex-1 p-8">{children}</main>
+      <main className="flex-1 p-8">
+        <Suspense>
+          <AuthGate>{children}</AuthGate>
+        </Suspense>
+      </main>
     </div>
   )
 }
