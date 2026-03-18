@@ -7,7 +7,7 @@
 
 ### Authentication & Multi-Tenancy
 
-- [ ] **AUTH-01**: User can log in to the admin dashboard with email and password via Supabase Auth
+- [x] **AUTH-01**: User can log in to the admin dashboard with email and password via Supabase Auth
 - [x] **AUTH-02**: Tenant admin session is scoped — admin sees only their own tenant's bots and data
 - [x] **AUTH-03**: Super-admin (Navien) can view and manage all tenants and bots across the platform
 - [x] **AUTH-04**: All database queries are scoped by `bot_id` — RLS enforced on every bot_id-scoped table
@@ -160,7 +160,7 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 — Data Foundation | Pending |
+| AUTH-01 | Phase 1 — Data Foundation | Complete |
 | AUTH-02 | Phase 1 — Data Foundation | Complete |
 | AUTH-03 | Phase 1 — Data Foundation | Complete |
 | AUTH-04 | Phase 1 — Data Foundation | Complete |
