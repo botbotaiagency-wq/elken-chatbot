@@ -158,27 +158,94 @@
 
 ## Traceability
 
-*To be populated during roadmap creation.*
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01–05 | Phase 1 | Pending |
-| KB-01–07 | Phase 2 | Pending |
-| RAG-01–10 | Phase 2–3 | Pending |
-| CONF-01–05 | Phase 4 | Pending |
-| BOOK-01–17 | Phase 5 | Pending |
-| BADM-01–07 | Phase 5 | Pending |
-| NOTIF-01–04 | Phase 5 | Pending |
-| ANAL-01–12 | Phase 6 | Pending |
-| API-01–05 | Phase 3 | Pending |
-| TEST-01–04 | Phase 4 | Pending |
-| SEED-01–04 | Phase 7 | Pending |
+| AUTH-01 | Phase 1 — Data Foundation | Pending |
+| AUTH-02 | Phase 1 — Data Foundation | Pending |
+| AUTH-03 | Phase 1 — Data Foundation | Pending |
+| AUTH-04 | Phase 1 — Data Foundation | Pending |
+| AUTH-05 | Phase 1 — Data Foundation | Pending |
+| KB-01 | Phase 2 — RAG Pipeline | Pending |
+| KB-02 | Phase 2 — RAG Pipeline | Pending |
+| KB-03 | Phase 2 — RAG Pipeline | Pending |
+| KB-04 | Phase 2 — RAG Pipeline | Pending |
+| KB-05 | Phase 2 — RAG Pipeline | Pending |
+| KB-06 | Phase 2 — RAG Pipeline | Pending |
+| KB-07 | Phase 2 — RAG Pipeline | Pending |
+| RAG-01 | Phase 2 — RAG Pipeline | Pending |
+| RAG-02 | Phase 2 — RAG Pipeline | Pending |
+| RAG-03 | Phase 2 — RAG Pipeline | Pending |
+| RAG-04 | Phase 2 — RAG Pipeline | Pending |
+| RAG-05 | Phase 2 — RAG Pipeline | Pending |
+| RAG-06 | Phase 2 — RAG Pipeline | Pending |
+| RAG-07 | Phase 2 — RAG Pipeline | Pending |
+| RAG-08 | Phase 2 — RAG Pipeline | Pending |
+| RAG-09 | Phase 2 — RAG Pipeline | Pending |
+| RAG-10 | Phase 2 — RAG Pipeline | Pending |
+| API-01 | Phase 3 — Webhook Gateway | Pending |
+| API-02 | Phase 3 — Webhook Gateway | Pending |
+| API-03 | Phase 3 — Webhook Gateway | Pending |
+| API-04 | Phase 3 — Webhook Gateway | Pending |
+| API-05 | Phase 3 — Webhook Gateway | Pending |
+| CONF-01 | Phase 4 — Admin Dashboard | Pending |
+| CONF-02 | Phase 4 — Admin Dashboard | Pending |
+| CONF-03 | Phase 4 — Admin Dashboard | Pending |
+| CONF-04 | Phase 4 — Admin Dashboard | Pending |
+| CONF-05 | Phase 4 — Admin Dashboard | Pending |
+| TEST-01 | Phase 4 — Admin Dashboard | Pending |
+| TEST-02 | Phase 4 — Admin Dashboard | Pending |
+| TEST-03 | Phase 4 — Admin Dashboard | Pending |
+| TEST-04 | Phase 4 — Admin Dashboard | Pending |
+| BOOK-01 | Phase 5 — Booking System | Pending |
+| BOOK-02 | Phase 5 — Booking System | Pending |
+| BOOK-03 | Phase 5 — Booking System | Pending |
+| BOOK-04 | Phase 5 — Booking System | Pending |
+| BOOK-05 | Phase 5 — Booking System | Pending |
+| BOOK-06 | Phase 5 — Booking System | Pending |
+| BOOK-07 | Phase 5 — Booking System | Pending |
+| BOOK-08 | Phase 5 — Booking System | Pending |
+| BOOK-09 | Phase 5 — Booking System | Pending |
+| BOOK-10 | Phase 5 — Booking System | Pending |
+| BOOK-11 | Phase 5 — Booking System | Pending |
+| BOOK-12 | Phase 5 — Booking System | Pending |
+| BOOK-13 | Phase 5 — Booking System | Pending |
+| BOOK-14 | Phase 5 — Booking System | Pending |
+| BOOK-15 | Phase 5 — Booking System | Pending |
+| BOOK-16 | Phase 5 — Booking System | Pending |
+| BOOK-17 | Phase 5 — Booking System | Pending |
+| BADM-01 | Phase 5 — Booking System | Pending |
+| BADM-02 | Phase 5 — Booking System | Pending |
+| BADM-03 | Phase 5 — Booking System | Pending |
+| BADM-04 | Phase 5 — Booking System | Pending |
+| BADM-05 | Phase 5 — Booking System | Pending |
+| BADM-06 | Phase 5 — Booking System | Pending |
+| BADM-07 | Phase 5 — Booking System | Pending |
+| NOTIF-01 | Phase 5 — Booking System | Pending |
+| NOTIF-02 | Phase 5 — Booking System | Pending |
+| NOTIF-03 | Phase 5 — Booking System | Pending |
+| NOTIF-04 | Phase 5 — Booking System | Pending |
+| ANAL-01 | Phase 6 — Analytics | Pending |
+| ANAL-02 | Phase 6 — Analytics | Pending |
+| ANAL-03 | Phase 6 — Analytics | Pending |
+| ANAL-04 | Phase 6 — Analytics | Pending |
+| ANAL-05 | Phase 6 — Analytics | Pending |
+| ANAL-06 | Phase 6 — Analytics | Pending |
+| ANAL-07 | Phase 6 — Analytics | Pending |
+| ANAL-08 | Phase 6 — Analytics | Pending |
+| ANAL-09 | Phase 6 — Analytics | Pending |
+| ANAL-10 | Phase 6 — Analytics | Pending |
+| ANAL-11 | Phase 6 — Analytics | Pending |
+| ANAL-12 | Phase 6 — Analytics | Pending |
+| SEED-01 | Phase 7 — Integration and Launch | Pending |
+| SEED-02 | Phase 7 — Integration and Launch | Pending |
+| SEED-03 | Phase 7 — Integration and Launch | Pending |
+| SEED-04 | Phase 7 — Integration and Launch | Pending |
 
 **Coverage:**
-- v1 requirements: 71 total
-- Mapped to phases: 71
-- Unmapped: 0 ✓
+- v1 requirements: 80 total
+- Mapped to phases: 80
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-18*
-*Last updated: 2026-03-18 after initial definition*
+*Last updated: 2026-03-18 — traceability populated after roadmap creation*
