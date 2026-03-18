@@ -32,7 +32,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. A two-tenant isolation test passes: tenant A cannot read any data scoped to tenant B
   4. All bot_id-scoped tables have RLS enabled and an HNSW index exists on the chunks.embedding column
   5. A new tenant can be onboarded by creating a tenant + bot record with no code changes required
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 01-01-PLAN.md — Scaffold Next.js 14 project with Supabase clients and dashboard routing skeleton
+- [ ] 01-02-PLAN.md — Database schema migrations, RLS policies, HNSW index, auth hook, and pgTAP tests
+- [ ] 01-03-PLAN.md — Auth middleware, login page, dashboard auth protection, and end-to-end verification
 
 ### Phase 2: RAG Pipeline
 **Goal**: Documents can be uploaded, chunked, embedded, and stored; the bot can retrieve the most relevant chunks for any query in English, Bahasa Malaysia, and Chinese
@@ -110,7 +114,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Data Foundation | 0/TBD | Not started | - |
+| 1. Data Foundation | 0/3 | Planning complete | - |
 | 2. RAG Pipeline | 0/TBD | Not started | - |
 | 3. Webhook Gateway | 0/TBD | Not started | - |
 | 4. Admin Dashboard | 0/TBD | Not started | - |
