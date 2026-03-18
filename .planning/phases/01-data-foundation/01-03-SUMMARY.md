@@ -54,10 +54,10 @@ completed: 2026-03-18
 
 ## Performance
 
-- **Duration:** ~4 min
+- **Duration:** ~4 min (code) + human verification
 - **Started:** 2026-03-18T07:10:32Z
-- **Completed:** 2026-03-18T07:14:02Z
-- **Tasks:** 1 of 2 (Task 2 is a human-verify checkpoint)
+- **Completed:** 2026-03-18T08:22:00Z
+- **Tasks:** 2 of 2 (Task 2 human-verify approved by user)
 - **Files modified:** 4
 
 ## Accomplishments
@@ -71,6 +71,7 @@ completed: 2026-03-18
 Each task was committed atomically:
 
 1. **Task 1: Create auth middleware and implement login page with dashboard auth protection** - `5ea688e` (feat)
+2. **Task 2: Verify Supabase setup, migration application, and end-to-end auth flow** - human-verify checkpoint, approved by user (2026-03-18)
 
 **Plan metadata:** pending final metadata commit
 
@@ -121,19 +122,28 @@ Each task was committed atomically:
 ## Issues Encountered
 - Next.js 16 (latest) introduced `proxy.ts` over `middleware.ts`, `cacheComponents` config, and stricter prerender rules — all three triggered auto-fixes. The plan was written for Next.js 14 patterns; all deviations were adaptation to Next.js 16 while preserving exact auth semantics.
 
-## User Setup Required
+## User Setup Completed
 
-**External services require manual configuration.** See the checkpoint below (Task 2) for:
-- Supabase project creation and env vars setup
-- Running `supabase db push` to apply migrations
-- Enabling Custom Access Token Hook
-- Creating super-admin user (Navien)
-- End-to-end auth flow verification
+The following one-time Supabase setup was completed by the user during the Task 2 checkpoint:
+
+1. Supabase project created and linked via `supabase link --project-ref`
+2. All 5 migrations applied via `supabase db push`
+3. Custom Access Token Hook enabled in Supabase Dashboard -> Authentication -> Hooks
+4. Super-admin user (Navien) created in Authentication -> Users
+5. Profile updated: `UPDATE public.profiles SET role = 'super_admin', tenant_id = NULL WHERE id = '<uuid>';`
+6. `.env.local` populated with NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY, and ANTHROPIC_API_KEY
+
+**Verification results (user confirmed):**
+- Login flow: / -> /login redirect confirmed, credentials accepted, /dashboard loads with auth cookies
+- pgTAP: all 8 two-tenant isolation tests pass via `supabase test db`
+- Super-admin profile: `SELECT * FROM public.profiles WHERE role = 'super_admin'` returns Navien's user
 
 ## Next Phase Readiness
-- Auth foundation is code-complete; all routes are protected
-- Ready for end-to-end verification once Supabase project is configured (Task 2 checkpoint)
-- After verification passes, Phase 1 is complete and Phase 2 can begin
+- Phase 1 Data Foundation is complete and fully verified end-to-end
+- Supabase project is live with all migrations, RLS, and auth hook operational
+- Super-admin (Navien) can log in and access the dashboard
+- ANTHROPIC_API_KEY is in .env.local — Phase 2 document ingestion / RAG pipeline can start immediately
+- All TypeScript types, database schema, RLS policies, auth hook, and auth flow are verified and ready for Phase 2
 
 ---
 *Phase: 01-data-foundation*
@@ -147,3 +157,4 @@ Each task was committed atomically:
 - app/dashboard/layout.tsx: FOUND
 - .planning/phases/01-data-foundation/01-03-SUMMARY.md: FOUND
 - Commit 5ea688e: FOUND
+- Task 2 human-verify checkpoint: APPROVED by user (2026-03-18)
