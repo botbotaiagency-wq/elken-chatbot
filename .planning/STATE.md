@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 02-rag-pipeline-02-01-PLAN.md
-last_updated: "2026-03-19T10:25:08.970Z"
+stopped_at: Completed 02-rag-pipeline-02-02-PLAN.md
+last_updated: "2026-03-19T10:39:37.016Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 8
-  completed_plans: 4
+  completed_plans: 5
   percent: 0
 ---
 
@@ -55,6 +55,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-data-foundation P03 | 4min | 1 tasks | 4 files |
 | Phase 01-data-foundation P03 | 15min | 2 tasks | 4 files |
 | Phase 02-rag-pipeline P01 | 8min | 2 tasks | 11 files |
+| Phase 02-rag-pipeline P02 | 13min | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -81,6 +82,8 @@ Recent decisions affecting current work:
 - [Phase 01-data-foundation]: Phase 1 fully verified end-to-end: 8 pgTAP RLS isolation tests pass, super-admin login works, ANTHROPIC_API_KEY added to .env.local
 - [Phase 02-rag-pipeline]: pdf-parse v2 uses class-based PDFParse({ data: buffer }) API, not old function-based pdfParse(buffer)
 - [Phase 02-rag-pipeline]: vi.hoisted() required in vitest for mock functions referenced in vi.mock factory closures (ESM hoisting)
+- [Phase 02-rag-pipeline]: voyageai@0.2.x ESM bundle has broken directory imports — fixed via postinstall patch script and serverExternalPackages in next.config.ts
+- [Phase 02-rag-pipeline]: Products use products.embedding for RAG search (not chunks table) — chunks.document_id is NOT NULL so products are queried via match_products RPC
 
 ### Pending Todos
 
@@ -94,6 +97,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T10:25:08.967Z
-Stopped at: Completed 02-rag-pipeline-02-01-PLAN.md
+Last session: 2026-03-19T10:39:37.013Z
+Stopped at: Completed 02-rag-pipeline-02-02-PLAN.md
 Resume file: None

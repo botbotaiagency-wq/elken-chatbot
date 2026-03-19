@@ -15,12 +15,12 @@
 
 ### Knowledge Base & Ingestion
 
-- [ ] **KB-01**: Admin can upload PDF, DOCX, and TXT files to the bot's knowledge base
+- [x] **KB-01**: Admin can upload PDF, DOCX, and TXT files to the bot's knowledge base
 - [x] **KB-02**: Uploaded files are automatically extracted (text), chunked (500 tokens, 50 overlap), embedded (voyage-3), and stored in pgvector
 - [x] **KB-03**: Each document has a category tag: Beauty / FMCG / GenQi / Healthfood / Home Appliances / Other
-- [ ] **KB-04**: Document ingestion status is visible: pending → processing → ready / failed
-- [ ] **KB-05**: Chunk count is displayed per document after ingestion completes
-- [ ] **KB-06**: Admin can delete a document (cascades to all its chunks in pgvector)
+- [x] **KB-04**: Document ingestion status is visible: pending → processing → ready / failed
+- [x] **KB-05**: Chunk count is displayed per document after ingestion completes
+- [x] **KB-06**: Admin can delete a document (cascades to all its chunks in pgvector)
 - [x] **KB-07**: Knowledge base supports structured product data: product name, description, key ingredients, health benefits, pricing, and suggested usage — retrievable as a full Product Detail Card
 
 ### RAG Chat Engine
@@ -165,12 +165,12 @@
 | AUTH-03 | Phase 1 — Data Foundation | Complete |
 | AUTH-04 | Phase 1 — Data Foundation | Complete |
 | AUTH-05 | Phase 1 — Data Foundation | Complete |
-| KB-01 | Phase 2 — RAG Pipeline | Pending |
+| KB-01 | Phase 2 — RAG Pipeline | Complete |
 | KB-02 | Phase 2 — RAG Pipeline | Complete |
 | KB-03 | Phase 2 — RAG Pipeline | Complete |
-| KB-04 | Phase 2 — RAG Pipeline | Pending |
-| KB-05 | Phase 2 — RAG Pipeline | Pending |
-| KB-06 | Phase 2 — RAG Pipeline | Pending |
+| KB-04 | Phase 2 — RAG Pipeline | Complete |
+| KB-05 | Phase 2 — RAG Pipeline | Complete |
+| KB-06 | Phase 2 — RAG Pipeline | Complete |
 | KB-07 | Phase 2 — RAG Pipeline | Complete |
 | RAG-01 | Phase 2 — RAG Pipeline | Pending |
 | RAG-02 | Phase 2 — RAG Pipeline | Pending |
