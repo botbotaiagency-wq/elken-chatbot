@@ -34,9 +34,9 @@ Decimal phases appear between their surrounding integers in numeric order.
   5. A new tenant can be onboarded by creating a tenant + bot record with no code changes required
 **Plans**: 3 plans
 Plans:
-- [ ] 01-01-PLAN.md — Scaffold Next.js 14 project with Supabase clients and dashboard routing skeleton
-- [ ] 01-02-PLAN.md — Database schema migrations, RLS policies, HNSW index, auth hook, and pgTAP tests
-- [ ] 01-03-PLAN.md — Auth middleware, login page, dashboard auth protection, and end-to-end verification
+- [x] 01-01-PLAN.md — Scaffold Next.js 14 project with Supabase clients and dashboard routing skeleton
+- [x] 01-02-PLAN.md — Database schema migrations, RLS policies, HNSW index, auth hook, and pgTAP tests
+- [x] 01-03-PLAN.md — Auth middleware, login page, dashboard auth protection, and end-to-end verification
 
 ### Phase 2: RAG Pipeline
 **Goal**: Documents can be uploaded, chunked, embedded, and stored; the bot can retrieve the most relevant chunks for any query in English, Bahasa Malaysia, and Chinese
@@ -48,7 +48,13 @@ Plans:
   3. A query in English, Bahasa Malaysia, or Chinese returns the correct top-k chunks from the knowledge base with similarity scores above 0.75
   4. FAQs are returned as priority context above RAG chunks — a question that matches an FAQ returns the FAQ answer, not a document chunk
   5. All messages are logged with role, intent, source chunk IDs, similarity scores, rag_found flag, and response latency
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+- [ ] 02-01-PLAN.md — Schema migrations (vector 1024 fix, products table, FAQ embeddings, RPC functions), vitest setup, ingestion libraries (extractor, chunker, embedder)
+- [ ] 02-02-PLAN.md — Document upload/process/list/delete API routes and product CRUD with CSV bulk import
+- [ ] 02-03-PLAN.md — RAG retrieval library (FAQ priority matching, chunk search, product search, intent/language detection, prompt assembly)
+- [ ] 02-04-PLAN.md — Streaming RAG chat endpoint with message logging
+- [ ] 02-05-PLAN.md — End-to-end verification: migrations, storage bucket, env vars, and chat endpoint smoke test
 
 ### Phase 3: Webhook Gateway
 **Goal**: n8n can send a WhatsApp or Telegram message to the platform's public webhook and receive a streaming, language-correct, intent-classified Claude response — authenticated by API key
@@ -110,12 +116,12 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Data Foundation | 3/3 | Complete   | 2026-03-18 |
-| 2. RAG Pipeline | 0/TBD | Not started | - |
+| 2. RAG Pipeline | 1/5 | In Progress|  |
 | 3. Webhook Gateway | 0/TBD | Not started | - |
 | 4. Admin Dashboard | 0/TBD | Not started | - |
 | 5. Booking System | 0/TBD | Not started | - |

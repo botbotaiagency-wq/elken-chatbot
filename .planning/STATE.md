@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Phase 2 context gathered
-last_updated: "2026-03-19T05:11:19.033Z"
+stopped_at: Completed 02-rag-pipeline-02-01-PLAN.md
+last_updated: "2026-03-19T10:25:08.970Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  total_plans: 8
+  completed_plans: 4
   percent: 0
 ---
 
@@ -54,6 +54,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-data-foundation P01 | 6 | 2 tasks | 16 files |
 | Phase 01-data-foundation P03 | 4min | 1 tasks | 4 files |
 | Phase 01-data-foundation P03 | 15min | 2 tasks | 4 files |
+| Phase 02-rag-pipeline P01 | 8min | 2 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -78,6 +79,8 @@ Recent decisions affecting current work:
 - [Phase 01-data-foundation]: Next.js 16 uses proxy.ts not middleware.ts — updateSession helper in lib/supabase/middleware.ts, wired via proxy.ts
 - [Phase 01-data-foundation]: Dashboard layout uses Suspense+AuthGate async component pattern to support Next.js 16 cacheComponents partial prerender
 - [Phase 01-data-foundation]: Phase 1 fully verified end-to-end: 8 pgTAP RLS isolation tests pass, super-admin login works, ANTHROPIC_API_KEY added to .env.local
+- [Phase 02-rag-pipeline]: pdf-parse v2 uses class-based PDFParse({ data: buffer }) API, not old function-based pdfParse(buffer)
+- [Phase 02-rag-pipeline]: vi.hoisted() required in vitest for mock functions referenced in vi.mock factory closures (ESM hoisting)
 
 ### Pending Todos
 
@@ -91,6 +94,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T05:11:19.029Z
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-rag-pipeline/02-CONTEXT.md
+Last session: 2026-03-19T10:25:08.967Z
+Stopped at: Completed 02-rag-pipeline-02-01-PLAN.md
+Resume file: None

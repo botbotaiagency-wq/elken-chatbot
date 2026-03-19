@@ -16,12 +16,12 @@
 ### Knowledge Base & Ingestion
 
 - [ ] **KB-01**: Admin can upload PDF, DOCX, and TXT files to the bot's knowledge base
-- [ ] **KB-02**: Uploaded files are automatically extracted (text), chunked (500 tokens, 50 overlap), embedded (voyage-3), and stored in pgvector
-- [ ] **KB-03**: Each document has a category tag: Beauty / FMCG / GenQi / Healthfood / Home Appliances / Other
+- [x] **KB-02**: Uploaded files are automatically extracted (text), chunked (500 tokens, 50 overlap), embedded (voyage-3), and stored in pgvector
+- [x] **KB-03**: Each document has a category tag: Beauty / FMCG / GenQi / Healthfood / Home Appliances / Other
 - [ ] **KB-04**: Document ingestion status is visible: pending → processing → ready / failed
 - [ ] **KB-05**: Chunk count is displayed per document after ingestion completes
 - [ ] **KB-06**: Admin can delete a document (cascades to all its chunks in pgvector)
-- [ ] **KB-07**: Knowledge base supports structured product data: product name, description, key ingredients, health benefits, pricing, and suggested usage — retrievable as a full Product Detail Card
+- [x] **KB-07**: Knowledge base supports structured product data: product name, description, key ingredients, health benefits, pricing, and suggested usage — retrievable as a full Product Detail Card
 
 ### RAG Chat Engine
 
@@ -33,7 +33,7 @@
 - [ ] **RAG-06**: Customer can describe a health concern (e.g. back pain, fatigue, skin issue, stress); RAG matches the symptom to the most relevant Elken product; bot explains why the product helps, its benefits, and suggested use
 - [ ] **RAG-07**: If no product match is found for a health query (rag_found = false), bot shows a general wellness products fallback response
 - [ ] **RAG-08**: Customer can request a full Product Detail Card, brochure, or price list to be sent to chat
-- [ ] **RAG-09**: When RAG finds no match (`similarity < 0.75`), `rag_found` is set to false and the message is logged for analytics
+- [x] **RAG-09**: When RAG finds no match (`similarity < 0.75`), `rag_found` is set to false and the message is logged for analytics
 - [ ] **RAG-10**: All messages are logged: role, content, intent, source chunk IDs + similarity scores, rag_found flag, response latency in ms
 
 ### Bot Configuration
@@ -166,12 +166,12 @@
 | AUTH-04 | Phase 1 — Data Foundation | Complete |
 | AUTH-05 | Phase 1 — Data Foundation | Complete |
 | KB-01 | Phase 2 — RAG Pipeline | Pending |
-| KB-02 | Phase 2 — RAG Pipeline | Pending |
-| KB-03 | Phase 2 — RAG Pipeline | Pending |
+| KB-02 | Phase 2 — RAG Pipeline | Complete |
+| KB-03 | Phase 2 — RAG Pipeline | Complete |
 | KB-04 | Phase 2 — RAG Pipeline | Pending |
 | KB-05 | Phase 2 — RAG Pipeline | Pending |
 | KB-06 | Phase 2 — RAG Pipeline | Pending |
-| KB-07 | Phase 2 — RAG Pipeline | Pending |
+| KB-07 | Phase 2 — RAG Pipeline | Complete |
 | RAG-01 | Phase 2 — RAG Pipeline | Pending |
 | RAG-02 | Phase 2 — RAG Pipeline | Pending |
 | RAG-03 | Phase 2 — RAG Pipeline | Pending |
@@ -180,7 +180,7 @@
 | RAG-06 | Phase 2 — RAG Pipeline | Pending |
 | RAG-07 | Phase 2 — RAG Pipeline | Pending |
 | RAG-08 | Phase 2 — RAG Pipeline | Pending |
-| RAG-09 | Phase 2 — RAG Pipeline | Pending |
+| RAG-09 | Phase 2 — RAG Pipeline | Complete |
 | RAG-10 | Phase 2 — RAG Pipeline | Pending |
 | API-01 | Phase 3 — Webhook Gateway | Pending |
 | API-02 | Phase 3 — Webhook Gateway | Pending |
