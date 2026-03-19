@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 02-rag-pipeline-02-04-PLAN.md
-last_updated: "2026-03-19T10:50:54.864Z"
+stopped_at: "Checkpoint 02-rag-pipeline-02-05-PLAN.md Task 2 (human-verify: migrations, storage, env vars)"
+last_updated: "2026-03-19T10:54:19.977Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 8
-  completed_plans: 7
+  completed_plans: 8
   percent: 0
 ---
 
@@ -58,6 +58,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02-rag-pipeline P02 | 13min | 2 tasks | 9 files |
 | Phase 02-rag-pipeline P03 | 7min | 2 tasks | 5 files |
 | Phase 02-rag-pipeline P04 | 4min | 2 tasks | 4 files |
+| Phase 02-rag-pipeline P05 | 144s | 1 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -90,6 +91,7 @@ Recent decisions affecting current work:
 - [Phase 02-rag-pipeline]: match_products only called for browse_product and health_issue intents — avoids unnecessary RPC calls
 - [Phase 02-rag-pipeline]: User message logged before pipeline processing (null intent/rag fields) so every inbound is captured even on downstream failure
 - [Phase 02-rag-pipeline]: params typed as Promise<{botId}> (Next.js 16 requirement) with await params before use in chat route
+- [Phase 02-rag-pipeline]: supabase/.temp/ added to .gitignore — Supabase CLI runtime directory should not be tracked
 
 ### Pending Todos
 
@@ -103,6 +105,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T10:50:54.861Z
-Stopped at: Completed 02-rag-pipeline-02-04-PLAN.md
+Last session: 2026-03-19T10:54:19.974Z
+Stopped at: Checkpoint 02-rag-pipeline-02-05-PLAN.md Task 2 (human-verify: migrations, storage, env vars)
 Resume file: None
