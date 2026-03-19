@@ -25,16 +25,16 @@
 
 ### RAG Chat Engine
 
-- [ ] **RAG-01**: Chat endpoint `POST /api/chat/[botId]` accepts message + userId + channel + optional conversationId, validates API key, and returns a streaming response
-- [ ] **RAG-02**: Language is auto-detected from the customer's message (EN / BM / ZH); bot responds in the detected language
-- [ ] **RAG-03**: Every message is classified by intent: `browse_product` / `health_issue` / `book_session` / `faq` / `general`
-- [ ] **RAG-04**: FAQs are injected as priority context above RAG chunks — FAQ answers always win over document chunks
-- [ ] **RAG-05**: Customer can search for any Elken product by name or category; bot returns a full Product Detail Card (name, description, ingredients, benefits, pricing, how to use)
-- [ ] **RAG-06**: Customer can describe a health concern (e.g. back pain, fatigue, skin issue, stress); RAG matches the symptom to the most relevant Elken product; bot explains why the product helps, its benefits, and suggested use
-- [ ] **RAG-07**: If no product match is found for a health query (rag_found = false), bot shows a general wellness products fallback response
-- [ ] **RAG-08**: Customer can request a full Product Detail Card, brochure, or price list to be sent to chat
+- [x] **RAG-01**: Chat endpoint `POST /api/chat/[botId]` accepts message + userId + channel + optional conversationId, validates API key, and returns a streaming response
+- [x] **RAG-02**: Language is auto-detected from the customer's message (EN / BM / ZH); bot responds in the detected language
+- [x] **RAG-03**: Every message is classified by intent: `browse_product` / `health_issue` / `book_session` / `faq` / `general`
+- [x] **RAG-04**: FAQs are injected as priority context above RAG chunks — FAQ answers always win over document chunks
+- [x] **RAG-05**: Customer can search for any Elken product by name or category; bot returns a full Product Detail Card (name, description, ingredients, benefits, pricing, how to use)
+- [x] **RAG-06**: Customer can describe a health concern (e.g. back pain, fatigue, skin issue, stress); RAG matches the symptom to the most relevant Elken product; bot explains why the product helps, its benefits, and suggested use
+- [x] **RAG-07**: If no product match is found for a health query (rag_found = false), bot shows a general wellness products fallback response
+- [x] **RAG-08**: Customer can request a full Product Detail Card, brochure, or price list to be sent to chat
 - [x] **RAG-09**: When RAG finds no match (`similarity < 0.75`), `rag_found` is set to false and the message is logged for analytics
-- [ ] **RAG-10**: All messages are logged: role, content, intent, source chunk IDs + similarity scores, rag_found flag, response latency in ms
+- [x] **RAG-10**: All messages are logged: role, content, intent, source chunk IDs + similarity scores, rag_found flag, response latency in ms
 
 ### Bot Configuration
 
@@ -172,16 +172,16 @@
 | KB-05 | Phase 2 — RAG Pipeline | Complete |
 | KB-06 | Phase 2 — RAG Pipeline | Complete |
 | KB-07 | Phase 2 — RAG Pipeline | Complete |
-| RAG-01 | Phase 2 — RAG Pipeline | Pending |
-| RAG-02 | Phase 2 — RAG Pipeline | Pending |
-| RAG-03 | Phase 2 — RAG Pipeline | Pending |
-| RAG-04 | Phase 2 — RAG Pipeline | Pending |
-| RAG-05 | Phase 2 — RAG Pipeline | Pending |
-| RAG-06 | Phase 2 — RAG Pipeline | Pending |
-| RAG-07 | Phase 2 — RAG Pipeline | Pending |
-| RAG-08 | Phase 2 — RAG Pipeline | Pending |
+| RAG-01 | Phase 2 — RAG Pipeline | Complete |
+| RAG-02 | Phase 2 — RAG Pipeline | Complete |
+| RAG-03 | Phase 2 — RAG Pipeline | Complete |
+| RAG-04 | Phase 2 — RAG Pipeline | Complete |
+| RAG-05 | Phase 2 — RAG Pipeline | Complete |
+| RAG-06 | Phase 2 — RAG Pipeline | Complete |
+| RAG-07 | Phase 2 — RAG Pipeline | Complete |
+| RAG-08 | Phase 2 — RAG Pipeline | Complete |
 | RAG-09 | Phase 2 — RAG Pipeline | Complete |
-| RAG-10 | Phase 2 — RAG Pipeline | Pending |
+| RAG-10 | Phase 2 — RAG Pipeline | Complete |
 | API-01 | Phase 3 — Webhook Gateway | Pending |
 | API-02 | Phase 3 — Webhook Gateway | Pending |
 | API-03 | Phase 3 — Webhook Gateway | Pending |
