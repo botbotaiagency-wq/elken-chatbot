@@ -20,8 +20,8 @@ describe('chunkText', () => {
 
   it('returns multiple chunks for text longer than chunkSize', () => {
     // Generate a text that is clearly more than 500 tokens
-    const word = 'the quick brown fox jumps over the lazy dog '
-    const longText = word.repeat(30) // ~270 tokens per repetition of 9 words
+    // 'hello ' encodes as 1 token per word; repeat 600 gives 600 tokens
+    const longText = 'hello '.repeat(600)
     const chunks = chunkText(longText, 500, 50)
     expect(chunks.length).toBeGreaterThanOrEqual(2)
   })

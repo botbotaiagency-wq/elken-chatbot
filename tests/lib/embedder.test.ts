@@ -1,15 +1,19 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
-// Mock VoyageAIClient
-const mockEmbed = vi.fn()
-vi.mock('voyageai', () => ({
-  VoyageAIClient: vi.fn().mockImplementation(() => ({
-    embed: mockEmbed,
-  })),
-}))
+// Use vi.hoisted to ensure mockEmbed is available when vi.mock factory runs
+const { mockEmbed } = vi.hoisted(() => {
+  return { mockEmbed: vi.fn() }
+})
 
-// Import after mock setup
-const { embedDocumentChunks, embedQuery } = await import('@/lib/ingest/embedder')
+vi.mock('voyageai', () => {
+  return {
+    VoyageAIClient: vi.fn(function (this: unknown) {
+      return { embed: mockEmbed }
+    }),
+  }
+})
+
+import { embedDocumentChunks, embedQuery } from '@/lib/ingest/embedder'
 
 describe('embedDocumentChunks', () => {
   beforeEach(() => {
