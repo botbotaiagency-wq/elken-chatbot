@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 02-rag-pipeline-02-02-PLAN.md
-last_updated: "2026-03-19T10:39:37.016Z"
+stopped_at: Completed 02-rag-pipeline-02-03-PLAN.md
+last_updated: "2026-03-19T10:45:00.446Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 8
-  completed_plans: 5
+  completed_plans: 6
   percent: 0
 ---
 
@@ -56,6 +56,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-data-foundation P03 | 15min | 2 tasks | 4 files |
 | Phase 02-rag-pipeline P01 | 8min | 2 tasks | 11 files |
 | Phase 02-rag-pipeline P02 | 13min | 2 tasks | 9 files |
+| Phase 02-rag-pipeline P03 | 7min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -84,6 +85,8 @@ Recent decisions affecting current work:
 - [Phase 02-rag-pipeline]: vi.hoisted() required in vitest for mock functions referenced in vi.mock factory closures (ESM hoisting)
 - [Phase 02-rag-pipeline]: voyageai@0.2.x ESM bundle has broken directory imports — fixed via postinstall patch script and serverExternalPackages in next.config.ts
 - [Phase 02-rag-pipeline]: Products use products.embedding for RAG search (not chunks table) — chunks.document_id is NOT NULL so products are queried via match_products RPC
+- [Phase 02-rag-pipeline]: Claude Haiku (claude-haiku-20241022) for intent/language classification — fast, cheap, 100 token max_tokens sufficient
+- [Phase 02-rag-pipeline]: match_products only called for browse_product and health_issue intents — avoids unnecessary RPC calls
 
 ### Pending Todos
 
@@ -97,6 +100,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T10:39:37.013Z
-Stopped at: Completed 02-rag-pipeline-02-02-PLAN.md
+Last session: 2026-03-19T10:45:00.443Z
+Stopped at: Completed 02-rag-pipeline-02-03-PLAN.md
 Resume file: None
