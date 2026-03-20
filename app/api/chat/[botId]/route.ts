@@ -1,8 +1,10 @@
+import crypto from 'crypto'
 import Anthropic from '@anthropic-ai/sdk'
 import { detectIntentAndLanguage } from '@/lib/rag/detect'
 import { retrieveContext } from '@/lib/rag/retrieve'
 import { buildSystemPrompt } from '@/lib/rag/prompt'
 import { logMessage, getOrCreateConversation } from '@/lib/rag/logger'
+import { createServiceClient } from '@/lib/supabase/service'
 
 export const maxDuration = 60
 
@@ -12,9 +14,48 @@ export async function POST(
 ) {
   const startTime = Date.now()
 
-  // TODO Phase 3 (API-04): validate X-API-Key header via constant-time hash comparison
-  // The full key management infrastructure (key generation, hashing, tenant binding) lands in Phase 3.
-  // For now the endpoint is unauthenticated — protected only at the infrastructure/network level.
+  const { botId } = await params
+
+  // --- API Key Validation (RAG-01 / API-04) ---
+  // Look up the bot to check if api_key_hash is configured
+  const supabase = createServiceClient()
+  const { data: bot, error: botError } = await supabase
+    .from('bots')
+    .select('id, api_key_hash')
+    .eq('id', botId)
+    .single()
+
+  if (botError || !bot) {
+    return Response.json({ error: 'Bot not found' }, { status: 404 })
+  }
+
+  if (bot.api_key_hash) {
+    // api_key_hash is set — validate X-API-Key header
+    const apiKey = req.headers.get('X-API-Key')
+    if (!apiKey) {
+      return Response.json({ error: 'Missing X-API-Key header' }, { status: 401 })
+    }
+
+    // Constant-time comparison: hash the provided key and compare to stored hash
+    const providedHash = crypto
+      .createHash('sha256')
+      .update(apiKey)
+      .digest('hex')
+
+    const storedHashBuffer = Buffer.from(bot.api_key_hash, 'utf-8')
+    const providedHashBuffer = Buffer.from(providedHash, 'utf-8')
+
+    if (
+      storedHashBuffer.length !== providedHashBuffer.length ||
+      !crypto.timingSafeEqual(storedHashBuffer, providedHashBuffer)
+    ) {
+      return Response.json({ error: 'Invalid API key' }, { status: 401 })
+    }
+  } else {
+    // api_key_hash is null — dev/test mode (pre-Phase 3)
+    // Phase 3 will generate API keys and populate api_key_hash on bots
+    console.warn(`[DEV MODE] Bot ${botId}: no api_key_hash set — skipping API key validation. API keys will be enforced after Phase 3.`)
+  }
 
   // 1. Parse request body
   const body = await req.json()
@@ -37,8 +78,6 @@ export async function POST(
   if (!['whatsapp', 'telegram', 'web'].includes(channel)) {
     return Response.json({ error: 'Invalid channel. Must be: whatsapp, telegram, or web' }, { status: 400 })
   }
-
-  const { botId } = await params
 
   try {
     // 4. Get or create conversation

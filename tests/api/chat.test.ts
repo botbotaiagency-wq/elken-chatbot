@@ -8,7 +8,9 @@ const {
   mockBuildSystemPrompt,
   mockLogMessage,
   mockGetOrCreateConversation,
+  mockSupabaseSelect,
 } = vi.hoisted(() => {
+  const mockSupabaseSelect = vi.fn()
   return {
     mockAnthropicCreate: vi.fn(),
     mockDetect: vi.fn(),
@@ -16,8 +18,21 @@ const {
     mockBuildSystemPrompt: vi.fn(),
     mockLogMessage: vi.fn(),
     mockGetOrCreateConversation: vi.fn(),
+    mockSupabaseSelect,
   }
 })
+
+vi.mock('@/lib/supabase/service', () => ({
+  createServiceClient: () => ({
+    from: () => ({
+      select: () => ({
+        eq: () => ({
+          single: mockSupabaseSelect,
+        }),
+      }),
+    }),
+  }),
+}))
 
 vi.mock('@anthropic-ai/sdk', () => {
   return {
@@ -73,6 +88,9 @@ function makeParams(botId = 'bot-123') {
 describe('POST /api/chat/[botId]', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+
+    // Default: bot exists with no api_key_hash (dev mode — all requests allowed through)
+    mockSupabaseSelect.mockResolvedValue({ data: { id: 'bot-123', api_key_hash: null }, error: null })
 
     // Default happy-path mocks
     mockGetOrCreateConversation.mockResolvedValue('conv-uuid-1')
