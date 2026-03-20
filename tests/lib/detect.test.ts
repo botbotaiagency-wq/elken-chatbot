@@ -40,7 +40,7 @@ describe('detectIntentAndLanguage', () => {
     expect(result).toEqual({ language: 'bm', intent: 'health_issue' })
   })
 
-  it('calls anthropic.messages.create with model "claude-haiku-20241022"', async () => {
+  it('calls anthropic.messages.create with model "claude-haiku-4-5-20251001"', async () => {
     mockCreate.mockResolvedValue({
       content: [{ type: 'text', text: '{"language":"en","intent":"general"}' }],
     })
@@ -49,7 +49,7 @@ describe('detectIntentAndLanguage', () => {
 
     expect(mockCreate).toHaveBeenCalledWith(
       expect.objectContaining({
-        model: 'claude-haiku-20241022',
+        model: 'claude-haiku-4-5-20251001',
       })
     )
   })
