@@ -33,6 +33,7 @@
 - [x] **RAG-06**: Customer can describe a health concern (e.g. back pain, fatigue, skin issue, stress); RAG matches the symptom to the most relevant Elken product; bot explains why the product helps, its benefits, and suggested use
 - [x] **RAG-07**: If no product match is found for a health query (rag_found = false), bot shows a general wellness products fallback response
 - [x] **RAG-08**: Customer can request a full Product Detail Card, brochure, or price list to be sent to chat
+  > **Phase 2 scope:** Text-based Product Detail Cards (name, description, ingredients, benefits, pricing, usage) are returned in the Claude response. Brochure/PDF file attachment and WhatsApp media message delivery are deferred to Phase 7 (Integration and Launch) where the n8n bridge handles media message types.
 - [x] **RAG-09**: When RAG finds no match (`similarity < 0.75`), `rag_found` is set to false and the message is logged for analytics
 - [x] **RAG-10**: All messages are logged: role, content, intent, source chunk IDs + similarity scores, rag_found flag, response latency in ms
 
