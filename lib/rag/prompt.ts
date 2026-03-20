@@ -49,8 +49,21 @@ export function buildSystemPrompt(ctx: PromptContext): string {
 
   // Fallback instruction when no RAG match
   if (!retrieval.ragFound) {
-    const fallback = ctx.fallbackMessage ?? "I don't have specific information about that in my knowledge base. Let me try to help with what I know, or you can contact our team directly for more details."
-    sections.push(`\n--- NO KNOWLEDGE BASE MATCH FOUND ---\n${fallback}`)
+    if (detection.intent === 'health_issue') {
+      // RAG-07: Wellness-specific fallback for health queries with no product match
+      sections.push(
+        '\n--- NO MATCHING PRODUCT FOUND FOR HEALTH CONCERN ---\n' +
+        'I don\'t have a specific product match for that health concern in my knowledge base. ' +
+        'However, I recommend browsing our wellness product categories:\n' +
+        '- **GenQi** — wellness devices and therapy equipment for recovery, relaxation, and vitality\n' +
+        '- **Healthfood** — nutritional supplements, vitamins, and health food products for overall wellbeing\n\n' +
+        'Would you like me to show you products from either of these categories? ' +
+        'You can also contact our team directly for personalized health product recommendations.'
+      )
+    } else {
+      const fallback = ctx.fallbackMessage ?? "I don't have specific information about that in my knowledge base. Let me try to help with what I know, or you can contact our team directly for more details."
+      sections.push(`\n--- NO KNOWLEDGE BASE MATCH FOUND ---\n${fallback}`)
+    }
   }
 
   // Intent-specific instructions
