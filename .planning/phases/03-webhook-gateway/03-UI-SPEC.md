@@ -61,15 +61,17 @@ Source: existing dashboard layout (`text-lg font-semibold` heading, standard Tai
 | Role | Size | Weight | Line Height | Tailwind |
 |------|------|--------|-------------|---------|
 | Body | 14px | 400 (regular) | 1.5 | `text-sm` |
-| Label | 14px | 500 (medium) | 1.4 | `text-sm font-medium` |
+| Label | 14px | 600 (semibold) | 1.4 | `text-sm font-semibold` |
 | Heading | 18px | 600 (semibold) | 1.2 | `text-lg font-semibold` |
-| Display | 24px | 700 (bold) | 1.2 | `text-2xl font-bold` |
+| Display | 24px | 600 (semibold) | 1.2 | `text-2xl font-semibold` |
+
+**Weight scale: 400 regular / 600 semibold (2 weights only).**
 
 Notes:
-- Body (14px) is the default for table rows, descriptions, snippet code blocks.
-- Label (14px medium) is used for form field labels, key prefix badges, timestamp values.
+- Body (14px regular) is the default for table rows, descriptions, snippet code blocks.
+- Label (14px semibold) is used for form field labels, key prefix badges, timestamp values.
 - Heading (18px semibold) is used for page section titles and card titles — matches the existing sidebar `text-lg font-semibold` pattern.
-- Display (24px bold) is used only for the page-level `<h1>` of the API Keys and Integrations pages.
+- Display (24px semibold) is used only for the page-level `<h1>` of the API Keys and Integrations pages.
 - Monospace exception: the generated API key and the n8n JSON snippet use `font-mono text-sm` (14px). This is a display style within the Body role — not a fifth typography tier.
 
 ---
@@ -177,7 +179,7 @@ Confirmation approach: inline destructive confirmation within the table row — 
 |---------|------|
 | Confirmation prompt | "Revoke this key? Requests using it will immediately return 401." |
 | Confirm button | "Yes, revoke" |
-| Cancel button | "Cancel" |
+| Cancel button | "Keep key" |
 
 Rationale: A full Dialog for revocation is overkill and adds extra clicks for a reversible-by-regeneration action. Inline confirmation is faster and consistent with admin tool UX conventions.
 
@@ -221,7 +223,8 @@ Rationale: A full Dialog for revocation is overkill and adds extra clicks for a 
 - "Last Used" shows "Never" when `last_used_at` is null
 - "Last Used" shows relative time (e.g. "3 days ago") when populated — updated on next page load, not real-time
 - Revoke flow: click "Revoke" icon → row expands inline confirmation → "Yes, revoke" sends DELETE → row removes from list optimistically → on error: row reappears with error toast
-- Revoked keys do not appear in the list (query filters `revoked_at IS NULL`)
+
+Revoked keys do not appear in the list (query filters `revoked_at IS NULL`)
 
 ### Copy-to-Clipboard Pattern
 
@@ -269,6 +272,8 @@ Both new pages inherit the existing dashboard layout from `app/dashboard/layout.
 - Auth gate: existing `AuthGate` + `Suspense` pattern
 
 ### API Keys Page layout
+
+Primary focal point: "Generate Key" button, right-aligned in CardHeader — the only accent-colored element on an otherwise muted page.
 
 ```
 /dashboard/bots/[botId]/api-keys
@@ -335,6 +340,9 @@ No third-party registries. No vetting gate required.
 | n8n payload field names as placeholder expressions | RESEARCH.md §Sources (tertiary/LOW confidence) |
 | Revocation inline confirmation (not modal) | Researcher discretion — standard admin tool UX pattern |
 | fire-and-forget `last_used_at` update | RESEARCH.md §Pitfall 3 |
+| Typography collapsed to 2 weights (400/600) | Checker revision 2026-03-20 — blocked issue resolved |
+| Cancel button renamed to "Keep key" | Checker revision 2026-03-20 — blocked issue resolved |
+| Focal point declared for API Keys page | Checker revision 2026-03-20 — flag resolved |
 
 ---
 
