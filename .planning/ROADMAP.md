@@ -66,7 +66,10 @@ Plans:
   2. Admin can view existing keys by label and 8-char prefix with last-used timestamp, and can revoke any key
   3. A POST to /api/chat/[botId] with a valid API key returns a streaming response; the same request with an invalid or revoked key returns 401
   4. The integrations page displays a copy-paste webhook URL and n8n JSON body snippet for both Telegram and WhatsApp
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 03-01-PLAN.md — Database migration, key generation helper, API routes for key lifecycle, chat endpoint validation update, and tests
+- [ ] 03-02-PLAN.md — API Keys management page with show-once modal and Integrations page with n8n snippets
 
 ### Phase 4: Admin Dashboard
 **Goal**: An authenticated admin can configure every aspect of their bot — personality, FAQs, templates, guardrails — and test it live from the dashboard before going live
@@ -123,7 +126,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 |-------|----------------|--------|-----------|
 | 1. Data Foundation | 3/3 | Complete   | 2026-03-18 |
 | 2. RAG Pipeline | 6/6 | Complete   | 2026-03-20 |
-| 3. Webhook Gateway | 0/TBD | Not started | - |
+| 3. Webhook Gateway | 0/2 | Not started | - |
 | 4. Admin Dashboard | 0/TBD | Not started | - |
 | 5. Booking System | 0/TBD | Not started | - |
 | 6. Analytics | 0/TBD | Not started | - |
