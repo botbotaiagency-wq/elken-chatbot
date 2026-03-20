@@ -48,13 +48,14 @@ Plans:
   3. A query in English, Bahasa Malaysia, or Chinese returns the correct top-k chunks from the knowledge base with similarity scores above 0.75
   4. FAQs are returned as priority context above RAG chunks — a question that matches an FAQ returns the FAQ answer, not a document chunk
   5. All messages are logged with role, intent, source chunk IDs, similarity scores, rag_found flag, and response latency
-**Plans**: 5 plans
+**Plans**: 6 plans
 Plans:
 - [ ] 02-01-PLAN.md — Schema migrations (vector 1024 fix, products table, FAQ embeddings, RPC functions), vitest setup, ingestion libraries (extractor, chunker, embedder)
 - [ ] 02-02-PLAN.md — Document upload/process/list/delete API routes and product CRUD with CSV bulk import
 - [ ] 02-03-PLAN.md — RAG retrieval library (FAQ priority matching, chunk search, product search, intent/language detection, prompt assembly)
 - [ ] 02-04-PLAN.md — Streaming RAG chat endpoint with message logging
 - [ ] 02-05-PLAN.md — End-to-end verification: migrations, storage bucket, env vars, and chat endpoint smoke test
+- [ ] 02-06-PLAN.md — Gap closure: API key validation, wellness fallback, RAG-08 scope clarification
 
 ### Phase 3: Webhook Gateway
 **Goal**: n8n can send a WhatsApp or Telegram message to the platform's public webhook and receive a streaming, language-correct, intent-classified Claude response — authenticated by API key
