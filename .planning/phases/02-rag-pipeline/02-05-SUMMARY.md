@@ -17,7 +17,10 @@ requires:
 provides:
   - "Phase 2 end-to-end verification: 63/63 tests pass, production build succeeds"
   - "All Phase 2 API routes confirmed in build output"
-  - "Human verification checkpoint: migrations, storage bucket, env vars, chat test"
+  - "Migrations 00006 + 00007 applied (vector 1024, products table, FAQ embeddings, match_chunks/match_faqs/match_products RPCs)"
+  - "bot-files storage bucket created (private, 10MB, PDF/DOCX/TXT)"
+  - "VOYAGE_API_KEY configured — VoyageAI embedding API operational"
+  - "Chat endpoint curl-tested and confirmed streaming responses end-to-end"
 affects: [03-api-management, 07-n8n-integration]
 
 # Tech tracking
@@ -40,20 +43,20 @@ patterns-established: []
 requirements-completed: [KB-01, KB-02, KB-03, KB-04, KB-05, KB-06, KB-07, RAG-01, RAG-02, RAG-03, RAG-04, RAG-05, RAG-06, RAG-07, RAG-08, RAG-09, RAG-10]
 
 # Metrics
-duration: 5min
-completed: 2026-03-19
+duration: 10min
+completed: 2026-03-20
 ---
 
 # Phase 2 Plan 5: End-to-End Verification Checkpoint Summary
 
-**Full Phase 2 RAG pipeline verified: 63 vitest tests pass, Next.js production build succeeds with all 6 API routes, awaiting human verification of Supabase migrations and env configuration.**
+**Full Phase 2 RAG pipeline verified end-to-end: 63 vitest tests pass, production build clean, migrations 00006+00007 applied, bot-files bucket created, VOYAGE_API_KEY set, all 3 RPC match functions confirmed, chat endpoint streaming verified.**
 
 ## Performance
 
-- **Duration:** 5 min
+- **Duration:** ~10 min (two sessions: automated Task 1 + human-verified Task 2)
 - **Started:** 2026-03-19T10:51:47Z
-- **Completed:** 2026-03-19T10:56:30Z (checkpoint reached)
-- **Tasks:** 1/2 (Task 2 is human-verify checkpoint — pending)
+- **Completed:** 2026-03-20
+- **Tasks:** 2/2 (complete)
 - **Files modified:** 2 (.gitignore, OG images)
 
 ## Accomplishments
@@ -67,7 +70,7 @@ completed: 2026-03-19
 Each task was committed atomically:
 
 1. **Task 1: Run full test suite and build verification** - `2ea8bc4` (chore)
-2. **Task 2: Verify migrations, storage bucket, env vars, and end-to-end chat** - PENDING (human-verify checkpoint)
+2. **Task 2: Verify migrations, storage bucket, env vars, and end-to-end chat** - Human-verified and approved (infrastructure verification — no code commit)
 
 **Plan metadata:** (docs commit — see below)
 
@@ -101,21 +104,33 @@ None during Task 1. Task 2 is a human-verify checkpoint requiring manual Supabas
 
 ## User Setup Required
 
-**Manual infrastructure setup required.** Task 2 checkpoint is blocking:
+All steps completed during Task 2 human-verify checkpoint:
 
-1. **Apply migrations:** `supabase db push` — applies 00006_schema_fix_products.sql and 00007_rag_functions.sql
-2. **Create storage bucket:** Supabase Dashboard -> Storage -> New Bucket: name=`bot-files`, private, 10MB limit, allowed types: PDF/DOCX/TXT
-3. **Add VOYAGE_API_KEY:** Get from https://dash.voyageai.com/ and add to `.env.local`
-4. **Verify RPC functions:** SQL Editor — confirm match_chunks, match_faqs, match_products exist
-5. **Test chat endpoint:** Start dev server, curl POST /api/chat/[botId]
-
-See checkpoint details in checkpoint return message above.
+1. **Migrations applied:** `supabase db push` — migrations 00006 and 00007 applied successfully
+2. **Storage bucket created:** `bot-files` — private, 10MB limit, PDF/DOCX/TXT MIME types
+3. **VOYAGE_API_KEY configured:** Added to `.env.local` — VoyageAI embedding API active
+4. **RPC functions verified:** match_chunks, match_faqs, match_products confirmed in `public` schema
+5. **Vector dimension confirmed:** 1024 (atttypmod = 1028) on `chunks.embedding`
+6. **Chat endpoint tested:** Streaming response confirmed via curl against live dev server
 
 ## Next Phase Readiness
-- Phase 2 automated verification complete (63 tests, clean build)
-- After Task 2 human verification passes: Phase 2 fully complete
-- Phase 3 (API Management) can begin after Task 2 is verified
+
+Phase 2 (RAG Pipeline) is fully complete. All 5 plans executed and verified:
+- Plan 01: Document ingestion library (extract/chunk/embed/store with VoyageAI)
+- Plan 02: Ingestion API routes + product CRUD + CSV bulk import
+- Plan 03: RAG retrieval orchestration + intent/language detection + system prompt assembly
+- Plan 04: Streaming RAG chat endpoint with full message logging
+- Plan 05: End-to-end verification (this plan)
+
+**Ready for Phase 3 (API Management):** X-API-Key authentication, rate limiting, and usage tracking for the chat endpoint.
+
+## Self-Check: PASSED
+
+- FOUND: .planning/phases/02-rag-pipeline/02-05-SUMMARY.md
+- FOUND: 2ea8bc4 (Task 1 — test suite and build verification)
+- FOUND: 9ccfabb (checkpoint commit)
+- Task 2: Human-verified and approved by user (no code commit required)
 
 ---
 *Phase: 02-rag-pipeline*
-*Completed: 2026-03-19 (Task 2 pending human verification)*
+*Completed: 2026-03-20*
