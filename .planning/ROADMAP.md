@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Data Foundation** - Supabase schema, RLS policies, tenant isolation, and auth setup (completed 2026-03-18)
 - [x] **Phase 2: RAG Pipeline** - Knowledge base ingestion and semantic retrieval engine (completed 2026-03-19)
 - [x] **Phase 3: Webhook Gateway** - Public chat endpoint, API key auth, language detection, and intent classification (completed 2026-03-21)
-- [ ] **Phase 4: Admin Dashboard** - Bot configuration UI, FAQ/template management, testing console
+- [x] **Phase 4: Admin Dashboard** - Bot configuration UI, FAQ/template management, testing console (completed 2026-03-21)
 - [ ] **Phase 5: Booking System** - GenQi booking state machine, staff admin, and automated notifications
 - [ ] **Phase 6: Analytics** - Message volume, intent breakdown, latency, booking reports, and CSV export
 - [ ] **Phase 7: Integration and Launch** - Elken seed data, n8n integration snippets, and end-to-end smoke test
@@ -132,7 +132,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 1. Data Foundation | 3/3 | Complete   | 2026-03-18 |
 | 2. RAG Pipeline | 6/6 | Complete   | 2026-03-20 |
 | 3. Webhook Gateway | 2/2 | Complete   | 2026-03-21 |
-| 4. Admin Dashboard | 4/5 | In Progress|  |
+| 4. Admin Dashboard | 5/5 | Complete   | 2026-03-21 |
 | 5. Booking System | 0/TBD | Not started | - |
 | 6. Analytics | 0/TBD | Not started | - |
 | 7. Integration and Launch | 0/TBD | Not started | - |

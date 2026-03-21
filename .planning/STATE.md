@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 04-admin-dashboard 04-02-PLAN.md
-last_updated: "2026-03-21T20:04:40.446Z"
+stopped_at: Completed 04-admin-dashboard 04-04-PLAN.md
+last_updated: "2026-03-21T20:09:15.314Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 16
-  completed_plans: 15
+  completed_plans: 16
   percent: 0
 ---
 
@@ -67,6 +67,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 04-admin-dashboard P01 | 3min | 2 tasks | 9 files |
 | Phase 04-admin-dashboard P03 | 3min | 2 tasks | 2 files |
 | Phase 04-admin-dashboard P02 | 236s | 2 tasks | 4 files |
+| Phase 04-admin-dashboard P04 | 3min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -118,6 +119,8 @@ Recent decisions affecting current work:
 - [Phase 04-admin-dashboard]: Templates language filter hides intents without selected variant; Promise.all for parallel EN/BM/ZH upserts
 - [Phase 04-admin-dashboard]: BotConfig interface uses optional nullable fields matching DB column nullability
 - [Phase 04-admin-dashboard]: language_override applied after detection so intent classification uses original message language
+- [Phase 04-admin-dashboard]: test-chat route duplicates chat route logic intentionally — API key auth is woven through original, extraction would be premature refactor
+- [Phase 04-admin-dashboard]: Debug data fetched after stream completes via separate GET — keeps streaming protocol clean, debug non-blocking
 
 ### Pending Todos
 
@@ -131,6 +134,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T20:04:40.443Z
-Stopped at: Completed 04-admin-dashboard 04-02-PLAN.md
+Last session: 2026-03-21T20:09:15.311Z
+Stopped at: Completed 04-admin-dashboard 04-04-PLAN.md
 Resume file: None
