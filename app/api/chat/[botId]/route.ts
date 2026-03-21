@@ -5,6 +5,7 @@ import { retrieveContext } from '@/lib/rag/retrieve'
 import { buildSystemPrompt } from '@/lib/rag/prompt'
 import { logMessage, getOrCreateConversation } from '@/lib/rag/logger'
 import { createServiceClient } from '@/lib/supabase/service'
+import type { Language } from '@/types/database'
 
 export const maxDuration = 60
 
@@ -21,7 +22,7 @@ export async function POST(
   const supabase = createServiceClient()
   const { data: bot, error: botError } = await supabase
     .from('bots')
-    .select('id, api_key_hash')
+    .select('id, api_key_hash, name, greeting_en, greeting_bm, greeting_zh, tone, fallback_message, blocked_keywords, refuse_message, disclaimer_text, max_response_length, off_topic_message')
     .eq('id', botId)
     .single()
 
@@ -90,11 +91,12 @@ export async function POST(
 
   // 1. Parse request body
   const body = await req.json()
-  const { message, userId, channel, conversationId: inputConversationId } = body as {
+  const { message, userId, channel, conversationId: inputConversationId, language_override } = body as {
     message: string
     userId: string
     channel: string
     conversationId?: string
+    language_override?: string
   }
 
   // 2. Validate required fields
@@ -128,6 +130,9 @@ export async function POST(
 
     // 6. Detect intent and language
     const detection = await detectIntentAndLanguage(message)
+    if (language_override && ['en', 'bm', 'zh'].includes(language_override)) {
+      detection.language = language_override as Language
+    }
 
     // 7. Retrieve context (FAQ priority, chunks, products)
     const retrieval = await retrieveContext(message, botId, detection.intent)
@@ -136,6 +141,19 @@ export async function POST(
     const systemPrompt = buildSystemPrompt({
       retrieval,
       detection,
+      botConfig: {
+        name: bot.name,
+        greeting_en: bot.greeting_en,
+        greeting_bm: bot.greeting_bm,
+        greeting_zh: bot.greeting_zh,
+        tone: bot.tone,
+        fallback_message: bot.fallback_message,
+        blocked_keywords: bot.blocked_keywords,
+        refuse_message: bot.refuse_message,
+        disclaimer_text: bot.disclaimer_text,
+        max_response_length: bot.max_response_length,
+        off_topic_message: bot.off_topic_message,
+      },
     })
 
     // 9. Build source_chunks metadata for logging
