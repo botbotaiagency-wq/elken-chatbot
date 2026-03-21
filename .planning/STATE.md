@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 04-admin-dashboard 04-03-PLAN.md
-last_updated: "2026-03-21T20:03:30.221Z"
+stopped_at: Completed 04-admin-dashboard 04-02-PLAN.md
+last_updated: "2026-03-21T20:04:40.446Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 16
-  completed_plans: 14
+  completed_plans: 15
   percent: 0
 ---
 
@@ -66,6 +66,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 04-admin-dashboard P00 | 2min | 1 tasks | 4 files |
 | Phase 04-admin-dashboard P01 | 3min | 2 tasks | 9 files |
 | Phase 04-admin-dashboard P03 | 3min | 2 tasks | 2 files |
+| Phase 04-admin-dashboard P02 | 236s | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -115,6 +116,8 @@ Recent decisions affecting current work:
 - [Phase 04-admin-dashboard]: Bot detail layout uses usePathname + pathname.startsWith(href) for active tab — NOT shadcn Tabs component
 - [Phase 04-admin-dashboard]: FAQ edit uses PATCH with stable faqId (not delete+create) — preserves FAQ IDs across edits
 - [Phase 04-admin-dashboard]: Templates language filter hides intents without selected variant; Promise.all for parallel EN/BM/ZH upserts
+- [Phase 04-admin-dashboard]: BotConfig interface uses optional nullable fields matching DB column nullability
+- [Phase 04-admin-dashboard]: language_override applied after detection so intent classification uses original message language
 
 ### Pending Todos
 
@@ -128,6 +131,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T20:03:30.218Z
-Stopped at: Completed 04-admin-dashboard 04-03-PLAN.md
+Last session: 2026-03-21T20:04:40.443Z
+Stopped at: Completed 04-admin-dashboard 04-02-PLAN.md
 Resume file: None
