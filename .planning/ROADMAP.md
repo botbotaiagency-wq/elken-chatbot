@@ -81,7 +81,12 @@ Plans:
   3. Admin can create, edit, and delete FAQ pairs with language tags and response templates tied to specific intents
   4. Admin can send a test message in the dashboard's chat console and see the bot's response alongside the retrieved source chunks, classified intent, response time, and rag_found status
   5. Admin can override the language (EN/BM/ZH) in the testing console and reset the conversation to start a fresh test session
-**Plans**: TBD
+**Plans**: 4 plans
+Plans:
+- [ ] 04-01-PLAN.md — Database migration, config API routes (personality, guardrails, FAQs, templates, bots list), bot detail tab layout, bots list page
+- [ ] 04-02-PLAN.md — Personality and Guardrails config form pages, wire bot config into chat pipeline (dynamic system prompt + language override)
+- [ ] 04-03-PLAN.md — FAQ management page (CRUD table + modal + inline delete) and Response Templates management page (table + edit modal)
+- [ ] 04-04-PLAN.md — Testing console: internal test-chat API, debug endpoint for source chunks, streaming chat UI with metadata panel
 
 ### Phase 5: Booking System
 **Goal**: Elken customers can complete a full GenQi facility booking through the WhatsApp bot; staff can manage, approve, and track all bookings from the admin dashboard; and automated confirmation, reminder, and survey messages are sent without manual intervention
@@ -127,7 +132,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 1. Data Foundation | 3/3 | Complete   | 2026-03-18 |
 | 2. RAG Pipeline | 6/6 | Complete   | 2026-03-20 |
 | 3. Webhook Gateway | 2/2 | Complete   | 2026-03-21 |
-| 4. Admin Dashboard | 0/TBD | Not started | - |
+| 4. Admin Dashboard | 0/4 | Not started | - |
 | 5. Booking System | 0/TBD | Not started | - |
 | 6. Analytics | 0/TBD | Not started | - |
 | 7. Integration and Launch | 0/TBD | Not started | - |
