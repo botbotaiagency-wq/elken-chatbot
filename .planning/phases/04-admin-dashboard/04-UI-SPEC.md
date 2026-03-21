@@ -35,7 +35,7 @@ The following components are already installed and MUST be used — do not hand-
 | Component | File | Phase 4 Usage |
 |-----------|------|---------------|
 | Badge | `components/ui/badge.tsx` | Language tags (EN/BM/ZH) on FAQ and template rows |
-| Button | `components/ui/button.tsx` | Save changes, Add FAQ, Edit, Delete, Reset, Send |
+| Button | `components/ui/button.tsx` | Save changes, Add FAQ, Edit, Delete, Reset Conversation, Send |
 | Card / CardHeader / CardContent | `components/ui/card.tsx` | Personality form, Guardrails form, Bots list items |
 | Checkbox | `components/ui/checkbox.tsx` | Available if needed; not primary in Phase 4 |
 | Dialog | `components/ui/dialog.tsx` | FAQ create/edit modal, Template edit modal |
@@ -83,11 +83,11 @@ All sizes use Tailwind text utilities. Font: system stack inherited from shadcn/
 | Role | Size | Tailwind | Weight | Tailwind | Line Height | Usage |
 |------|------|----------|--------|----------|-------------|-------|
 | Body | 14px | `text-sm` | 400 | `font-normal` | 1.5 | Table cell content, form helper text, chat bubble text |
-| Label | 14px | `text-sm` | 500 | `font-medium` | 1.4 | Form field labels, column headers, tab nav links |
+| Label | 14px | `text-sm` | 400 | `font-normal` | 1.4 | Form field labels, column headers, tab nav links |
 | Heading | 16px | `text-base` | 600 | `font-semibold` | 1.25 | Card titles (CardTitle), section headings |
 | Display | 20px | `text-xl` | 600 | `font-semibold` | 1.2 | Page headings (e.g., "Bot Configuration", "Testing Console") |
 
-**Weights in use: 2** — regular (400) for content, semibold (600) for headings. Medium (500) used only for interactive labels (tabs, table headers).
+**Weights in use: 2** — regular (400) for body content and labels, semibold (600) for headings and display.
 
 **Muted text:** `text-sm text-muted-foreground` — used for answer previews in FAQ table, metadata in debug panel, empty state body copy.
 
@@ -103,13 +103,13 @@ Uses shadcn/ui neutral CSS variables from `app/globals.css`. All values are CSS 
 |------|-------------|---------------------|-------|
 | Dominant (60%) | `--background` | `hsl(0 0% 100%)` — white | Page background, card background |
 | Secondary (30%) | `--secondary` / `--muted` | `hsl(0 0% 96.1%)` — near-white gray | Sidebar, table row hover, tab nav background, inline confirm row background |
-| Accent (10%) | `--primary` | `hsl(0 0% 9%)` — near-black | Active tab underline border, Save button, Send button in testing console, "Configure" link hover |
+| Accent (10%) | `--primary` | `hsl(0 0% 9%)` — near-black | Active tab underline border, Save button, Send button in testing console, "Configure Bot" link hover |
 | Destructive | `--destructive` | `hsl(0 84.2% 60.2%)` — red | Delete FAQ button, inline confirm destructive text, revoke key button (Phase 3 pattern) |
 
 **Accent reserved for specifically:**
 1. Active tab underline (`border-primary`) in bot detail layout nav
 2. Primary action buttons: "Save changes", "Send" (testing console), "Add FAQ", "Add Template"
-3. "Configure" bot link in bots list on hover/focus
+3. "Configure Bot" button in bots list on hover/focus
 
 **Never use accent for:** Inactive tab labels, helper text, table borders, card borders.
 
@@ -133,7 +133,8 @@ Source: `app/globals.css` CSS variable values, `04-CONTEXT.md` §Specific Ideas,
 ### Bots List Page (`/bots`)
 
 - Layout: vertical list of Cards, one per bot
-- Each Card: bot name (`text-base font-semibold`), status badge, "Configure" button linking to `/bots/[botId]/personality`
+- Each Card: bot name (`text-base font-semibold`), status badge, "Configure Bot" button linking to `/bots/[botId]/personality`
+- **Primary visual focal point:** bot name (`text-base font-semibold`) and the "Configure Bot" button (Button default variant, primary color) — these are the two elements the eye is drawn to first on each Card row
 - Empty state: Card with centered empty state copy (see Copywriting section)
 - No pagination — plain list (seeded set is small per CONTEXT.md)
 
@@ -202,7 +203,7 @@ Source: `app/globals.css` CSS variable values, `04-CONTEXT.md` §Specific Ideas,
 - Layout: full-height flex column; toolbar at top, chat window in middle (flex-grow, overflow-y-auto), input bar at bottom
 - Toolbar: `flex items-center gap-4 px-4 py-2 border-b bg-background`
   - Label: "Language:" + native `<select>` (Auto | EN | BM | ZH)
-  - Reset button: Button variant outline, size sm, icon `RotateCcw` from lucide-react, label "Reset"
+  - Reset button: Button variant outline, size sm, icon `RotateCcw` from lucide-react, label "Reset Conversation"
 - Chat window: `flex flex-col gap-3 p-4`
   - User message: `self-end bg-primary text-primary-foreground rounded-2xl rounded-br-sm px-4 py-2 max-w-[70%] text-sm`
   - Bot message: `self-start bg-secondary text-secondary-foreground rounded-2xl rounded-bl-sm px-4 py-2 max-w-[70%] text-sm`
@@ -233,8 +234,8 @@ Source: `04-CONTEXT.md` §Testing Console Layout, §Specific Ideas, `04-RESEARCH
 | FAQ create modal | Save FAQ |
 | Template edit modal | Save Template |
 | Testing console send | Send (icon only with accessible label "Send message") |
-| Testing console reset | Reset |
-| Bots list | Configure |
+| Testing console reset | Reset Conversation |
+| Bots list | Configure Bot |
 
 ### Toast Messages
 
