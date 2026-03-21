@@ -103,7 +103,7 @@
 - [x] **API-02**: Admin can view existing keys by label and 8-char prefix; last-used timestamp displayed
 - [x] **API-03**: Admin can revoke any API key
 - [x] **API-04**: Webhook endpoint validates API key using constant-time hash comparison on every request
-- [ ] **API-05**: Integrations page displays copy-paste webhook URL and n8n JSON body snippets for Telegram and WhatsApp
+- [x] **API-05**: Integrations page displays copy-paste webhook URL and n8n JSON body snippets for Telegram and WhatsApp
 
 ### Testing Console
 
@@ -187,7 +187,7 @@
 | API-02 | Phase 3 — Webhook Gateway | Complete |
 | API-03 | Phase 3 — Webhook Gateway | Complete |
 | API-04 | Phase 3 — Webhook Gateway | Complete |
-| API-05 | Phase 3 — Webhook Gateway | Pending |
+| API-05 | Phase 3 — Webhook Gateway | Complete |
 | CONF-01 | Phase 4 — Admin Dashboard | Pending |
 | CONF-02 | Phase 4 — Admin Dashboard | Pending |
 | CONF-03 | Phase 4 — Admin Dashboard | Pending |
