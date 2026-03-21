@@ -1,7 +1,7 @@
 ---
 phase: 4
 slug: admin-dashboard
-status: draft
+status: approved
 shadcn_initialized: true
 preset: "new-york / neutral / css-variables"
 created: 2026-03-22
@@ -188,7 +188,7 @@ Source: `app/globals.css` CSS variable values, `04-CONTEXT.md` §Specific Ideas,
 
 - Filter bar: same pattern as FAQ filter
 - Table: columns: Intent | EN | BM | ZH | Actions
-  - Intent displayed as code-style label: `font-mono text-xs bg-muted px-1.5 py-0.5 rounded`
+  - Intent displayed as code-style label: `font-mono text-xs bg-muted px-2 py-1 rounded`
   - Language variant cells: checkmark (✓ as text, `text-green-600`) if variant exists, dash (`—`, `text-muted-foreground`) if missing
 - Edit action only (no delete) — "Edit" Button, variant ghost, size sm
 - Edit Dialog:
@@ -349,11 +349,11 @@ Source: `components/ui/` directory inspection, `04-RESEARCH.md` §Pitfall 4
 
 ## Checker Sign-Off
 
-- [ ] Dimension 1 Copywriting: PASS
-- [ ] Dimension 2 Visuals: PASS
-- [ ] Dimension 3 Color: PASS
-- [ ] Dimension 4 Typography: PASS
-- [ ] Dimension 5 Spacing: PASS
-- [ ] Dimension 6 Registry Safety: PASS
+- [x] Dimension 1 Copywriting: PASS
+- [x] Dimension 2 Visuals: PASS
+- [x] Dimension 3 Color: PASS
+- [x] Dimension 4 Typography: PASS
+- [x] Dimension 5 Spacing: PASS
+- [x] Dimension 6 Registry Safety: PASS
 
-**Approval:** pending
+**Approval:** approved
