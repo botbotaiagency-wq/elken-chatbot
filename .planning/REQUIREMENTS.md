@@ -99,10 +99,10 @@
 
 ### API Keys & Integration
 
-- [ ] **API-01**: Admin can generate an API key with a label; key is shown in full once, then only the SHA-256 hash is stored; key format: `ethan_live_xxxxxxxxxxxxxxxx`
-- [ ] **API-02**: Admin can view existing keys by label and 8-char prefix; last-used timestamp displayed
-- [ ] **API-03**: Admin can revoke any API key
-- [ ] **API-04**: Webhook endpoint validates API key using constant-time hash comparison on every request
+- [x] **API-01**: Admin can generate an API key with a label; key is shown in full once, then only the SHA-256 hash is stored; key format: `ethan_live_xxxxxxxxxxxxxxxx`
+- [x] **API-02**: Admin can view existing keys by label and 8-char prefix; last-used timestamp displayed
+- [x] **API-03**: Admin can revoke any API key
+- [x] **API-04**: Webhook endpoint validates API key using constant-time hash comparison on every request
 - [ ] **API-05**: Integrations page displays copy-paste webhook URL and n8n JSON body snippets for Telegram and WhatsApp
 
 ### Testing Console
@@ -183,10 +183,10 @@
 | RAG-08 | Phase 2 — RAG Pipeline | Complete |
 | RAG-09 | Phase 2 — RAG Pipeline | Complete |
 | RAG-10 | Phase 2 — RAG Pipeline | Complete |
-| API-01 | Phase 3 — Webhook Gateway | Pending |
-| API-02 | Phase 3 — Webhook Gateway | Pending |
-| API-03 | Phase 3 — Webhook Gateway | Pending |
-| API-04 | Phase 3 — Webhook Gateway | Pending |
+| API-01 | Phase 3 — Webhook Gateway | Complete |
+| API-02 | Phase 3 — Webhook Gateway | Complete |
+| API-03 | Phase 3 — Webhook Gateway | Complete |
+| API-04 | Phase 3 — Webhook Gateway | Complete |
 | API-05 | Phase 3 — Webhook Gateway | Pending |
 | CONF-01 | Phase 4 — Admin Dashboard | Pending |
 | CONF-02 | Phase 4 — Admin Dashboard | Pending |

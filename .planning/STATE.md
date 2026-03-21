@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Phase 3 context gathered
-last_updated: "2026-03-20T04:10:39.661Z"
+stopped_at: Completed 03-webhook-gateway 03-01-PLAN.md
+last_updated: "2026-03-21T14:18:51.609Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
   completed_phases: 2
-  total_plans: 9
-  completed_plans: 9
+  total_plans: 11
+  completed_plans: 10
   percent: 0
 ---
 
@@ -61,6 +61,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02-rag-pipeline P05 | 144s | 1 tasks | 3 files |
 | Phase 02-rag-pipeline P05 | 10min | 2 tasks | 2 files |
 | Phase 02-rag-pipeline P06 | 199s | 3 tasks | 5 files |
+| Phase 03-webhook-gateway P01 | 352s | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -98,6 +99,9 @@ Recent decisions affecting current work:
 - [Phase 02-rag-pipeline]: API key validation placed before body parsing — bot existence check fails fast with 404 before any request processing
 - [Phase 02-rag-pipeline]: null api_key_hash treated as dev-mode bypass (not rejection) so Phase 1/2 bots continue working pre-Phase 3
 - [Phase 02-rag-pipeline]: RAG-08: Text-based Product Detail Cards satisfy Phase 2 scope; brochure/PDF delivery deferred to Phase 7 (n8n bridge handles media)
+- [Phase 03-webhook-gateway]: api_keys table uses soft-delete via revoked_at with partial indexes for active-key lookups
+- [Phase 03-webhook-gateway]: Chat endpoint validates api_keys table first then falls back to bots.api_key_hash — preserves Phase 1/2 dev-mode bypass
+- [Phase 03-webhook-gateway]: fire-and-forget last_used_at update (not awaited) on api_keys match to avoid latency impact
 
 ### Pending Todos
 
@@ -111,6 +115,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T04:10:39.658Z
-Stopped at: Phase 3 context gathered
-Resume file: .planning/phases/03-webhook-gateway/03-CONTEXT.md
+Last session: 2026-03-21T14:18:51.606Z
+Stopped at: Completed 03-webhook-gateway 03-01-PLAN.md
+Resume file: None
