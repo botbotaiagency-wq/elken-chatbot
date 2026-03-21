@@ -29,32 +29,63 @@ export async function POST(
     return Response.json({ error: 'Bot not found' }, { status: 404 })
   }
 
-  if (bot.api_key_hash) {
-    // api_key_hash is set — validate X-API-Key header
-    const apiKey = req.headers.get('X-API-Key')
-    if (!apiKey) {
-      return Response.json({ error: 'Missing X-API-Key header' }, { status: 401 })
-    }
+  const apiKey = req.headers.get('X-API-Key')
 
-    // Constant-time comparison: hash the provided key and compare to stored hash
-    const providedHash = crypto
-      .createHash('sha256')
-      .update(apiKey)
-      .digest('hex')
+  if (apiKey) {
+    // Key provided — validate against api_keys table first, then fall back to bots.api_key_hash
+    const providedHash = crypto.createHash('sha256').update(apiKey).digest('hex')
 
-    const storedHashBuffer = Buffer.from(bot.api_key_hash, 'utf-8')
-    const providedHashBuffer = Buffer.from(providedHash, 'utf-8')
+    // Check api_keys table (Phase 3 keys)
+    const { data: keyRow } = await supabase
+      .from('api_keys')
+      .select('id, key_hash')
+      .eq('bot_id', botId)
+      .eq('key_hash', providedHash)
+      .is('revoked_at', null)
+      .maybeSingle()
 
-    if (
-      storedHashBuffer.length !== providedHashBuffer.length ||
-      !crypto.timingSafeEqual(storedHashBuffer, providedHashBuffer)
-    ) {
-      return Response.json({ error: 'Invalid API key' }, { status: 401 })
+    if (keyRow) {
+      // Found in api_keys table — constant-time comparison
+      const storedHashBuffer = Buffer.from(keyRow.key_hash, 'utf-8')
+      const providedHashBuffer = Buffer.from(providedHash, 'utf-8')
+
+      if (
+        storedHashBuffer.length !== providedHashBuffer.length ||
+        !crypto.timingSafeEqual(storedHashBuffer, providedHashBuffer)
+      ) {
+        return Response.json({ error: 'Invalid API key' }, { status: 401 })
+      }
+
+      // Fire-and-forget: update last_used_at (do NOT await — non-blocking)
+      supabase
+        .from('api_keys')
+        .update({ last_used_at: new Date().toISOString() })
+        .eq('id', keyRow.id)
+    } else {
+      // Not in api_keys table — fall back to bots.api_key_hash (Phase 1/2 bots)
+      if (bot.api_key_hash) {
+        const storedHashBuffer = Buffer.from(bot.api_key_hash, 'utf-8')
+        const providedHashBuffer = Buffer.from(providedHash, 'utf-8')
+
+        if (
+          storedHashBuffer.length !== providedHashBuffer.length ||
+          !crypto.timingSafeEqual(storedHashBuffer, providedHashBuffer)
+        ) {
+          return Response.json({ error: 'Invalid API key' }, { status: 401 })
+        }
+      } else {
+        // No api_key_hash on bot, no api_keys rows — dev-mode bypass
+        console.warn(`[DEV MODE] Bot ${botId}: no api_key_hash set — skipping API key validation. API keys will be enforced after Phase 3.`)
+      }
     }
   } else {
-    // api_key_hash is null — dev/test mode (pre-Phase 3)
-    // Phase 3 will generate API keys and populate api_key_hash on bots
-    console.warn(`[DEV MODE] Bot ${botId}: no api_key_hash set — skipping API key validation. API keys will be enforced after Phase 3.`)
+    // No key provided — check if auth is required
+    if (bot.api_key_hash) {
+      return Response.json({ error: 'Missing X-API-Key header' }, { status: 401 })
+    } else {
+      // api_key_hash is null — dev/test mode (pre-Phase 3)
+      console.warn(`[DEV MODE] Bot ${botId}: no api_key_hash set — skipping API key validation. API keys will be enforced after Phase 3.`)
+    }
   }
 
   // 1. Parse request body
