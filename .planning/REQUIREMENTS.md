@@ -39,11 +39,11 @@
 
 ### Bot Configuration
 
-- [ ] **CONF-01**: Admin can configure bot name, greeting message per language (EN / BM / ZH), and tone (Professional / Friendly / Formal)
-- [ ] **CONF-02**: Admin can configure a fallback message for when RAG finds nothing
-- [ ] **CONF-03**: Admin can configure guardrails: blocked topic keywords (auto-refuse with custom message), mandatory disclaimer text, max response length, off-topic deflection message
-- [ ] **CONF-04**: Admin can create, edit, and delete response templates tied to specific intents (e.g. `no_product_found`, `slot_full`, `booking_confirmed`, `reminder_24h`, `post_survey`) with EN / BM / ZH variants
-- [ ] **CONF-05**: Admin can create, edit, and delete FAQ pairs with language tag; FAQs are pre-seeded with Elken's location, hours, and facility information
+- [x] **CONF-01**: Admin can configure bot name, greeting message per language (EN / BM / ZH), and tone (Professional / Friendly / Formal)
+- [x] **CONF-02**: Admin can configure a fallback message for when RAG finds nothing
+- [x] **CONF-03**: Admin can configure guardrails: blocked topic keywords (auto-refuse with custom message), mandatory disclaimer text, max response length, off-topic deflection message
+- [x] **CONF-04**: Admin can create, edit, and delete response templates tied to specific intents (e.g. `no_product_found`, `slot_full`, `booking_confirmed`, `reminder_24h`, `post_survey`) with EN / BM / ZH variants
+- [x] **CONF-05**: Admin can create, edit, and delete FAQ pairs with language tag; FAQs are pre-seeded with Elken's location, hours, and facility information
 
 ### Booking Flow (Elken GenQi — feature-flagged per bot)
 
@@ -107,10 +107,10 @@
 
 ### Testing Console
 
-- [ ] **TEST-01**: Admin can send messages to the bot in a live chat UI (styled like WhatsApp/Telegram) from the dashboard
-- [ ] **TEST-02**: Each response shows: retrieved source chunks (doc name, similarity score, content preview), classified intent, response time in ms, and whether RAG found a match
-- [ ] **TEST-03**: Language can be overridden (EN / BM / ZH) in the testing console
-- [ ] **TEST-04**: Admin can reset the conversation to start a fresh test session
+- [x] **TEST-01**: Admin can send messages to the bot in a live chat UI (styled like WhatsApp/Telegram) from the dashboard
+- [x] **TEST-02**: Each response shows: retrieved source chunks (doc name, similarity score, content preview), classified intent, response time in ms, and whether RAG found a match
+- [x] **TEST-03**: Language can be overridden (EN / BM / ZH) in the testing console
+- [x] **TEST-04**: Admin can reset the conversation to start a fresh test session
 
 ### Elken Seed Data
 
@@ -188,15 +188,15 @@
 | API-03 | Phase 3 — Webhook Gateway | Complete |
 | API-04 | Phase 3 — Webhook Gateway | Complete |
 | API-05 | Phase 3 — Webhook Gateway | Complete |
-| CONF-01 | Phase 4 — Admin Dashboard | Pending |
-| CONF-02 | Phase 4 — Admin Dashboard | Pending |
-| CONF-03 | Phase 4 — Admin Dashboard | Pending |
-| CONF-04 | Phase 4 — Admin Dashboard | Pending |
-| CONF-05 | Phase 4 — Admin Dashboard | Pending |
-| TEST-01 | Phase 4 — Admin Dashboard | Pending |
-| TEST-02 | Phase 4 — Admin Dashboard | Pending |
-| TEST-03 | Phase 4 — Admin Dashboard | Pending |
-| TEST-04 | Phase 4 — Admin Dashboard | Pending |
+| CONF-01 | Phase 4 — Admin Dashboard | Complete |
+| CONF-02 | Phase 4 — Admin Dashboard | Complete |
+| CONF-03 | Phase 4 — Admin Dashboard | Complete |
+| CONF-04 | Phase 4 — Admin Dashboard | Complete |
+| CONF-05 | Phase 4 — Admin Dashboard | Complete |
+| TEST-01 | Phase 4 — Admin Dashboard | Complete |
+| TEST-02 | Phase 4 — Admin Dashboard | Complete |
+| TEST-03 | Phase 4 — Admin Dashboard | Complete |
+| TEST-04 | Phase 4 — Admin Dashboard | Complete |
 | BOOK-01 | Phase 5 — Booking System | Pending |
 | BOOK-02 | Phase 5 — Booking System | Pending |
 | BOOK-03 | Phase 5 — Booking System | Pending |
