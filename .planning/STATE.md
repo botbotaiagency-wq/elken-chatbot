@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 04-admin-dashboard-00-PLAN.md
-last_updated: "2026-03-21T19:56:16.428Z"
+stopped_at: Completed 04-admin-dashboard 04-01-PLAN.md
+last_updated: "2026-03-21T19:58:53.173Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 16
-  completed_plans: 12
+  completed_plans: 13
   percent: 0
 ---
 
@@ -64,6 +64,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03-webhook-gateway P01 | 352s | 2 tasks | 6 files |
 | Phase 03-webhook-gateway P02 | 3min | 2 tasks | 7 files |
 | Phase 04-admin-dashboard P00 | 2min | 1 tasks | 4 files |
+| Phase 04-admin-dashboard P01 | 3min | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -108,6 +109,9 @@ Recent decisions affecting current work:
 - [Phase 03-webhook-gateway]: CopyButton extracted as sub-component in integrations page to share icon-swap logic across URL and snippet blocks
 - [Phase 04-admin-dashboard]: Wave 0 stubs use it.todo() not it() with empty bodies — vitest shows pending, never failing
 - [Phase 04-admin-dashboard]: test-chat.test.ts includes mocks for rag/detect, rag/retrieve, rag/prompt, rag/logger matching existing chat.test.ts pattern
+- [Phase 04-admin-dashboard]: Config routes use createServiceClient() (service role) — config mutations are trusted server operations bypassing RLS
+- [Phase 04-admin-dashboard]: Bots list /api/bots uses createClient() for session auth + createServiceClient() for data — dual client pattern for role-based scoping
+- [Phase 04-admin-dashboard]: Bot detail layout uses usePathname + pathname.startsWith(href) for active tab — NOT shadcn Tabs component
 
 ### Pending Todos
 
@@ -121,6 +125,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T19:56:16.425Z
-Stopped at: Completed 04-admin-dashboard-00-PLAN.md
+Last session: 2026-03-21T19:58:53.170Z
+Stopped at: Completed 04-admin-dashboard 04-01-PLAN.md
 Resume file: None
