@@ -69,8 +69,8 @@ Declared values (multiples of 4 only). Phase 4 uses Tailwind default spacing —
 
 Exceptions:
 - Chat bubble padding in testing console: `px-4 py-2` (16px / 8px asymmetric — matches WhatsApp density feel)
-- Tab nav links in bot detail layout: `px-4 py-2` with `-mb-px` for border-bottom underline alignment
-- Inline confirm row: `px-2 py-3` — intentionally compact to stay within table row rhythm
+- Tab nav links in bot detail layout: `px-4 py-2` with `-mb-px` for border-bottom underline alignment. Note: `-mb-px` is a CSS border-overlap trick that pulls the active tab's bottom border over the container's bottom border to create a seamless underline effect. It is not a layout spacing token and is exempt from the 4px-multiple spacing scale constraint.
+- Inline confirm row: `px-2 py-2` — intentionally compact to stay within table row rhythm
 
 Source: Tailwind default scale, `04-CONTEXT.md` §Specific Ideas, `04-RESEARCH.md` Pattern 2
 
@@ -82,8 +82,7 @@ All sizes use Tailwind text utilities. Font: system stack inherited from shadcn/
 
 | Role | Size | Tailwind | Weight | Tailwind | Line Height | Usage |
 |------|------|----------|--------|----------|-------------|-------|
-| Body | 14px | `text-sm` | 400 | `font-normal` | 1.5 | Table cell content, form helper text, chat bubble text |
-| Label | 14px | `text-sm` | 400 | `font-normal` | 1.4 | Form field labels, column headers, tab nav links |
+| Small / Body | 14px | `text-sm` | 400 | `font-normal` | 1.5 | Table cell content, form helper text, chat bubble text, form field labels, column headers, tab nav links |
 | Heading | 16px | `text-base` | 600 | `font-semibold` | 1.25 | Card titles (CardTitle), section headings |
 | Display | 20px | `text-xl` | 600 | `font-semibold` | 1.2 | Page headings (e.g., "Bot Configuration", "Testing Console") |
 
@@ -183,7 +182,7 @@ Source: `app/globals.css` CSS variable values, `04-CONTEXT.md` §Specific Ideas,
 - Create/Edit Dialog:
   - DialogHeader: "Add FAQ" or "Edit FAQ"
   - Fields: Question (`<textarea>` 3 rows), Answer (`<textarea>` 5 rows), Language (native `<select>`: EN / BM / ZH)
-  - DialogFooter: Cancel (Button ghost) + Save (Button default, "Save FAQ")
+  - DialogFooter: Discard (Button ghost) + Save (Button default, "Save FAQ")
 
 ### Response Templates List + Modal
 
@@ -195,7 +194,7 @@ Source: `app/globals.css` CSS variable values, `04-CONTEXT.md` §Specific Ideas,
 - Edit Dialog:
   - DialogHeader: "Edit Template: {intent_key}"
   - Fields: EN textarea (4 rows), BM textarea (4 rows), ZH textarea (4 rows), stacked vertically with labels
-  - DialogFooter: Cancel + "Save Template" (Button default)
+  - DialogFooter: Discard + "Save Template" (Button default)
 - No empty state needed (templates are seeded; always 5 rows present)
 
 ### Testing Console (`/bots/[botId]/testing`)
@@ -270,7 +269,7 @@ Source: `04-CONTEXT.md` §Testing Console Layout, §Specific Ideas, `04-RESEARCH
 
 | Action | Confirmation Copy |
 |--------|-------------------|
-| Delete FAQ | Destructive text: "Delete this FAQ?" — buttons: "Yes, delete" (Button variant destructive, size sm) + "Cancel" (Button variant ghost, size sm) |
+| Delete FAQ | Destructive text: "Delete this FAQ?" — buttons: "Yes, delete" (Button variant destructive, size sm) + "Keep FAQ" (Button variant ghost, size sm) |
 | (No other destructive actions in Phase 4 — template delete is not permitted; API key revoke is Phase 3) |  |
 
 Source: `04-CONTEXT.md` §Config Save UX, §FAQ Management, `04-RESEARCH.md` Pattern 3
@@ -292,7 +291,7 @@ Source: `04-CONTEXT.md` §Config Save UX, §FAQ Management, `04-RESEARCH.md` Pat
 ### Modal Open / Close
 
 - Dialog opens on "Add FAQ", "Edit" buttons
-- Dialog closes on: Cancel button, Escape key, click outside (shadcn Dialog default behavior)
+- Dialog closes on: Discard button, Escape key, click outside (shadcn Dialog default behavior)
 - On successful save: Dialog closes, list refetches, success toast fires
 - On error: Dialog stays open, error toast fires
 
@@ -301,7 +300,7 @@ Source: `04-CONTEXT.md` §Config Save UX, §FAQ Management, `04-RESEARCH.md` Pat
 1. Admin clicks "Delete" — inline confirm row inserts below the target row
 2. Only one confirm row open at a time (clicking Delete on another row replaces the current confirm)
 3. "Yes, delete" triggers DELETE request, row removed from list on success, success toast fires
-4. "Cancel" collapses the confirm row, no change
+4. "Keep FAQ" collapses the confirm row, no change
 
 ### Testing Console Streaming
 
