@@ -60,24 +60,24 @@
 - [x] **BOOK-11**: Non-member + Bed/Inhaler path: bot responds "Our specialist will contact you within 24 hours"; booking created as pending
 - [x] **BOOK-12**: Meeting Room path: Elken members only with valid ID; submit for staff approval; confirm directly
 - [x] **BOOK-13**: Unisex Bed constraint: mixing genders at the same time slot is not permitted; bot enforces this during slot selection
-- [ ] **BOOK-14**: Confirmation message is automatically sent to the customer when staff approves the booking
+- [x] **BOOK-14**: Confirmation message is automatically sent to the customer when staff approves the booking
 - [ ] **BOOK-15**: Automated 24-hour reminder message is sent to the customer before their session
 - [ ] **BOOK-16**: Post-session survey is automatically sent on the booking date (or after session completes)
-- [ ] **BOOK-17**: Survey responses are captured, stored in the database, and visible in admin reporting
+- [x] **BOOK-17**: Survey responses are captured, stored in the database, and visible in admin reporting
 
 ### Bookings Admin (Staff-side Calendar Management)
 
 - [ ] **BADM-01**: Admin can view all bookings in a filterable table: by location, date range, status, and facility type
 - [ ] **BADM-02**: Booking status badges: pending / confirmed / cancelled / no-show / walk-in
-- [ ] **BADM-03**: Staff can confirm, cancel, or mark a booking as no-show from the admin dashboard
-- [ ] **BADM-04**: Staff can register a walk-in customer directly from the admin dashboard (creates a booking with status `walk_in`)
-- [ ] **BADM-05**: Staff can edit and update calendar entries (date, time, facility, notes)
+- [x] **BADM-03**: Staff can confirm, cancel, or mark a booking as no-show from the admin dashboard
+- [x] **BADM-04**: Staff can register a walk-in customer directly from the admin dashboard (creates a booking with status `walk_in`)
+- [x] **BADM-05**: Staff can edit and update calendar entries (date, time, facility, notes)
 - [x] **BADM-06**: Every change to a booking is logged in an audit trail: action, who, timestamp, note — stored in `audit_log` jsonb on the booking record
 - [ ] **BADM-07**: Audit trail is visible per booking (collapsible in the UI)
 
 ### Notifications
 
-- [ ] **NOTIF-01**: Booking confirmation message is sent to the customer's channel (WhatsApp/Telegram) when staff approves
+- [x] **NOTIF-01**: Booking confirmation message is sent to the customer's channel (WhatsApp/Telegram) when staff approves
 - [ ] **NOTIF-02**: 24-hour reminder message is sent automatically before the customer's session
 - [ ] **NOTIF-03**: Post-session survey message is sent automatically on the booking date or after session completion
 - [x] **NOTIF-04**: Notification delivery is tracked (reminder_sent, survey_sent flags on the booking record)
@@ -210,18 +210,18 @@
 | BOOK-11 | Phase 5 — Booking System | Complete |
 | BOOK-12 | Phase 5 — Booking System | Complete |
 | BOOK-13 | Phase 5 — Booking System | Complete |
-| BOOK-14 | Phase 5 — Booking System | Pending |
+| BOOK-14 | Phase 5 — Booking System | Complete |
 | BOOK-15 | Phase 5 — Booking System | Pending |
 | BOOK-16 | Phase 5 — Booking System | Pending |
-| BOOK-17 | Phase 5 — Booking System | Pending |
+| BOOK-17 | Phase 5 — Booking System | Complete |
 | BADM-01 | Phase 5 — Booking System | Pending |
 | BADM-02 | Phase 5 — Booking System | Pending |
-| BADM-03 | Phase 5 — Booking System | Pending |
-| BADM-04 | Phase 5 — Booking System | Pending |
-| BADM-05 | Phase 5 — Booking System | Pending |
+| BADM-03 | Phase 5 — Booking System | Complete |
+| BADM-04 | Phase 5 — Booking System | Complete |
+| BADM-05 | Phase 5 — Booking System | Complete |
 | BADM-06 | Phase 5 — Booking System | Complete |
 | BADM-07 | Phase 5 — Booking System | Pending |
-| NOTIF-01 | Phase 5 — Booking System | Pending |
+| NOTIF-01 | Phase 5 — Booking System | Complete |
 | NOTIF-02 | Phase 5 — Booking System | Pending |
 | NOTIF-03 | Phase 5 — Booking System | Pending |
 | NOTIF-04 | Phase 5 — Booking System | Complete |

@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 05-booking-system-02-PLAN.md
-last_updated: "2026-03-22T09:20:45.051Z"
+stopped_at: Completed 05-booking-system-03-PLAN.md
+last_updated: "2026-03-22T09:24:56.441Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 22
-  completed_plans: 18
+  completed_plans: 19
   percent: 0
 ---
 
@@ -70,6 +70,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 04-admin-dashboard P04 | 3min | 2 tasks | 3 files |
 | Phase 05-booking-system P01 | 3min | 2 tasks | 10 files |
 | Phase 05-booking-system P02 | 242s | 2 tasks | 3 files |
+| Phase 05-booking-system P03 | 2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -129,6 +130,8 @@ Recent decisions affecting current work:
 - [Phase 05-booking-system]: Active booking state checked before intent detection — booking answers (yes, 1, confirm) would be misclassified by intent detector
 - [Phase 05-booking-system]: Booking responses are plain text (not streaming) — pre-written prompts, not Claude-generated content; returned as plain Response
 - [Phase 05-booking-system]: feature_flags.booking_enabled gates all booking code — platform reusable for non-booking bots
+- [Phase 05-booking-system]: Confirm action triggers notification fire-and-forget (not awaited) — response latency must not depend on n8n delivery
+- [Phase 05-booking-system]: dispatchNotification returns boolean, never throws — callers handle retry policy independently
 
 ### Pending Todos
 
@@ -142,6 +145,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T09:20:45.048Z
-Stopped at: Completed 05-booking-system-02-PLAN.md
+Last session: 2026-03-22T09:24:48.778Z
+Stopped at: Completed 05-booking-system-03-PLAN.md
 Resume file: None
