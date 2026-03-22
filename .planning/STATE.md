@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 05-booking-system-01-PLAN.md
-last_updated: "2026-03-22T04:09:07.869Z"
+stopped_at: Completed 05-booking-system-02-PLAN.md
+last_updated: "2026-03-22T09:20:45.051Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 22
-  completed_plans: 17
+  completed_plans: 18
   percent: 0
 ---
 
@@ -69,6 +69,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 04-admin-dashboard P02 | 236s | 2 tasks | 4 files |
 | Phase 04-admin-dashboard P04 | 3min | 2 tasks | 3 files |
 | Phase 05-booking-system P01 | 3min | 2 tasks | 10 files |
+| Phase 05-booking-system P02 | 242s | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -125,6 +126,9 @@ Recent decisions affecting current work:
 - [Phase 05-booking-system]: facilities_config as separate table (not jsonb on bots): enables per-row RLS, proper indexing, and simpler admin UI for 6 facility types each with 4 config fields
 - [Phase 05-booking-system]: check_and_create_booking RPC is mandatory for all booking inserts — uses SELECT FOR UPDATE to atomically prevent double-booking race conditions (BOOK-06)
 - [Phase 05-booking-system]: find_next_available_slots hardcodes Asia/Kuala_Lumpur for business hours (09:00-18:00) — all GenQi locations are in Malaysia
+- [Phase 05-booking-system]: Active booking state checked before intent detection — booking answers (yes, 1, confirm) would be misclassified by intent detector
+- [Phase 05-booking-system]: Booking responses are plain text (not streaming) — pre-written prompts, not Claude-generated content; returned as plain Response
+- [Phase 05-booking-system]: feature_flags.booking_enabled gates all booking code — platform reusable for non-booking bots
 
 ### Pending Todos
 
@@ -138,6 +142,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T04:09:07.866Z
-Stopped at: Completed 05-booking-system-01-PLAN.md
+Last session: 2026-03-22T09:20:45.048Z
+Stopped at: Completed 05-booking-system-02-PLAN.md
 Resume file: None
