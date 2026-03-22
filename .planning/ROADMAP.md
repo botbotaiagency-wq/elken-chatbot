@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Webhook Gateway** - Public chat endpoint, API key auth, language detection, and intent classification (completed 2026-03-21)
 - [x] **Phase 4: Admin Dashboard** - Bot configuration UI, FAQ/template management, testing console (completed 2026-03-21)
 - [x] **Phase 5: Booking System** - GenQi booking state machine, staff admin, and automated notifications (completed 2026-03-22)
-- [ ] **Phase 6: Analytics** - Message volume, intent breakdown, latency, booking reports, and CSV export
+- [x] **Phase 6: Analytics** - Message volume, intent breakdown, latency, booking reports, and CSV export (completed 2026-03-22)
 - [ ] **Phase 7: Integration and Launch** - Elken seed data, n8n integration snippets, and end-to-end smoke test
 
 ## Phase Details
@@ -121,7 +121,7 @@ Plans:
 Plans:
 - [x] 06-00-PLAN.md — Wave 0: test stub files for analytics API route and CSV utility (Nyquist compliance)
 - [x] 06-01-PLAN.md — Install shadcn chart, SQL RPCs migration, CSV utility, analytics query library, and API route
-- [ ] 06-02-PLAN.md — Analytics dashboard page with bot selector, date filter, 3-tab layout (Message Stats, Booking Reports, Survey), charts, tables, and CSV export
+- [x] 06-02-PLAN.md — Analytics dashboard page with bot selector, date filter, 3-tab layout (Message Stats, Booking Reports, Survey), charts, tables, and CSV export
 
 ### Phase 7: Integration and Launch
 **Goal**: Elken is live on WhatsApp and Telegram with all seed data in place and the end-to-end flow validated through a real n8n pipeline
@@ -145,5 +145,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 3. Webhook Gateway | 2/2 | Complete   | 2026-03-21 |
 | 4. Admin Dashboard | 5/5 | Complete   | 2026-03-21 |
 | 5. Booking System | 6/6 | Complete   | 2026-03-22 |
-| 6. Analytics | 2/3 | In Progress|  |
+| 6. Analytics | 3/3 | Complete   | 2026-03-22 |
 | 7. Integration and Launch | 0/TBD | Not started | - |
