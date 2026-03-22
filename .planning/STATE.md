@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 05-booking-system-05-PLAN.md
-last_updated: "2026-03-22T09:34:55.389Z"
+stopped_at: Completed 05-booking-system-06-PLAN.md
+last_updated: "2026-03-22T09:41:40.016Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 22
-  completed_plans: 21
+  completed_plans: 22
   percent: 0
 ---
 
@@ -73,6 +73,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 05-booking-system P03 | 2min | 2 tasks | 2 files |
 | Phase 05-booking-system P04 | 3.5min | 2 tasks | 4 files |
 | Phase 05-booking-system P05 | 1min | 2 tasks | 2 files |
+| Phase 05-booking-system P06 | 4min | 1 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -139,6 +140,9 @@ Recent decisions affecting current work:
 - [Phase 05-booking-system]: export const dynamic = 'force-dynamic' prevents Next.js caching the cron dispatch endpoint
 - [Phase 05-booking-system]: Reminder window is 23-25h (not exactly 24h) — 2h window ensures 15-min cron catches bookings at the 24h mark
 - [Phase 05-booking-system]: Non-production guard uses VERCEL_ENV presence: local dev has none (no guard), preview has VERCEL_ENV=preview (guard fires), production has VERCEL_ENV=production (no guard)
+- [Phase 05-booking-system]: Survey lookup supports bookingId OR userId — n8n workflow can pass either identifier
+- [Phase 05-booking-system]: export const dynamic removed from cron dispatch — incompatible with cacheComponents: true in next.config.ts
+- [Phase 05-booking-system]: calendar.tsx --spacing(8) replaced with [--cell-size:2rem] — Tailwind v3 does not support v4 spacing function syntax; Turbopack rejects it
 
 ### Pending Todos
 
@@ -152,6 +156,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T09:34:55.386Z
-Stopped at: Completed 05-booking-system-05-PLAN.md
+Last session: 2026-03-22T09:41:40.012Z
+Stopped at: Completed 05-booking-system-06-PLAN.md
 Resume file: None

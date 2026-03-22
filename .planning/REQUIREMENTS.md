@@ -78,8 +78,8 @@
 ### Notifications
 
 - [x] **NOTIF-01**: Booking confirmation message is sent to the customer's channel (WhatsApp/Telegram) when staff approves
-- [ ] **NOTIF-02**: 24-hour reminder message is sent automatically before the customer's session
-- [ ] **NOTIF-03**: Post-session survey message is sent automatically on the booking date or after session completion
+- [x] **NOTIF-02**: 24-hour reminder message is sent automatically before the customer's session
+- [x] **NOTIF-03**: Post-session survey message is sent automatically on the booking date or after session completion
 - [x] **NOTIF-04**: Notification delivery is tracked (reminder_sent, survey_sent flags on the booking record)
 
 ### Analytics & Reporting
@@ -222,8 +222,8 @@
 | BADM-06 | Phase 5 — Booking System | Complete |
 | BADM-07 | Phase 5 — Booking System | Complete |
 | NOTIF-01 | Phase 5 — Booking System | Complete |
-| NOTIF-02 | Phase 5 — Booking System | Pending |
-| NOTIF-03 | Phase 5 — Booking System | Pending |
+| NOTIF-02 | Phase 5 — Booking System | Complete |
+| NOTIF-03 | Phase 5 — Booking System | Complete |
 | NOTIF-04 | Phase 5 — Booking System | Complete |
 | ANAL-01 | Phase 6 — Analytics | Pending |
 | ANAL-02 | Phase 6 — Analytics | Pending |
