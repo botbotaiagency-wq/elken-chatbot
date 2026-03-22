@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 05-booking-system-03-PLAN.md
-last_updated: "2026-03-22T09:24:56.441Z"
+stopped_at: Completed 05-booking-system-04-PLAN.md
+last_updated: "2026-03-22T09:31:41.834Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 22
-  completed_plans: 19
+  completed_plans: 20
   percent: 0
 ---
 
@@ -71,6 +71,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 05-booking-system P01 | 3min | 2 tasks | 10 files |
 | Phase 05-booking-system P02 | 242s | 2 tasks | 3 files |
 | Phase 05-booking-system P03 | 2min | 2 tasks | 2 files |
+| Phase 05-booking-system P04 | 3.5min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -132,6 +133,8 @@ Recent decisions affecting current work:
 - [Phase 05-booking-system]: feature_flags.booking_enabled gates all booking code — platform reusable for non-booking bots
 - [Phase 05-booking-system]: Confirm action triggers notification fire-and-forget (not awaited) — response latency must not depend on n8n delivery
 - [Phase 05-booking-system]: dispatchNotification returns boolean, never throws — callers handle retry policy independently
+- [Phase 05-booking-system]: Bot selector shown at top of /dashboard/bookings — bookings are per-bot so a bot must be selected before data loads
+- [Phase 05-booking-system]: facilities POST uses upsert with onConflict: bot_id,facility_type — atomic save-all for all 6 facility config rows
 
 ### Pending Todos
 
@@ -145,6 +148,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T09:24:48.778Z
-Stopped at: Completed 05-booking-system-03-PLAN.md
+Last session: 2026-03-22T09:31:41.831Z
+Stopped at: Completed 05-booking-system-04-PLAN.md
 Resume file: None
