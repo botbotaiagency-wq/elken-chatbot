@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Phase 5 context gathered
-last_updated: "2026-03-22T03:32:58.872Z"
+stopped_at: Completed 05-booking-system-01-PLAN.md
+last_updated: "2026-03-22T04:09:07.869Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
   completed_phases: 4
-  total_plans: 16
-  completed_plans: 16
+  total_plans: 22
+  completed_plans: 17
   percent: 0
 ---
 
@@ -68,6 +68,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 04-admin-dashboard P03 | 3min | 2 tasks | 2 files |
 | Phase 04-admin-dashboard P02 | 236s | 2 tasks | 4 files |
 | Phase 04-admin-dashboard P04 | 3min | 2 tasks | 3 files |
+| Phase 05-booking-system P01 | 3min | 2 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -121,6 +122,9 @@ Recent decisions affecting current work:
 - [Phase 04-admin-dashboard]: language_override applied after detection so intent classification uses original message language
 - [Phase 04-admin-dashboard]: test-chat route duplicates chat route logic intentionally — API key auth is woven through original, extraction would be premature refactor
 - [Phase 04-admin-dashboard]: Debug data fetched after stream completes via separate GET — keeps streaming protocol clean, debug non-blocking
+- [Phase 05-booking-system]: facilities_config as separate table (not jsonb on bots): enables per-row RLS, proper indexing, and simpler admin UI for 6 facility types each with 4 config fields
+- [Phase 05-booking-system]: check_and_create_booking RPC is mandatory for all booking inserts — uses SELECT FOR UPDATE to atomically prevent double-booking race conditions (BOOK-06)
+- [Phase 05-booking-system]: find_next_available_slots hardcodes Asia/Kuala_Lumpur for business hours (09:00-18:00) — all GenQi locations are in Malaysia
 
 ### Pending Todos
 
@@ -134,6 +138,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T03:32:58.867Z
-Stopped at: Phase 5 context gathered
-Resume file: .planning/phases/05-booking-system/05-CONTEXT.md
+Last session: 2026-03-22T04:09:07.866Z
+Stopped at: Completed 05-booking-system-01-PLAN.md
+Resume file: None

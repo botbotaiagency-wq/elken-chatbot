@@ -48,18 +48,18 @@
 ### Booking Flow (Elken GenQi — feature-flagged per bot)
 
 - [ ] **BOOK-01**: When intent is `book_session`, bot enters a conversational booking state machine stored in `conversation.metadata`
-- [ ] **BOOK-02**: Customer selects facility type: Bed (Female), Bed (Male), Bed (Unisex — Subang only), Inhaler, Meeting Room Small (OKR only, max 8 pax), Meeting Room Large (OKR only, max 50 pax)
+- [x] **BOOK-02**: Customer selects facility type: Bed (Female), Bed (Male), Bed (Unisex — Subang only), Inhaler, Meeting Room Small (OKR only, max 8 pax), Meeting Room Large (OKR only, max 50 pax)
 - [ ] **BOOK-03**: Customer selects location: GenQi Old Klang Road or GenQi Subang; Meeting Rooms are only available at Old Klang Road; Unisex Bed is only at Subang
 - [ ] **BOOK-04**: Customer selects available date and time slot; bot checks capacity and last-booking cutoffs per facility type
 - [ ] **BOOK-05**: If selected slot is fully booked, bot automatically suggests the next 3 available alternative date/time slots
-- [ ] **BOOK-06**: Slot checking uses a `SELECT FOR UPDATE` transaction to prevent double-booking race conditions
+- [x] **BOOK-06**: Slot checking uses a `SELECT FOR UPDATE` transaction to prevent double-booking race conditions
 - [ ] **BOOK-07**: Bot captures: Member Name, Member ID (if applicable), Contact Number, Booking Location, Facility Type, On Loan Unit, Elken member status (YES/NO), Has BES device (for bed bookings)
 - [ ] **BOOK-08**: Customer reviews a full booking summary and confirms before submission
-- [ ] **BOOK-09**: Confirmed booking is created with status `pending` — requires staff approval before `confirmed`
+- [x] **BOOK-09**: Confirmed booking is created with status `pending` — requires staff approval before `confirmed`
 - [ ] **BOOK-10**: Member + Bed/Inhaler path: ask for BES device, submit for staff approval; confirmation message sent upon staff approval
 - [ ] **BOOK-11**: Non-member + Bed/Inhaler path: bot responds "Our specialist will contact you within 24 hours"; booking created as pending
 - [ ] **BOOK-12**: Meeting Room path: Elken members only with valid ID; submit for staff approval; confirm directly
-- [ ] **BOOK-13**: Unisex Bed constraint: mixing genders at the same time slot is not permitted; bot enforces this during slot selection
+- [x] **BOOK-13**: Unisex Bed constraint: mixing genders at the same time slot is not permitted; bot enforces this during slot selection
 - [ ] **BOOK-14**: Confirmation message is automatically sent to the customer when staff approves the booking
 - [ ] **BOOK-15**: Automated 24-hour reminder message is sent to the customer before their session
 - [ ] **BOOK-16**: Post-session survey is automatically sent on the booking date (or after session completes)
@@ -72,7 +72,7 @@
 - [ ] **BADM-03**: Staff can confirm, cancel, or mark a booking as no-show from the admin dashboard
 - [ ] **BADM-04**: Staff can register a walk-in customer directly from the admin dashboard (creates a booking with status `walk_in`)
 - [ ] **BADM-05**: Staff can edit and update calendar entries (date, time, facility, notes)
-- [ ] **BADM-06**: Every change to a booking is logged in an audit trail: action, who, timestamp, note — stored in `audit_log` jsonb on the booking record
+- [x] **BADM-06**: Every change to a booking is logged in an audit trail: action, who, timestamp, note — stored in `audit_log` jsonb on the booking record
 - [ ] **BADM-07**: Audit trail is visible per booking (collapsible in the UI)
 
 ### Notifications
@@ -80,7 +80,7 @@
 - [ ] **NOTIF-01**: Booking confirmation message is sent to the customer's channel (WhatsApp/Telegram) when staff approves
 - [ ] **NOTIF-02**: 24-hour reminder message is sent automatically before the customer's session
 - [ ] **NOTIF-03**: Post-session survey message is sent automatically on the booking date or after session completion
-- [ ] **NOTIF-04**: Notification delivery is tracked (reminder_sent, survey_sent flags on the booking record)
+- [x] **NOTIF-04**: Notification delivery is tracked (reminder_sent, survey_sent flags on the booking record)
 
 ### Analytics & Reporting
 
@@ -198,18 +198,18 @@
 | TEST-03 | Phase 4 — Admin Dashboard | Complete |
 | TEST-04 | Phase 4 — Admin Dashboard | Complete |
 | BOOK-01 | Phase 5 — Booking System | Pending |
-| BOOK-02 | Phase 5 — Booking System | Pending |
+| BOOK-02 | Phase 5 — Booking System | Complete |
 | BOOK-03 | Phase 5 — Booking System | Pending |
 | BOOK-04 | Phase 5 — Booking System | Pending |
 | BOOK-05 | Phase 5 — Booking System | Pending |
-| BOOK-06 | Phase 5 — Booking System | Pending |
+| BOOK-06 | Phase 5 — Booking System | Complete |
 | BOOK-07 | Phase 5 — Booking System | Pending |
 | BOOK-08 | Phase 5 — Booking System | Pending |
-| BOOK-09 | Phase 5 — Booking System | Pending |
+| BOOK-09 | Phase 5 — Booking System | Complete |
 | BOOK-10 | Phase 5 — Booking System | Pending |
 | BOOK-11 | Phase 5 — Booking System | Pending |
 | BOOK-12 | Phase 5 — Booking System | Pending |
-| BOOK-13 | Phase 5 — Booking System | Pending |
+| BOOK-13 | Phase 5 — Booking System | Complete |
 | BOOK-14 | Phase 5 — Booking System | Pending |
 | BOOK-15 | Phase 5 — Booking System | Pending |
 | BOOK-16 | Phase 5 — Booking System | Pending |
@@ -219,12 +219,12 @@
 | BADM-03 | Phase 5 — Booking System | Pending |
 | BADM-04 | Phase 5 — Booking System | Pending |
 | BADM-05 | Phase 5 — Booking System | Pending |
-| BADM-06 | Phase 5 — Booking System | Pending |
+| BADM-06 | Phase 5 — Booking System | Complete |
 | BADM-07 | Phase 5 — Booking System | Pending |
 | NOTIF-01 | Phase 5 — Booking System | Pending |
 | NOTIF-02 | Phase 5 — Booking System | Pending |
 | NOTIF-03 | Phase 5 — Booking System | Pending |
-| NOTIF-04 | Phase 5 — Booking System | Pending |
+| NOTIF-04 | Phase 5 — Booking System | Complete |
 | ANAL-01 | Phase 6 — Analytics | Pending |
 | ANAL-02 | Phase 6 — Analytics | Pending |
 | ANAL-03 | Phase 6 — Analytics | Pending |
