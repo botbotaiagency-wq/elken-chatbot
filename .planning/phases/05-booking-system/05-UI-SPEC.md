@@ -71,11 +71,11 @@ Exceptions:
 | Role | Size | Weight | Line Height | Tailwind class |
 |------|------|--------|-------------|----------------|
 | Body | 14px | 400 (regular) | 1.5 | `text-sm` |
-| Label | 14px | 500 (medium) | 1.5 | `text-sm font-medium` |
+| Label | 14px | 600 (semibold) | 1.5 | `text-sm font-semibold` |
 | Heading (card/section) | 16px | 600 (semibold) | 1.2 | `text-base font-semibold` |
 | Page title | 24px | 600 (semibold) | 1.2 | `text-2xl font-semibold` |
 
-Weights used: 400 (regular) and 600 (semibold). Medium (500) for labels only — treated as a sub-variant of the two primary weights.
+Weights used: 400 (regular) and 600 (semibold). Two weights only — `font-medium` (500) is not used in this phase.
 
 **Source:** Detected from `app/dashboard/bots/[botId]/api-keys/page.tsx` — `h1` uses `text-2xl font-semibold`; table cells and descriptions use `text-sm`; card titles use `font-semibold`.
 
@@ -149,7 +149,7 @@ Status badge color mapping (using shadcn Badge variants + Tailwind overrides):
 | Date/Time | `Input type="datetime-local"` | Standard HTML input, styled with shadcn Input class |
 | Notes | `Textarea` (shadcn) | Optional field |
 | Submit CTA | `Button` full-width | "Register Walk-in" |
-| Cancel | `Button` variant="outline" full-width | "Cancel" |
+| Cancel | `Button` variant="outline" full-width | "Go Back" |
 
 ### Booking Detail Sheet
 
@@ -214,6 +214,7 @@ Status badge color mapping (using shadcn Badge variants + Tailwind overrides):
 | Notification failed indicator | "Notif failed" (badge) — hover tooltip: "Notification delivery failed after 3 retries." |
 | Walk-in dialog title | "Register Walk-in Customer" |
 | Walk-in dialog description | "Walk-in bookings are confirmed immediately — no staff approval required." |
+| Walk-in dialog cancel button | "Go Back" |
 | Facility config tab label | "Booking" |
 | n8n outbound webhook label | "n8n Outbound Webhook URL" |
 | n8n webhook helper text | "The URL n8n will receive booking notifications on. Required for confirmation, reminders, and survey messages." |
@@ -258,8 +259,10 @@ Status badge color mapping (using shadcn Badge variants + Tailwind overrides):
   DialogHeader "Register Walk-in Customer"
   [Form fields: Name, Member ID, Contact, Member status, Facility, Location, Date/Time, Notes]
   Button "Register Walk-in" (primary, full-width)
-  Button "Cancel" (outline, full-width)
+  Button "Go Back" (outline, full-width)
 ```
+
+Primary focal point: "Register Walk-in" primary Button in the CardHeader — sole primary-variant Button on the page.
 
 ---
 
