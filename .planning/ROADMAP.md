@@ -119,7 +119,7 @@ Plans:
   5. Every report is exportable to CSV with a single action
 **Plans**: 3 plans
 Plans:
-- [ ] 06-00-PLAN.md — Wave 0: test stub files for analytics API route and CSV utility (Nyquist compliance)
+- [x] 06-00-PLAN.md — Wave 0: test stub files for analytics API route and CSV utility (Nyquist compliance)
 - [ ] 06-01-PLAN.md — Install shadcn chart, SQL RPCs migration, CSV utility, analytics query library, and API route
 - [ ] 06-02-PLAN.md — Analytics dashboard page with bot selector, date filter, 3-tab layout (Message Stats, Booking Reports, Survey), charts, tables, and CSV export
 
@@ -145,5 +145,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 3. Webhook Gateway | 2/2 | Complete   | 2026-03-21 |
 | 4. Admin Dashboard | 5/5 | Complete   | 2026-03-21 |
 | 5. Booking System | 6/6 | Complete   | 2026-03-22 |
-| 6. Analytics | 0/2 | Not started | - |
+| 6. Analytics | 1/3 | In Progress|  |
 | 7. Integration and Launch | 0/TBD | Not started | - |

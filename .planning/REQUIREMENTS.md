@@ -84,18 +84,18 @@
 
 ### Analytics & Reporting
 
-- [ ] **ANAL-01**: Total message volume chart: today / 7d / 30d, filterable by channel
-- [ ] **ANAL-02**: Intent breakdown pie chart: browse_product / health_issue / book_session / faq / unknown
-- [ ] **ANAL-03**: Unanswered queries log: messages where rag_found = false, sorted by frequency
-- [ ] **ANAL-04**: Response latency p50 / p95 per bot
-- [ ] **ANAL-05**: Confirmed bookings report: total confirmed per period, filterable by location
-- [ ] **ANAL-06**: Cancellation requests report: all cancellations with timestamps and full audit history
-- [ ] **ANAL-07**: Facility type breakdown report: sessions booked by facility type
-- [ ] **ANAL-08**: Location volume report: bookings at Old Klang Road vs Subang
-- [ ] **ANAL-09**: Full audit trail report: complete change log for all calendar edits and cancellations
-- [ ] **ANAL-10**: Customer satisfaction report: post-session survey responses collected
-- [ ] **ANAL-11**: Booking funnel: enquiry started → booking submitted → confirmed → attended
-- [ ] **ANAL-12**: All reports are exportable to CSV
+- [x] **ANAL-01**: Total message volume chart: today / 7d / 30d, filterable by channel
+- [x] **ANAL-02**: Intent breakdown pie chart: browse_product / health_issue / book_session / faq / unknown
+- [x] **ANAL-03**: Unanswered queries log: messages where rag_found = false, sorted by frequency
+- [x] **ANAL-04**: Response latency p50 / p95 per bot
+- [x] **ANAL-05**: Confirmed bookings report: total confirmed per period, filterable by location
+- [x] **ANAL-06**: Cancellation requests report: all cancellations with timestamps and full audit history
+- [x] **ANAL-07**: Facility type breakdown report: sessions booked by facility type
+- [x] **ANAL-08**: Location volume report: bookings at Old Klang Road vs Subang
+- [x] **ANAL-09**: Full audit trail report: complete change log for all calendar edits and cancellations
+- [x] **ANAL-10**: Customer satisfaction report: post-session survey responses collected
+- [x] **ANAL-11**: Booking funnel: enquiry started → booking submitted → confirmed → attended
+- [x] **ANAL-12**: All reports are exportable to CSV
 
 ### API Keys & Integration
 
@@ -225,18 +225,18 @@
 | NOTIF-02 | Phase 5 — Booking System | Complete |
 | NOTIF-03 | Phase 5 — Booking System | Complete |
 | NOTIF-04 | Phase 5 — Booking System | Complete |
-| ANAL-01 | Phase 6 — Analytics | Pending |
-| ANAL-02 | Phase 6 — Analytics | Pending |
-| ANAL-03 | Phase 6 — Analytics | Pending |
-| ANAL-04 | Phase 6 — Analytics | Pending |
-| ANAL-05 | Phase 6 — Analytics | Pending |
-| ANAL-06 | Phase 6 — Analytics | Pending |
-| ANAL-07 | Phase 6 — Analytics | Pending |
-| ANAL-08 | Phase 6 — Analytics | Pending |
-| ANAL-09 | Phase 6 — Analytics | Pending |
-| ANAL-10 | Phase 6 — Analytics | Pending |
-| ANAL-11 | Phase 6 — Analytics | Pending |
-| ANAL-12 | Phase 6 — Analytics | Pending |
+| ANAL-01 | Phase 6 — Analytics | Complete |
+| ANAL-02 | Phase 6 — Analytics | Complete |
+| ANAL-03 | Phase 6 — Analytics | Complete |
+| ANAL-04 | Phase 6 — Analytics | Complete |
+| ANAL-05 | Phase 6 — Analytics | Complete |
+| ANAL-06 | Phase 6 — Analytics | Complete |
+| ANAL-07 | Phase 6 — Analytics | Complete |
+| ANAL-08 | Phase 6 — Analytics | Complete |
+| ANAL-09 | Phase 6 — Analytics | Complete |
+| ANAL-10 | Phase 6 — Analytics | Complete |
+| ANAL-11 | Phase 6 — Analytics | Complete |
+| ANAL-12 | Phase 6 — Analytics | Complete |
 | SEED-01 | Phase 7 — Integration and Launch | Pending |
 | SEED-02 | Phase 7 — Integration and Launch | Pending |
 | SEED-03 | Phase 7 — Integration and Launch | Pending |
