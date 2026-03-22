@@ -265,7 +265,7 @@ export default function AnalyticsPage() {
 
     if (activeTab === 'booking-reports') {
       const locationExtra = confirmedLocation !== 'all' ? `location=${confirmedLocation}` : undefined
-      fetchWithCache<any[]>('confirmed', setConfirmedData, locationExtra ? `confirmed:${confirmedLocation}` : undefined)
+      fetchWithCache<any[]>('confirmed', setConfirmedData, locationExtra)
       fetchWithCache<{ enquiries: number; submitted: number; confirmed: number; attended: number }>('funnel', setFunnelData)
       fetchWithCache<{ facility_type: string; count: number }[]>('facility', setFacilityData)
       fetchWithCache<{ okr: number; subang: number }>('location', setLocationData)
