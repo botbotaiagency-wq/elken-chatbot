@@ -98,7 +98,14 @@ Plans:
   3. When staff approve a booking, a confirmation message is automatically sent to the customer's WhatsApp/Telegram channel; a 24-hour reminder and post-session survey are sent automatically
   4. Double-booking is prevented: two simultaneous requests for the same slot result in exactly one confirmed booking
   5. Staff can register a walk-in customer directly from the admin dashboard and view all bookings filtered by location, date, status, and facility type
-**Plans**: TBD
+**Plans**: 6 plans
+Plans:
+- [ ] 05-01-PLAN.md — Database schema (bookings, facilities_config tables), RPC functions (slot check, status update, field edit, find slots), RLS policies, TypeScript types, shadcn components
+- [ ] 05-02-PLAN.md — Booking state machine (conversational flow handler), slot checker library, chat endpoint integration
+- [ ] 05-03-PLAN.md — Booking admin API routes (list, walk-in, status change, edit) and n8n notification dispatcher
+- [ ] 05-04-PLAN.md — Bookings management page (filterable table, walk-in dialog, detail sheet, audit trail) and facility configuration page
+- [ ] 05-05-PLAN.md — Notification dispatch cron route (Vercel Cron for reminders and surveys) and vercel.json configuration
+- [ ] 05-06-PLAN.md — Survey response endpoint and full build verification
 
 ### Phase 6: Analytics
 **Goal**: Admin and super-admin can see how the bot is performing — message volume, intent distribution, unanswered queries, latency, and booking funnel — and export any report to CSV
@@ -133,6 +140,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 2. RAG Pipeline | 6/6 | Complete   | 2026-03-20 |
 | 3. Webhook Gateway | 2/2 | Complete   | 2026-03-21 |
 | 4. Admin Dashboard | 5/5 | Complete   | 2026-03-21 |
-| 5. Booking System | 0/TBD | Not started | - |
+| 5. Booking System | 0/6 | Not started | - |
 | 6. Analytics | 0/TBD | Not started | - |
 | 7. Integration and Launch | 0/TBD | Not started | - |
