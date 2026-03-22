@@ -1,8 +1,6 @@
 import { createServiceClient } from '@/lib/supabase/service'
 import { dispatchNotification } from '@/lib/booking/notifications'
 
-export const dynamic = 'force-dynamic'
-
 export async function GET(req: Request) {
   // 1. Validate CRON_SECRET
   const authHeader = req.headers.get('authorization')
