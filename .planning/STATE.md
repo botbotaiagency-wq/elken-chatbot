@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 06-analytics-00-PLAN.md
-last_updated: "2026-03-22T16:39:30.555Z"
+stopped_at: Completed 06-analytics-01-PLAN.md
+last_updated: "2026-03-22T16:41:26.114Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
   completed_phases: 5
   total_plans: 25
-  completed_plans: 23
+  completed_plans: 24
   percent: 0
 ---
 
@@ -77,6 +77,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 05-booking-system P05 | 1min | 2 tasks | 2 files |
 | Phase 05-booking-system P06 | 4min | 1 tasks | 3 files |
 | Phase 06-analytics P00 | 2min | 2 tasks | 3 files |
+| Phase 06-analytics P01 | 2min | 3 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -147,6 +148,9 @@ Recent decisions affecting current work:
 - [Phase 05-booking-system]: export const dynamic removed from cron dispatch — incompatible with cacheComponents: true in next.config.ts
 - [Phase 05-booking-system]: calendar.tsx --spacing(8) replaced with [--cell-size:2rem] — Tailwind v3 does not support v4 spacing function syntax; Turbopack rejects it
 - [Phase 06-analytics]: Analytics Wave 0 stubs use passing expect(true).toBe(true) assertions (not it.todo()) so vitest exits 0 — required by plan success criteria
+- [Phase 06-analytics]: Single GET route with handlers map for all 11 analytics reports — one endpoint simpler than 11 separate routes
+- [Phase 06-analytics]: SECURITY DEFINER on all SQL RPCs — service role aggregate queries bypass RLS
+- [Phase 06-analytics]: downloadCsv returns early on empty array — prevents header-only file with no useful data
 
 ### Pending Todos
 
@@ -160,6 +164,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T16:39:30.552Z
-Stopped at: Completed 06-analytics-00-PLAN.md
+Last session: 2026-03-22T16:41:26.110Z
+Stopped at: Completed 06-analytics-01-PLAN.md
 Resume file: None
