@@ -117,8 +117,9 @@ Plans:
   3. Admin can view booking reports: confirmed bookings per period, cancellations with full audit history, facility type breakdown, location volume (Old Klang Road vs Subang), and booking funnel from enquiry to attended
   4. Admin can view a customer satisfaction report showing all post-session survey responses
   5. Every report is exportable to CSV with a single action
-**Plans**: 2 plans
+**Plans**: 3 plans
 Plans:
+- [ ] 06-00-PLAN.md — Wave 0: test stub files for analytics API route and CSV utility (Nyquist compliance)
 - [ ] 06-01-PLAN.md — Install shadcn chart, SQL RPCs migration, CSV utility, analytics query library, and API route
 - [ ] 06-02-PLAN.md — Analytics dashboard page with bot selector, date filter, 3-tab layout (Message Stats, Booking Reports, Survey), charts, tables, and CSV export
 
