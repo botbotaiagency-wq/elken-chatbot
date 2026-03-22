@@ -117,7 +117,10 @@ Plans:
   3. Admin can view booking reports: confirmed bookings per period, cancellations with full audit history, facility type breakdown, location volume (Old Klang Road vs Subang), and booking funnel from enquiry to attended
   4. Admin can view a customer satisfaction report showing all post-session survey responses
   5. Every report is exportable to CSV with a single action
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 06-01-PLAN.md — Install shadcn chart, SQL RPCs migration, CSV utility, analytics query library, and API route
+- [ ] 06-02-PLAN.md — Analytics dashboard page with bot selector, date filter, 3-tab layout (Message Stats, Booking Reports, Survey), charts, tables, and CSV export
 
 ### Phase 7: Integration and Launch
 **Goal**: Elken is live on WhatsApp and Telegram with all seed data in place and the end-to-end flow validated through a real n8n pipeline
@@ -141,5 +144,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 3. Webhook Gateway | 2/2 | Complete   | 2026-03-21 |
 | 4. Admin Dashboard | 5/5 | Complete   | 2026-03-21 |
 | 5. Booking System | 6/6 | Complete   | 2026-03-22 |
-| 6. Analytics | 0/TBD | Not started | - |
+| 6. Analytics | 0/2 | Not started | - |
 | 7. Integration and Launch | 0/TBD | Not started | - |
