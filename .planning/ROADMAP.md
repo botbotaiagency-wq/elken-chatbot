@@ -140,6 +140,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 2. RAG Pipeline | 6/6 | Complete   | 2026-03-20 |
 | 3. Webhook Gateway | 2/2 | Complete   | 2026-03-21 |
 | 4. Admin Dashboard | 5/5 | Complete   | 2026-03-21 |
-| 5. Booking System | 4/6 | In Progress|  |
+| 5. Booking System | 5/6 | In Progress|  |
 | 6. Analytics | 0/TBD | Not started | - |
 | 7. Integration and Launch | 0/TBD | Not started | - |

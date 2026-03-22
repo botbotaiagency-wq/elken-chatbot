@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 05-booking-system-04-PLAN.md
-last_updated: "2026-03-22T09:31:41.834Z"
+stopped_at: Completed 05-booking-system-05-PLAN.md
+last_updated: "2026-03-22T09:34:55.389Z"
 last_activity: 2026-03-18 — Roadmap created
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 22
-  completed_plans: 20
+  completed_plans: 21
   percent: 0
 ---
 
@@ -72,6 +72,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 05-booking-system P02 | 242s | 2 tasks | 3 files |
 | Phase 05-booking-system P03 | 2min | 2 tasks | 2 files |
 | Phase 05-booking-system P04 | 3.5min | 2 tasks | 4 files |
+| Phase 05-booking-system P05 | 1min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -135,6 +136,9 @@ Recent decisions affecting current work:
 - [Phase 05-booking-system]: dispatchNotification returns boolean, never throws — callers handle retry policy independently
 - [Phase 05-booking-system]: Bot selector shown at top of /dashboard/bookings — bookings are per-bot so a bot must be selected before data loads
 - [Phase 05-booking-system]: facilities POST uses upsert with onConflict: bot_id,facility_type — atomic save-all for all 6 facility config rows
+- [Phase 05-booking-system]: export const dynamic = 'force-dynamic' prevents Next.js caching the cron dispatch endpoint
+- [Phase 05-booking-system]: Reminder window is 23-25h (not exactly 24h) — 2h window ensures 15-min cron catches bookings at the 24h mark
+- [Phase 05-booking-system]: Non-production guard uses VERCEL_ENV presence: local dev has none (no guard), preview has VERCEL_ENV=preview (guard fires), production has VERCEL_ENV=production (no guard)
 
 ### Pending Todos
 
@@ -148,6 +152,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T09:31:41.831Z
-Stopped at: Completed 05-booking-system-04-PLAN.md
+Last session: 2026-03-22T09:34:55.386Z
+Stopped at: Completed 05-booking-system-05-PLAN.md
 Resume file: None
