@@ -5,6 +5,8 @@ import { retrieveContext } from '@/lib/rag/retrieve'
 import { buildSystemPrompt } from '@/lib/rag/prompt'
 import { logMessage, getOrCreateConversation } from '@/lib/rag/logger'
 import { createServiceClient } from '@/lib/supabase/service'
+import { handleBookingFlow, isBookingExpired } from '@/lib/booking/state-machine'
+import type { BookingState } from '@/lib/booking/types'
 import type { Language } from '@/types/database'
 
 export const maxDuration = 60
@@ -22,7 +24,7 @@ export async function POST(
   const supabase = createServiceClient()
   const { data: bot, error: botError } = await supabase
     .from('bots')
-    .select('id, api_key_hash, name, greeting_en, greeting_bm, greeting_zh, tone, fallback_message, blocked_keywords, refuse_message, disclaimer_text, max_response_length, off_topic_message')
+    .select('id, api_key_hash, name, greeting_en, greeting_bm, greeting_zh, tone, fallback_message, blocked_keywords, refuse_message, disclaimer_text, max_response_length, off_topic_message, feature_flags')
     .eq('id', botId)
     .single()
 
@@ -116,6 +118,14 @@ export async function POST(
     // 4. Get or create conversation
     const conversationId = await getOrCreateConversation(botId, userId, channel, inputConversationId)
 
+    // 4b. Check for active booking state
+    const { data: convData } = await supabase
+      .from('conversations')
+      .select('metadata')
+      .eq('id', conversationId)
+      .single()
+    const bookingState = (convData?.metadata as Record<string, unknown>)?.booking as BookingState | null
+
     // 5. Log user message (intent/rag fields null for user messages)
     await logMessage({
       conversationId,
@@ -128,10 +138,93 @@ export async function POST(
       latencyMs: null,
     })
 
+    // 5b. Check booking state BEFORE intent detection
+    // If booking is active, route to booking handler directly — even if intent is not book_session
+    // This prevents intent misclassification of booking responses (e.g., "yes" → general, "3" → unknown)
+    const featureFlags = (bot as Record<string, unknown>).feature_flags as Record<string, unknown> | null
+    if (bookingState && !isBookingExpired(bookingState) && featureFlags?.booking_enabled) {
+      const result = await handleBookingFlow({
+        conversationId,
+        botId,
+        message,
+        state: bookingState,
+        detection: { intent: 'book_session', language: 'en' }, // language doesn't matter for booking prompts
+        userId,
+        channel,
+      })
+
+      // Log the assistant booking response
+      const latencyMs = Date.now() - startTime
+      await logMessage({
+        conversationId,
+        botId,
+        role: 'assistant',
+        content: result.response,
+        intent: 'book_session',
+        sourceChunks: null,
+        ragFound: null,
+        latencyMs,
+      })
+
+      return new Response(result.response, {
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'X-Conversation-Id': conversationId,
+          'X-Intent': 'book_session',
+          'X-Language': 'en',
+          'X-Rag-Found': 'false',
+        },
+      })
+    }
+
+    // Also check for expired booking state and clear it
+    if (bookingState && isBookingExpired(bookingState)) {
+      await supabase
+        .from('conversations')
+        .update({ metadata: {}, updated_at: new Date().toISOString() })
+        .eq('id', conversationId)
+      // Fall through to normal intent detection — the expired message will be handled below
+    }
+
     // 6. Detect intent and language
     const detection = await detectIntentAndLanguage(message)
     if (language_override && ['en', 'bm', 'zh'].includes(language_override)) {
       detection.language = language_override as Language
+    }
+
+    // 6b. Check if this is a new booking request
+    if (detection.intent === 'book_session' && featureFlags?.booking_enabled) {
+      const result = await handleBookingFlow({
+        conversationId,
+        botId,
+        message,
+        state: null, // New booking — no existing state
+        detection,
+        userId,
+        channel,
+      })
+
+      const latencyMs = Date.now() - startTime
+      await logMessage({
+        conversationId,
+        botId,
+        role: 'assistant',
+        content: result.response,
+        intent: 'book_session',
+        sourceChunks: null,
+        ragFound: null,
+        latencyMs,
+      })
+
+      return new Response(result.response, {
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'X-Conversation-Id': conversationId,
+          'X-Intent': 'book_session',
+          'X-Language': detection.language,
+          'X-Rag-Found': 'false',
+        },
+      })
     }
 
     // 7. Retrieve context (FAQ priority, chunks, products)
