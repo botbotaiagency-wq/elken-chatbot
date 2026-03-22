@@ -61,10 +61,10 @@ created: 2026-03-22
 
 ## Wave 0 Requirements
 
-- [ ] `tests/api/analytics.test.ts` — API route handler stubs for ANAL-01 through ANAL-11; follow pattern from `tests/api/config.test.ts`
-- [ ] `tests/lib/csv.test.ts` — unit test stubs for `downloadCsv` utility (ANAL-12)
-- [ ] `components/ui/chart.tsx` — install via `npx shadcn@latest add chart` (adds recharts dependency)
-- [ ] `supabase/migrations/00011_analytics.sql` — SQL RPCs: `get_latency_stats`, `get_message_volume`, `get_intent_breakdown`, `get_booking_funnel`
+- [ ] `tests/api/analytics.test.ts` — API route handler stubs for ANAL-01 through ANAL-11 (Plan 06-00 Task 1)
+- [ ] `tests/lib/csv.test.ts` — unit test stubs for `downloadCsv` utility, ANAL-12 (Plan 06-00 Task 2)
+- [ ] `components/ui/chart.tsx` — install via `npx shadcn@latest add chart` (Plan 06-01 Task 1)
+- [ ] `supabase/migrations/00011_analytics.sql` — SQL RPCs: `get_latency_stats`, `get_message_volume`, `get_intent_breakdown`, `get_booking_funnel` (Plan 06-01 Task 1)
 
 ---
 
