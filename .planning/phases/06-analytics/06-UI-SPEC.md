@@ -44,7 +44,6 @@ Standard 8-point scale in use across all prior phases. Tailwind default utility 
 | 3xl | 64px | Page-level spacing (not used in dashboard pages) |
 
 Exceptions:
-- Date filter toggle buttons: minimum 44px touch target height (`h-11`) for the segmented button group
 - Chart containers: minimum height 200px for area/line chart, 180px for bar chart — prevents collapsed empty state
 - Stat card row (booking funnel): fixed height `h-20` per card for alignment
 
@@ -181,7 +180,7 @@ All components are already installed. No new shadcn components required except `
 
 ### Booking Funnel (ANAL-11)
 - Not a chart. Four `Card` boxes in a horizontal `grid grid-cols-4 gap-4` row
-- Each box shows: label (12px muted), large count (28px semibold), conversion percentage below (12px muted)
+- Each box shows: label (12px muted, `text-xs text-muted-foreground`), large count (`text-2xl font-semibold`, 24px semibold), conversion percentage below (12px muted, `text-xs text-muted-foreground`)
 - Labels: "Enquiries", "Submitted", "Confirmed", "Attended"
 - Conversion % formula: count ÷ Enquiries × 100, rounded to 1 decimal
 - No arrows or connectors — plain stat boxes only
@@ -203,6 +202,16 @@ All components are already installed. No new shadcn components required except `
 - Table empty state: centered row inside the table body
   - "No records for this period." (14px muted-foreground, `text-center py-8`)
 - Booking funnel empty state: all 4 boxes show "0" with "—%" — do not hide the funnel row
+
+### Error State (fetch failed — network error, 500, or Supabase timeout)
+Applies to every fetch-dependent card (all chart cards, all table cards, all stat cards).
+
+- Replace the card's content area (not the CardHeader) with a centered error block:
+  - Heading: 14px semibold — "Could not load data"
+  - Body: 12px muted — "Refresh the page or try again in a moment."
+- Do not render a skeleton or empty state alongside the error — the error block replaces both.
+- The CardHeader (title + Export CSV button) remains visible. The Export CSV button is disabled (`disabled` attribute) when data failed to load — it has nothing to export.
+- Error block layout: `flex flex-col items-center justify-center gap-2 py-8 text-center`
 
 ### CSV Export
 - Button placement: top-right of each Card's `CardHeader`, alongside the card title
@@ -241,6 +250,8 @@ All components are already installed. No new shadcn components required except `
 | Chart empty heading | "No data for this period" |
 | Chart empty body | "Try selecting a longer date range or a different bot." |
 | Table empty | "No records for this period." |
+| Error state heading | "Could not load data" |
+| Error state body | "Refresh the page or try again in a moment." |
 | Loading text (accessible label) | "Loading analytics..." (aria-label on skeleton container) |
 | Tab: Message Stats | "Message Stats" |
 | Tab: Booking Reports | "Booking Reports" |
@@ -270,6 +281,7 @@ Destructive actions: none. Analytics is fully read-only. No delete, cancel, or c
 - All chart containers: `role="img"` with `aria-label` describing the chart (e.g. `aria-label="Message volume over the last 7 days"`)
 - Export buttons: `aria-label="Export {report name} as CSV"`
 - Date filter toggle buttons: use `aria-pressed` to indicate active state
+- Date filter toggle buttons: minimum 44px touch target height (`h-11`) — applied via Tailwind on the Button component wrapping each preset
 - Skeleton loading containers: `aria-busy="true"` and `aria-label="Loading analytics..."`
 - Tab navigation: shadcn `Tabs` component uses Radix — keyboard navigation (arrow keys) is handled by Radix, no custom wiring needed
 
@@ -305,6 +317,9 @@ No third-party registries. No vetting gate required.
 | Unanswered queries: table sorted by frequency | CONTEXT.md — Specific Ideas |
 | Loading skeleton (pulse, not spinner) | Claude's Discretion — standard shadcn pattern |
 | Empty state copy | Claude's Discretion — analytics phase default |
+| Error state copy and block layout | Checker revision — Dimension 1 fix |
+| Booking funnel count size corrected to text-2xl (24px) | Checker revision — Dimension 4 fix |
+| 44px touch target moved to Accessibility Contract | Checker revision — Dimension 5 fix |
 
 ---
 
