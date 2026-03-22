@@ -11,6 +11,7 @@ const TABS = [
   { label: 'Testing', path: 'testing' },
   { label: 'API Keys', path: 'api-keys' },
   { label: 'Integrations', path: 'integrations' },
+  { label: 'Booking', path: 'booking' },
 ]
 
 export default function BotDetailLayout({
