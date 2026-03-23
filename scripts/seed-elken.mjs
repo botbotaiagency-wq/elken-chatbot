@@ -206,6 +206,11 @@ function buildFaqs() {
     },
     {
       language: 'bm',
+      question: 'Siapa yang boleh menggunakan bilik mesyuarat di GenQi Old Klang Road?',
+      answer: 'Bilik mesyuarat di GenQi Old Klang Road adalah untuk ahli Elken sahaja. Kad keahlian Elken yang sah diperlukan untuk membuat tempahan. Bilik Mesyuarat Kecil memuatkan sehingga 8 orang; Bilik Mesyuarat Besar memuatkan sehingga 50 orang. Kedua-duanya dilengkapi TV dan projektor.',
+    },
+    {
+      language: 'bm',
       question: 'Di mana GenQi Subang terletak dan apakah waktu operasinya?',
       answer: 'GenQi Subang dibuka pada hari bekerja (Isnin hingga Jumaat) dari pukul 10 pagi hingga 6:30 petang. Kami tutup pada hujung minggu dan cuti umum. Hubungi kami di 0122206215 atau genqics@gmail.com.',
     },
@@ -213,6 +218,11 @@ function buildFaqs() {
       language: 'bm',
       question: 'Kemudahan apa yang tersedia di GenQi Subang?',
       answer: 'GenQi Subang menawarkan:\n• Katil (Wanita): 5 unit, sesi 1.5 jam, tempahan terakhir pukul 4:45 petang\n• Katil (Lelaki): 2 unit, sesi 1.5 jam, tempahan terakhir pukul 4:45 petang\n• Katil (Uniseks): 2 unit, sesi 1.5 jam, tempahan terakhir pukul 4:45 petang (satu jantina sahaja — tiada percampuran jantina)\n• Inhaler: 5 kerusi, sesi 30 minit atau 1 jam (tempahan terakhir: 3:45 petang untuk 30 minit, 3:15 petang untuk 1 jam)\n• Nota: Tiada bilik mesyuarat di Subang',
+    },
+    {
+      language: 'bm',
+      question: 'Adakah peranti BES tersedia di GenQi Subang?',
+      answer: 'Ya! Peranti BES tersedia untuk dipinjam bagi sesi katil di GenQi Subang — terdapat 4 unit BES. Sila maklumkan semasa membuat tempahan jika anda ingin menggunakan peranti BES.',
     },
     {
       language: 'bm',
@@ -258,6 +268,11 @@ function buildFaqs() {
     },
     {
       language: 'zh',
+      question: 'GenQi旧巴生路的会议室谁可以使用？',
+      answer: 'GenQi旧巴生路的会议室仅限Elken会员使用，预约时需出示有效的Elken会员证。小型会议室最多容纳8人，大型会议室最多容纳50人，两间会议室均配备电视和投影仪。',
+    },
+    {
+      language: 'zh',
       question: 'GenQi梳邦在哪里？营业时间是什么？',
       answer: 'GenQi梳邦仅在工作日（星期一至星期五）上午10点至下午6:30营业。周末及公共假期休息。联系方式：0122206215 或 genqics@gmail.com。',
     },
@@ -265,6 +280,11 @@ function buildFaqs() {
       language: 'zh',
       question: 'GenQi梳邦提供哪些设施？',
       answer: 'GenQi梳邦提供：\n• 床位（女士）：5个单位，每次1.5小时，最迟预订时间下午4:45\n• 床位（男士）：2个单位，每次1.5小时，最迟预订时间下午4:45\n• 床位（男女通用）：2个单位，每次1.5小时，最迟预订时间下午4:45（每次只限一种性别使用，不可男女混用）\n• 吸氧机：5张椅子，30分钟或1小时疗程（最迟预订：30分钟至下午3:45，1小时至下午3:15）\n• 注意：梳邦没有会议室',
+    },
+    {
+      language: 'zh',
+      question: 'GenQi梳邦是否提供BES设备借用？',
+      answer: '是的！GenQi梳邦提供BES设备借用服务，共有4台可供床位疗程使用。预约时请告知我们是否需要使用BES设备。',
     },
     {
       language: 'zh',
