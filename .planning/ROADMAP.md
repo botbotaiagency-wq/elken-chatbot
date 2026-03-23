@@ -134,7 +134,7 @@ Plans:
 **Plans**: 2 plans
 Plans:
 - [x] 07-01-PLAN.md — Complete Elken seed script (bot name, personality, GenQi FAQs, client response templates) and delete SQL seed
-- [ ] 07-02-PLAN.md — Automated smoke test script, manual verification checklist, and n8n setup guide
+- [x] 07-02-PLAN.md — Automated smoke test script, manual verification checklist, and n8n setup guide
 
 ## Progress
 
@@ -149,4 +149,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 4. Admin Dashboard | 5/5 | Complete   | 2026-03-21 |
 | 5. Booking System | 6/6 | Complete   | 2026-03-22 |
 | 6. Analytics | 3/3 | Complete   | 2026-03-22 |
-| 7. Integration and Launch | 1/2 | In Progress|  |
+| 7. Integration and Launch | 2/3 | In Progress|  |
