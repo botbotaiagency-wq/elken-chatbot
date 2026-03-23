@@ -114,10 +114,10 @@
 
 ### Elken Seed Data
 
-- [ ] **SEED-01**: Elken tenant, bot ("Ask Ethan Digital"), and all default configuration are created via a seed script with no manual steps
-- [ ] **SEED-02**: All Elken FAQs (locations, hours, facility rules, booking rules) are pre-seeded in EN, BM, and ZH
-- [ ] **SEED-03**: All Elken response templates (slot_full, booking_confirmed_member, booking_confirmed_nonmember, reminder_24h, post_survey, general_enquiry) are pre-seeded in EN, BM, and ZH
-- [ ] **SEED-04**: Elken personality config (bot name, greetings per language, booking module enabled) is applied by the seed script
+- [x] **SEED-01**: Elken tenant, bot ("Ask Ethan Digital"), and all default configuration are created via a seed script with no manual steps
+- [x] **SEED-02**: All Elken FAQs (locations, hours, facility rules, booking rules) are pre-seeded in EN, BM, and ZH
+- [x] **SEED-03**: All Elken response templates (slot_full, booking_confirmed_member, booking_confirmed_nonmember, reminder_24h, post_survey, no_product_found) are pre-seeded in EN, BM, and ZH
+- [x] **SEED-04**: Elken personality config (bot name, greetings per language, booking module enabled) is applied by the seed script
 
 ## v2 Requirements
 
@@ -237,10 +237,10 @@
 | ANAL-10 | Phase 6 — Analytics | Complete |
 | ANAL-11 | Phase 6 — Analytics | Complete |
 | ANAL-12 | Phase 6 — Analytics | Complete |
-| SEED-01 | Phase 7 — Integration and Launch | Pending |
-| SEED-02 | Phase 7 — Integration and Launch | Pending |
-| SEED-03 | Phase 7 — Integration and Launch | Pending |
-| SEED-04 | Phase 7 — Integration and Launch | Pending |
+| SEED-01 | Phase 7 — Integration and Launch | Complete |
+| SEED-02 | Phase 7 — Integration and Launch | Complete |
+| SEED-03 | Phase 7 — Integration and Launch | Complete |
+| SEED-04 | Phase 7 — Integration and Launch | Complete |
 
 **Coverage:**
 - v1 requirements: 80 total
