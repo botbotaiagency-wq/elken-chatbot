@@ -25,14 +25,14 @@ export async function POST(
 ) {
   const { botId } = await params
 
-  let body: { filename?: string; category?: string; contentType?: string }
+  let body: { filename?: string; category?: string; subcategory?: string; contentType?: string }
   try {
     body = await request.json()
   } catch {
     return Response.json({ error: 'Invalid JSON body' }, { status: 400 })
   }
 
-  const { filename, category, contentType } = body
+  const { filename, category, subcategory, contentType } = body
 
   if (!filename || typeof filename !== 'string') {
     return Response.json({ error: 'filename is required' }, { status: 400 })
@@ -61,6 +61,7 @@ export async function POST(
       bot_id: botId,
       filename,
       category: resolvedCategory,
+      subcategory: subcategory?.trim() || null,
       status: 'pending',
     })
     .select()

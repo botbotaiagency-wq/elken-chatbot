@@ -14,6 +14,8 @@ export interface CheckAndCreateParams {
   hasBes: boolean | null
   gender: 'male' | 'female' | null
   status: BookingStatus
+  userId?: string | null
+  channel?: string | null
 }
 
 export interface CheckAndCreateResult {
@@ -44,6 +46,8 @@ export async function checkAndCreateBooking(
     p_has_bes: params.hasBes,
     p_gender: params.gender,
     p_status: params.status,
+    p_user_id: params.userId ?? null,
+    p_channel: params.channel ?? null,
   })
 
   if (error) {

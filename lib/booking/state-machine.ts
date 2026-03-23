@@ -49,7 +49,7 @@ interface HandleBookingFlowResult {
 export async function handleBookingFlow(
   params: HandleBookingFlowParams
 ): Promise<HandleBookingFlowResult> {
-  const { conversationId, botId, message, state, detection, userId: _userId, channel: _channel } = params
+  const { conversationId, botId, message, state, detection, userId, channel } = params
   const supabase = createServiceClient()
 
   // --- New booking session ---
@@ -490,6 +490,8 @@ async function confirmBooking(
     hasBes: state.has_bes_device ?? null,
     gender: state.customer_gender ?? null,
     status: 'pending',
+    userId,
+    channel,
   })
 
   if (result.success) {

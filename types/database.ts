@@ -40,6 +40,7 @@ export interface Document {
   bot_id: string
   filename: string
   category: DocumentCategory
+  subcategory: string | null
   status: 'pending' | 'processing' | 'ready' | 'failed'
   chunk_count: number
   storage_path: string | null
