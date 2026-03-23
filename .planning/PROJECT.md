@@ -12,28 +12,30 @@ Any client can upload their documents, configure a bot, and have a working AI ch
 
 ### Validated
 
-(None yet — ship to validate)
+All v1 requirements validated in Phase 7 (2026-03-23):
+
+- [x] Multi-tenant database schema with bot-scoped isolation — Validated in Phase 1: Data Foundation
+- [x] Supabase Auth with tenant context and super-admin (Navien) role — Validated in Phase 1: Data Foundation
+- [x] Full admin dashboard with 11-page sidebar navigation — Validated in Phase 4: Admin Dashboard
+- [x] Knowledge base: file upload (PDF/DOCX/TXT) → text extraction → chunking → embedding → pgvector storage — Validated in Phase 2: RAG Pipeline
+- [x] RAG chat endpoint: embed query → cosine search → FAQ priority injection → Claude haiku streaming response — Validated in Phase 2: RAG Pipeline
+- [x] Auto-detect language (EN/BM/ZH) and classify intent per message — Validated in Phase 3: Webhook Gateway
+- [x] Testing console with source chunks, intent, latency display — Validated in Phase 4: Admin Dashboard
+- [x] Personality configuration per bot (name, greetings per language, tone, fallback message) — Validated in Phase 4: Admin Dashboard
+- [x] FAQ CRUD with language tagging and pre-seeded Elken FAQs — Validated in Phase 7: Integration and Launch
+- [x] Response templates tied to intents with EN/BM/ZH variants, pre-seeded for Elken — Validated in Phase 7: Integration and Launch
+- [x] Guardrails: blocked topics, disclaimers, response length, off-topic deflection — Validated in Phase 4: Admin Dashboard
+- [x] Bookings management page (Elken-specific, feature-flagged per bot) — Validated in Phase 5: Booking System
+- [x] Booking flow state machine (stateful via conversationId) with member/non-member paths and slot checking — Validated in Phase 5: Booking System
+- [x] Analytics: message volume, intent breakdown, unanswered queries, response latency, booking funnel — Validated in Phase 6: Analytics
+- [x] API key generation/revocation with prefix display and key hashing — Validated in Phase 3: Webhook Gateway
+- [x] Integrations page with n8n copy-paste snippets for Telegram and WhatsApp — Validated in Phase 7: Integration and Launch
+- [x] Super-admin view to manage all tenants — Validated in Phase 1: Data Foundation
+- [x] Elken seed script: tenant, bot, FAQs, templates, personality config — Validated in Phase 7: Integration and Launch
 
 ### Active
 
-- [ ] Multi-tenant database schema with bot-scoped isolation
-- [ ] Supabase Auth with tenant context and super-admin (Navien) role
-- [ ] Full admin dashboard with 11-page sidebar navigation
-- [ ] Knowledge base: file upload (PDF/DOCX/TXT) → text extraction → chunking → embedding → pgvector storage
-- [ ] RAG chat endpoint: embed query → cosine search → FAQ priority injection → Claude haiku streaming response
-- [ ] Auto-detect language (EN/BM/ZH) and classify intent per message
-- [ ] Testing console with source chunks, intent, latency display
-- [ ] Personality configuration per bot (name, greetings per language, tone, fallback message)
-- [ ] FAQ CRUD with language tagging and pre-seeded Elken FAQs
-- [ ] Response templates tied to intents with EN/BM/ZH variants, pre-seeded for Elken
-- [ ] Guardrails: blocked topics, disclaimers, response length, off-topic deflection
-- [ ] Bookings management page (Elken-specific, feature-flagged per bot)
-- [ ] Booking flow state machine (stateful via conversationId) with member/non-member paths and slot checking
-- [ ] Analytics: message volume, intent breakdown, unanswered queries, response latency, booking funnel
-- [ ] API key generation/revocation with prefix display and key hashing
-- [ ] Integrations page with n8n copy-paste snippets for Telegram and WhatsApp
-- [ ] Super-admin view to manage all tenants
-- [ ] Elken seed script: tenant, bot, FAQs, templates, personality config
+(None — all v1 requirements shipped)
 
 ### Out of Scope
 
@@ -75,4 +77,4 @@ Any client can upload their documents, configure a bot, and have a working AI ch
 | Feature-flagged booking module | Makes platform reusable for non-booking clients | — Pending |
 
 ---
-*Last updated: 2026-03-18 after initialization*
+*Last updated: 2026-03-23 — Phase 7 complete, all v1 requirements shipped*
