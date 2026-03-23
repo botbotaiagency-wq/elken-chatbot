@@ -82,6 +82,9 @@ async function run() {
       greeting_bm: GREETING_BM,
       greeting_zh: GREETING_ZH,
       tone: 'Friendly',
+      // Set to your n8n outbound webhook URL at deploy time, e.g.:
+      // n8n_outbound_webhook: 'https://your-n8n-instance.com/webhook/whatsapp-outbound'
+      n8n_outbound_webhook: null,
     })
     .eq('id', BOT_ID)
   if (personalityErr) throw new Error(`Bot personality: ${personalityErr.message}`)
