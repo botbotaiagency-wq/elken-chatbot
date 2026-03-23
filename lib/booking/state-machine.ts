@@ -92,7 +92,7 @@ export async function handleBookingFlow(
       result = await handleDetailsStep(message, updatedState)
       break
     case 'summary':
-      result = await handleSummaryStep(message, updatedState, botId, conversationId)
+      result = await handleSummaryStep(message, updatedState, botId, conversationId, userId, channel)
       break
     case 'confirmed':
     case 'expired':
@@ -415,7 +415,9 @@ async function handleSummaryStep(
   message: string,
   state: BookingState,
   botId: string,
-  conversationId: string
+  conversationId: string,
+  userId: string,
+  channel: string
 ): Promise<{ response: string; nextState: BookingState | null }> {
   const normalised = message.trim().toLowerCase()
 
@@ -433,7 +435,7 @@ async function handleSummaryStep(
     normalised.startsWith('yes') ||
     normalised.startsWith('confirm')
   ) {
-    return await confirmBooking(state, botId, conversationId)
+    return await confirmBooking(state, botId, conversationId, userId, channel)
   }
 
   // Not a valid response — re-prompt
@@ -446,7 +448,9 @@ async function handleSummaryStep(
 async function confirmBooking(
   state: BookingState,
   botId: string,
-  conversationId: string
+  conversationId: string,
+  userId: string,
+  channel: string
 ): Promise<{ response: string; nextState: BookingState | null }> {
   if (
     !state.facility_type ||
