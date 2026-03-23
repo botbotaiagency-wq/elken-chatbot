@@ -100,7 +100,11 @@ function ErrorState() {
   return (
     <div className="flex flex-col items-center justify-center gap-2 py-8 text-center">
       <p className="text-sm font-semibold">Could not load data</p>
-      <p className="text-xs text-muted-foreground">Refresh the page or try again in a moment.</p>
+      <p className="text-xs text-muted-foreground max-w-xs">
+        The analytics API returned an error. Check that your Supabase environment variables are set
+        in Vercel (SUPABASE_SERVICE_ROLE_KEY) and that migration 00011_analytics.sql has been
+        applied to your database.
+      </p>
     </div>
   )
 }
@@ -202,6 +206,8 @@ export default function AnalyticsPage() {
       .then((data) => {
         const list = Array.isArray(data) ? data : (data.bots ?? [])
         setBots(list)
+        // Auto-select when only one bot exists
+        if (list.length === 1) setSelectedBotId(list[0].id)
       })
       .catch(() => {})
   }, [])
