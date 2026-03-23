@@ -133,7 +133,7 @@ Plans:
   3. The Elken bot correctly handles a product enquiry, a health concern query, and a booking request in all three languages (EN/BM/ZH) end-to-end in the live n8n environment
 **Plans**: 2 plans
 Plans:
-- [ ] 07-01-PLAN.md — Complete Elken seed script (bot name, personality, GenQi FAQs, client response templates) and delete SQL seed
+- [x] 07-01-PLAN.md — Complete Elken seed script (bot name, personality, GenQi FAQs, client response templates) and delete SQL seed
 - [ ] 07-02-PLAN.md — Automated smoke test script, manual verification checklist, and n8n setup guide
 
 ## Progress
@@ -149,4 +149,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 4. Admin Dashboard | 5/5 | Complete   | 2026-03-21 |
 | 5. Booking System | 6/6 | Complete   | 2026-03-22 |
 | 6. Analytics | 3/3 | Complete   | 2026-03-22 |
-| 7. Integration and Launch | 0/2 | Not started | - |
+| 7. Integration and Launch | 1/2 | In Progress|  |

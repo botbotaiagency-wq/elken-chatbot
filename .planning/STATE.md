@@ -2,16 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Completed 06-analytics-02-PLAN.md
-last_updated: "2026-03-22T17:05:17.512Z"
-last_activity: 2026-03-22
+status: Phase complete — ready for verification
+stopped_at: Completed 07-integration-and-launch-02-PLAN.md
+last_updated: "2026-03-23T03:13:24.867Z"
 progress:
   total_phases: 7
   completed_phases: 6
-  total_plans: 25
-  completed_plans: 25
-  percent: 0
+  total_plans: 27
+  completed_plans: 26
 ---
 
 # Project State
@@ -21,16 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-18)
 
 **Core value:** Any client can upload their documents, configure a bot, and have a working AI chatbot live on WhatsApp/Telegram within minutes — with zero code changes required.
-**Current focus:** Phase 1 — Data Foundation
+**Current focus:** Phase 07 — integration-and-launch
 
 ## Current Position
 
-Phase: 7 of 7 (integration and launch)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-03-22
-
-Progress: [░░░░░░░░░░] 0%
+Phase: 07 (integration-and-launch) — EXECUTING
+Plan: 2 of 2
 
 ## Performance Metrics
 
@@ -79,6 +73,8 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 06-analytics P00 | 2min | 2 tasks | 3 files |
 | Phase 06-analytics P01 | 2min | 3 tasks | 7 files |
 | Phase 06-analytics P02 | 187s | 2 tasks | 1 files |
+| Phase 07 P01 | 270s | 2 tasks | 2 files |
+| Phase 07 P02 | 146s | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -154,6 +150,8 @@ Recent decisions affecting current work:
 - [Phase 06-analytics]: downloadCsv returns early on empty array — prevents header-only file with no useful data
 - [Phase 06-analytics]: Analytics page combines all 12 ANAL requirements in a single 'use client' component with 3 tabs
 - [Phase 06-analytics]: Client-side cache ref used for analytics reports — no new dependencies (SWR/React Query) added
+- [Phase 07-integration-and-launch]: Bot personality config (greetings, tone) stored on bots table columns — upsert+UPDATE two-step pattern required for idempotent personality seeding
+- [Phase 07-02]: Smoke test uses bash+curl (portable, no Node deps); reads SMOKE_TEST_URL/VERCEL_URL from .env.local; --max-time 30 handles streaming without hanging
 
 ### Pending Todos
 
@@ -167,6 +165,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T16:46:32.342Z
-Stopped at: Completed 06-analytics-02-PLAN.md
+Last session: 2026-03-23T03:13:24.863Z
+Stopped at: Completed 07-integration-and-launch-02-PLAN.md
 Resume file: None
