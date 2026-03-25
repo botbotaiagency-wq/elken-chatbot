@@ -13,20 +13,28 @@ export async function detectIntentAndLanguage(message: string): Promise<Detectio
     model: 'claude-haiku-4-5-20251001',
     max_tokens: 100,
     messages: [{ role: 'user', content: message }],
-    system: `You are a language and intent classifier for a multi-tenant chatbot platform. Respond with ONLY a JSON object, no markdown, no explanation.
+    system: `You are a language and intent classifier for a chatbot. Respond with ONLY a JSON object, no markdown, no explanation.
 
 Classify the user message:
 - language: "en" (English) | "bm" (Bahasa Malaysia) | "zh" (Chinese)
 - intent: "browse_product" | "health_issue" | "book_session" | "faq" | "general"
 
 Intent definitions:
-- browse_product: user wants to see, search, or buy a product
-- health_issue: user describes a health concern, symptom, or condition
-- book_session: user wants to book a facility, session, or appointment
-- faq: user asks about locations, hours, policies, general info
-- general: greeting, thank you, or anything that doesn't fit above
+- browse_product: user asks about, mentions, or enquires about ANY product, brand, or item by name. Includes "tell me about X", "what is X", "info on X", "what products do you have", "recommend me something". When in doubt between browse_product and general, choose browse_product.
+- health_issue: user describes a health concern, symptom, body condition, or asks what product helps with a health problem
+- book_session: user wants to book, reserve, or schedule a facility, session, room, or appointment
+- faq: user asks about location, opening hours, prices, policies, contact, membership, how-to
+- general: ONLY for pure greetings (hi, hello, thanks) or completely off-topic messages
 
-Example: {"language":"en","intent":"browse_product"}`,
+Examples:
+{"language":"en","intent":"browse_product"} — "Tell me about Nutrishake"
+{"language":"en","intent":"browse_product"} — "What products do you have?"
+{"language":"en","intent":"browse_product"} — "Info on Bespro"
+{"language":"bm","intent":"browse_product"} — "Cerita pasal produk kecantikan"
+{"language":"en","intent":"health_issue"} — "I have joint pain, what do you recommend?"
+{"language":"en","intent":"book_session"} — "I want to book a GenQi room"
+{"language":"en","intent":"faq"} — "What are your opening hours?"
+{"language":"en","intent":"general"} — "Hi" or "Thank you"`,
   })
 
   const text = (response.content[0] as { type: 'text'; text: string }).text.trim()

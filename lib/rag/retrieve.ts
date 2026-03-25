@@ -36,7 +36,7 @@ export interface RetrievalResult {
   ragFound: boolean
 }
 
-const SIMILARITY_THRESHOLD = 0.75
+const SIMILARITY_THRESHOLD = 0.55
 const TOP_K_CHUNKS = 5
 const TOP_K_FAQS = 3
 const TOP_K_PRODUCTS = 3
