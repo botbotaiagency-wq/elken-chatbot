@@ -23,6 +23,7 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ botId: string }> }
 ) {
+  try {
   const { botId } = await params
 
   let body: { filename?: string; category?: string; subcategory?: string; contentType?: string }
@@ -107,4 +108,8 @@ export async function POST(
     token: signedData.token,
     path: storagePath,
   })
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Unexpected server error'
+    return Response.json({ error: message }, { status: 500 })
+  }
 }

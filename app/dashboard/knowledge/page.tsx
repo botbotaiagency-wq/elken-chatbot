@@ -58,6 +58,16 @@ const ACCEPT_MIME = [
   'text/plain',
 ]
 
+/** Derive a valid MIME type from file.type or fall back to extension-based lookup */
+function getFileContentType(file: File): string {
+  if (file.type && ACCEPT_MIME.includes(file.type)) return file.type
+  const name = file.name.toLowerCase()
+  if (name.endsWith('.pdf')) return 'application/pdf'
+  if (name.endsWith('.docx'))
+    return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+  return 'text/plain'
+}
+
 const STATUS_BADGE: Record<string, { label: string; className: string }> = {
   pending:    { label: 'Pending',    className: 'bg-yellow-100 text-yellow-800' },
   processing: { label: 'Processing', className: 'bg-blue-100 text-blue-800' },
@@ -240,6 +250,8 @@ export default function KnowledgePage() {
 
       try {
         // Step 1: init
+        const contentType = getFileContentType(sf.file)
+
         const initRes = await fetch(`/api/ingest/${selectedBotId}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -247,19 +259,19 @@ export default function KnowledgePage() {
             filename: sf.file.name,
             category: sf.category,
             subcategory: sf.subcategory || undefined,
-            contentType: sf.file.type || 'text/plain',
+            contentType,
           }),
         })
         if (!initRes.ok) {
-          const err = await initRes.json()
-          throw new Error(err.error ?? 'Init failed')
+          const err = await initRes.json().catch(() => ({}))
+          throw new Error(err.error ?? `Init failed (${initRes.status})`)
         }
         const { documentId, signedUrl } = await initRes.json()
 
         // Step 2: storage upload
         const uploadRes = await fetch(signedUrl, {
           method: 'PUT',
-          headers: { 'Content-Type': sf.file.type || 'application/octet-stream' },
+          headers: { 'Content-Type': contentType },
           body: sf.file,
         })
         if (!uploadRes.ok) throw new Error('Storage upload failed')
@@ -420,13 +432,14 @@ export default function KnowledgePage() {
               </span>
               {' '}· PDF, DOCX, TXT
             </p>
-            {/* Hidden inputs */}
+            {/* Hidden inputs — onClick stopPropagation prevents programmatic .click() from bubbling to the outer div and triggering the file picker twice */}
             <input
               ref={fileInputRef}
               type="file"
               accept=".pdf,.docx,.txt"
               multiple
               className="hidden"
+              onClick={(e) => e.stopPropagation()}
               onChange={onFileInputChange}
             />
             <input
@@ -436,6 +449,7 @@ export default function KnowledgePage() {
               webkitdirectory=""
               multiple
               className="hidden"
+              onClick={(e) => e.stopPropagation()}
               onChange={onFileInputChange}
             />
           </div>
