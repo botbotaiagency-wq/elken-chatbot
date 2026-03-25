@@ -108,10 +108,10 @@ export async function POST(
       throw new Error(insertError.message)
     }
 
-    // Update document to ready with chunk_count
+    // Update document to ready with chunk_count — clear any stale error_message
     await supabase
       .from('documents')
-      .update({ status: 'ready', chunk_count: chunks.length })
+      .update({ status: 'ready', chunk_count: chunks.length, error_message: null })
       .eq('id', documentId)
 
     return Response.json({ success: true, chunkCount: chunks.length })
