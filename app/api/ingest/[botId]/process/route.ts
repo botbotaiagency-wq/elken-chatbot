@@ -2,9 +2,6 @@ export const maxDuration = 60
 
 import { NextRequest } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/service'
-import { extractText } from '@/lib/ingest/extractor'
-import { chunkText } from '@/lib/ingest/chunker'
-import { embedDocumentChunks } from '@/lib/ingest/embedder'
 
 function getMimeTypeFromFilename(filename: string): string {
   const lower = filename.toLowerCase()
@@ -62,6 +59,13 @@ export async function POST(
     .eq('id', documentId)
 
   try {
+    // Dynamic imports — avoids module-level crash if a package fails to load on Vercel
+    const [{ extractText }, { chunkText }, { embedDocumentChunks }] = await Promise.all([
+      import('@/lib/ingest/extractor'),
+      import('@/lib/ingest/chunker'),
+      import('@/lib/ingest/embedder'),
+    ])
+
     // Download file from storage
     const { data: blob, error: downloadError } = await supabase.storage
       .from('bot-files')
