@@ -12,6 +12,7 @@ import {
   X,
   LayoutList,
   LayoutGrid,
+  RotateCcw,
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -129,6 +130,7 @@ export default function KnowledgePage() {
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
   const [expandedSubcategories, setExpandedSubcategories] = useState<Set<string>>(new Set())
   const [deletingId, setDeletingId] = useState<string | null>(null)
+  const [retryingId, setRetryingId] = useState<string | null>(null)
 
   const fileInputRef = useRef<HTMLInputElement>(null)
   const folderInputRef = useRef<HTMLInputElement>(null)
@@ -304,6 +306,28 @@ export default function KnowledgePage() {
       setStaged([])
       fetchDocuments(selectedBotId)
     }, 800)
+  }
+
+  // ── Retry processing
+  async function handleRetry(documentId: string) {
+    if (!selectedBotId) return
+    setRetryingId(documentId)
+    try {
+      const res = await fetch(`/api/ingest/${selectedBotId}/process`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ documentId }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error ?? `Processing failed (${res.status})`)
+      toast.success(`Processed — ${data.chunkCount} chunks created`)
+      fetchDocuments(selectedBotId)
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Retry failed'
+      toast.error(msg)
+    } finally {
+      setRetryingId(null)
+    }
   }
 
   // ── Delete
@@ -675,6 +699,8 @@ export default function KnowledgePage() {
                             doc={doc}
                             deletingId={deletingId}
                             onDelete={handleDelete}
+                            retryingId={retryingId}
+                            onRetry={handleRetry}
                           />
                         ))}
                       </div>
@@ -767,6 +793,8 @@ export default function KnowledgePage() {
                                             doc={doc}
                                             deletingId={deletingId}
                                             onDelete={handleDelete}
+                                            retryingId={retryingId}
+                                            onRetry={handleRetry}
                                             indent
                                           />
                                         ))}
@@ -817,14 +845,19 @@ function DocRow({
   doc,
   deletingId,
   onDelete,
+  retryingId,
+  onRetry,
   indent = false,
 }: {
   doc: Document
   deletingId: string | null
   onDelete: (id: string) => void
+  retryingId: string | null
+  onRetry: (id: string) => void
   indent?: boolean
 }) {
   const badge = STATUS_BADGE[doc.status] ?? STATUS_BADGE.pending
+  const canRetry = doc.status === 'pending' || doc.status === 'failed' || doc.status === 'error'
   return (
     <div
       className={`flex items-center justify-between py-3 gap-3 ${indent ? 'pl-14 pr-4' : 'px-4'}`}
@@ -837,7 +870,9 @@ function DocRow({
             {doc.category}
             {doc.subcategory && ` › ${doc.subcategory}`}
             {doc.chunk_count != null && ` · ${doc.chunk_count} chunks`}
-            {doc.error_message && ` · ${doc.error_message}`}
+            {doc.error_message && (
+              <span className="text-red-500"> · {doc.error_message}</span>
+            )}
           </p>
         </div>
       </div>
@@ -845,6 +880,19 @@ function DocRow({
         <Badge className={`text-xs ${badge.className} hover:${badge.className}`}>
           {badge.label}
         </Badge>
+        {canRetry && (
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-7 w-7 text-muted-foreground hover:text-blue-600"
+            disabled={retryingId === doc.id}
+            onClick={() => onRetry(doc.id)}
+            aria-label={`Retry processing ${doc.filename}`}
+            title="Retry processing"
+          >
+            <RotateCcw className={`h-4 w-4 ${retryingId === doc.id ? 'animate-spin' : ''}`} />
+          </Button>
+        )}
         <Button
           variant="ghost"
           size="icon"
