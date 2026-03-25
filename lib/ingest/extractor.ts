@@ -1,9 +1,8 @@
-import { PDFParse } from 'pdf-parse'
+import pdfParse from 'pdf-parse'
 import mammoth from 'mammoth'
 
 export async function extractPdf(buffer: Buffer): Promise<string> {
-  const parser = new PDFParse({ data: buffer })
-  const result = await parser.getText()
+  const result = await pdfParse(buffer)
   const text = result.text
   if (text.trim().length < 100) {
     throw new Error('Scanned PDFs are not supported — please upload a text-based PDF')
