@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
@@ -10,6 +11,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog'
 
 interface User {
   id: string
@@ -34,6 +42,10 @@ export default function UsersPage() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState<string | null>(null)
   const [drafts, setDrafts] = useState<Record<string, Draft>>({})
+  const [tenantDialog, setTenantDialog] = useState(false)
+  const [newTenantName, setNewTenantName] = useState('')
+  const [creatingTenant, setCreatingTenant] = useState(false)
+  const [tenantError, setTenantError] = useState('')
 
   useEffect(() => {
     fetch('/api/admin/users')
@@ -53,6 +65,28 @@ export default function UsersPage() {
 
   function setDraft(userId: string, patch: Partial<Draft>) {
     setDrafts((prev) => ({ ...prev, [userId]: { ...prev[userId], ...patch } }))
+  }
+
+  async function createTenant() {
+    setTenantError('')
+    if (!newTenantName.trim()) { setTenantError('Name is required'); return }
+    setCreatingTenant(true)
+    try {
+      const res = await fetch('/api/admin/tenants', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: newTenantName.trim() }),
+      })
+      const data = await res.json()
+      if (!res.ok) { setTenantError(data.error ?? 'Failed to create tenant'); return }
+      setTenants((prev) => [...prev, data.tenant])
+      setTenantDialog(false)
+      setNewTenantName('')
+    } catch {
+      setTenantError('Failed to create tenant')
+    } finally {
+      setCreatingTenant(false)
+    }
   }
 
   async function save(user: User) {
@@ -90,11 +124,14 @@ export default function UsersPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-xl font-semibold">Users</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Assign tenants and roles to platform users
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-xl font-semibold">Users</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Assign tenants and roles to platform users
+          </p>
+        </div>
+        <Button onClick={() => setTenantDialog(true)}>New Tenant</Button>
       </div>
 
       <Card>
@@ -180,6 +217,31 @@ export default function UsersPage() {
           </div>
         </CardContent>
       </Card>
+      <Dialog open={tenantDialog} onOpenChange={setTenantDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>New Tenant</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Company / Client Name</label>
+              <Input
+                placeholder="e.g. Acme Corp"
+                value={newTenantName}
+                onChange={(e) => setNewTenantName(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') createTenant() }}
+              />
+            </div>
+            {tenantError && <p className="text-sm text-destructive">{tenantError}</p>}
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setTenantDialog(false)}>Cancel</Button>
+            <Button onClick={createTenant} disabled={creatingTenant}>
+              {creatingTenant ? 'Creating...' : 'Create Tenant'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
