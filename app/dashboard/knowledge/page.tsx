@@ -47,6 +47,7 @@ interface StagedFile {
   file: File
   category: string
   subcategory: string
+  parseMode: 'chunks' | 'qna'
   progress: 'idle' | 'uploading' | 'done' | 'error'
   error?: string
 }
@@ -126,6 +127,7 @@ export default function KnowledgePage() {
   const [uploading, setUploading] = useState(false)
   const [bulkCategory, setBulkCategory] = useState('')
   const [bulkSubcategory, setBulkSubcategory] = useState('')
+  const [bulkParseMode, setBulkParseMode] = useState<'chunks' | 'qna'>('chunks')
   const [view, setView] = useState<'list' | 'tree'>('list')
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
   const [expandedSubcategories, setExpandedSubcategories] = useState<Set<string>>(new Set())
@@ -182,6 +184,7 @@ export default function KnowledgePage() {
         file,
         category: 'Other',
         subcategory: '',
+        parseMode: 'chunks' as const,
         progress: 'idle' as const,
       })),
     ])
@@ -240,6 +243,10 @@ export default function KnowledgePage() {
     setStaged((prev) => prev.map((s) => ({ ...s, subcategory: bulkSubcategory })))
   }
 
+  function applyBulkParseMode() {
+    setStaged((prev) => prev.map((s) => ({ ...s, parseMode: bulkParseMode })))
+  }
+
   // ── Upload all staged files (sequential)
   async function uploadAll() {
     if (!selectedBotId || !staged.length) return
@@ -262,6 +269,7 @@ export default function KnowledgePage() {
             category: sf.category,
             subcategory: sf.subcategory || undefined,
             contentType,
+            parseMode: sf.parseMode,
           }),
         })
         if (!initRes.ok) {
@@ -387,7 +395,7 @@ export default function KnowledgePage() {
         <div>
           <h1 className="text-2xl font-semibold">Knowledge Base</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Upload documents (PDF, DOCX, TXT) — they are chunked and embedded for RAG retrieval.
+            Upload documents (PDF, DOCX, TXT). Use <strong>Chunks</strong> mode for regular documents or <strong>Q&amp;A</strong> mode to parse scripts into Q&amp;A pairs (FAQ format).
           </p>
         </div>
         {selectedBotId && !staged.length && (
@@ -544,6 +552,25 @@ export default function KnowledgePage() {
                     >
                       Apply
                     </Button>
+                    <div className="space-y-1">
+                      <Label className="text-xs">Parse Mode</Label>
+                      <select
+                        className="h-8 rounded-md border border-input bg-background px-2 text-xs"
+                        value={bulkParseMode}
+                        onChange={(e) => setBulkParseMode(e.target.value as 'chunks' | 'qna')}
+                      >
+                        <option value="chunks">Chunks (default)</option>
+                        <option value="qna">Q&amp;A Script</option>
+                      </select>
+                    </div>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="h-8"
+                      onClick={applyBulkParseMode}
+                    >
+                      Apply
+                    </Button>
                   </div>
                 </div>
 
@@ -592,6 +619,20 @@ export default function KnowledgePage() {
                               )
                             }
                           />
+                          <select
+                            className="h-7 rounded-md border border-input bg-background px-2 text-xs"
+                            value={sf.parseMode}
+                            onChange={(e) =>
+                              setStaged((prev) =>
+                                prev.map((s) =>
+                                  s.uid === sf.uid ? { ...s, parseMode: e.target.value as 'chunks' | 'qna' } : s
+                                )
+                              )
+                            }
+                          >
+                            <option value="chunks">Chunks</option>
+                            <option value="qna">Q&amp;A</option>
+                          </select>
                           <Button
                             variant="ghost"
                             size="icon"

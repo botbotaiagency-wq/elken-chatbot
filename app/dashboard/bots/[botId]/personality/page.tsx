@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
-import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card'
+import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Toaster } from '@/components/ui/sonner'
@@ -19,6 +19,7 @@ export default function PersonalityPage() {
   const [greetingZh, setGreetingZh] = useState('')
   const [tone, setTone] = useState('Professional')
   const [fallbackMessage, setFallbackMessage] = useState('')
+  const [systemPrompt, setSystemPrompt] = useState('')
   const [saving, setSaving] = useState(false)
   const [loading, setLoading] = useState(true)
 
@@ -34,6 +35,7 @@ export default function PersonalityPage() {
         setGreetingZh(data.greeting_zh ?? '')
         setTone(data.tone ?? 'Professional')
         setFallbackMessage(data.fallback_message ?? '')
+        setSystemPrompt(data.system_prompt ?? '')
       } catch {
         // silent — fields remain empty on error
       } finally {
@@ -56,6 +58,7 @@ export default function PersonalityPage() {
           greeting_zh: greetingZh,
           tone,
           fallback_message: fallbackMessage,
+          system_prompt: systemPrompt,
         }),
       })
       if (!res.ok) throw new Error('Failed to save')
@@ -80,9 +83,41 @@ export default function PersonalityPage() {
     <>
       <Toaster />
       <div className="space-y-6">
+
+        {/* System Prompt */}
+        <Card>
+          <CardHeader>
+            <CardTitle>System Prompt</CardTitle>
+            <CardDescription>
+              Override the auto-generated system instructions sent to the AI. Leave blank to use the default persona built from the fields below (name, tone, guardrails). When set, this replaces the preamble — RAG context is still appended automatically.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <Label>Custom System Prompt</Label>
+              <textarea
+                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm font-mono"
+                rows={8}
+                value={systemPrompt}
+                onChange={(e) => setSystemPrompt(e.target.value)}
+                placeholder={`You are Ethan, a helpful assistant for Elken. Respond in the user's language (English, Bahasa Malaysia, or Chinese).
+Answer questions based only on the knowledge base context provided.
+Be concise, friendly, and professional.`}
+              />
+              <p className="mt-1 text-xs text-muted-foreground">
+                Tip: include language instructions, persona, and any rules. The knowledge base (FAQs, documents, products) is always injected after this.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Personality */}
         <Card>
           <CardHeader>
             <CardTitle>Personality</CardTitle>
+            <CardDescription>
+              Used when no custom system prompt is set above.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
@@ -91,39 +126,6 @@ export default function PersonalityPage() {
                 value={botName}
                 onChange={(e) => setBotName(e.target.value)}
                 placeholder="e.g. Elken Assistant"
-              />
-            </div>
-
-            <div>
-              <Label>Greeting (EN)</Label>
-              <textarea
-                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                rows={3}
-                value={greetingEn}
-                onChange={(e) => setGreetingEn(e.target.value)}
-                placeholder="Hello! How can I help you today?"
-              />
-            </div>
-
-            <div>
-              <Label>Greeting (BM)</Label>
-              <textarea
-                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                rows={3}
-                value={greetingBm}
-                onChange={(e) => setGreetingBm(e.target.value)}
-                placeholder="Helo! Bagaimana saya boleh membantu anda hari ini?"
-              />
-            </div>
-
-            <div>
-              <Label>Greeting (ZH)</Label>
-              <textarea
-                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                rows={3}
-                value={greetingZh}
-                onChange={(e) => setGreetingZh(e.target.value)}
-                placeholder="您好！今天有什么可以帮您？"
               />
             </div>
 
@@ -150,12 +152,56 @@ export default function PersonalityPage() {
                 placeholder="I don't have specific information about that. Please contact our team for more details."
               />
             </div>
-
-            <Button onClick={handleSave} disabled={saving}>
-              {saving ? 'Saving...' : 'Save changes'}
-            </Button>
           </CardContent>
         </Card>
+
+        {/* First Messages */}
+        <Card>
+          <CardHeader>
+            <CardTitle>First Message</CardTitle>
+            <CardDescription>
+              The opening message sent to users when they start a new conversation. Set one per language.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <Label>First Message (EN)</Label>
+              <textarea
+                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                rows={3}
+                value={greetingEn}
+                onChange={(e) => setGreetingEn(e.target.value)}
+                placeholder="Hello! How can I help you today?"
+              />
+            </div>
+
+            <div>
+              <Label>First Message (BM)</Label>
+              <textarea
+                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                rows={3}
+                value={greetingBm}
+                onChange={(e) => setGreetingBm(e.target.value)}
+                placeholder="Helo! Bagaimana saya boleh membantu anda hari ini?"
+              />
+            </div>
+
+            <div>
+              <Label>First Message (ZH)</Label>
+              <textarea
+                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                rows={3}
+                value={greetingZh}
+                onChange={(e) => setGreetingZh(e.target.value)}
+                placeholder="您好！今天有什么可以帮您？"
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Button onClick={handleSave} disabled={saving}>
+          {saving ? 'Saving...' : 'Save changes'}
+        </Button>
       </div>
     </>
   )

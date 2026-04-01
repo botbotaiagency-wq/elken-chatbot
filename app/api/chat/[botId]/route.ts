@@ -4,6 +4,7 @@ import { detectIntentAndLanguage } from '@/lib/rag/detect'
 import { retrieveContext } from '@/lib/rag/retrieve'
 import { buildSystemPrompt } from '@/lib/rag/prompt'
 import { logMessage, getOrCreateConversation } from '@/lib/rag/logger'
+import { transcribeFromUrl, transcribeVoice } from '@/lib/rag/transcribe'
 import { createServiceClient } from '@/lib/supabase/service'
 import { handleBookingFlow, isBookingExpired } from '@/lib/booking/state-machine'
 import type { BookingState } from '@/lib/booking/types'
@@ -24,7 +25,7 @@ export async function POST(
   const supabase = createServiceClient()
   const { data: bot, error: botError } = await supabase
     .from('bots')
-    .select('id, api_key_hash, name, greeting_en, greeting_bm, greeting_zh, tone, fallback_message, blocked_keywords, refuse_message, disclaimer_text, max_response_length, off_topic_message, feature_flags')
+    .select('id, api_key_hash, name, greeting_en, greeting_bm, greeting_zh, tone, fallback_message, blocked_keywords, refuse_message, disclaimer_text, max_response_length, off_topic_message, system_prompt, feature_flags')
     .eq('id', botId)
     .single()
 
@@ -93,20 +94,64 @@ export async function POST(
 
   // 1. Parse request body
   const body = await req.json()
-  const { message, userId, channel, conversationId: inputConversationId, language_override } = body as {
-    message: string
+  const {
+    message: rawMessage,
+    userId,
+    channel,
+    conversationId: inputConversationId,
+    language_override,
+    voice_url,
+    voice_data,
+    voice_filename,
+  } = body as {
+    message?: string
     userId: string
     channel: string
     conversationId?: string
     language_override?: string
+    voice_url?: string
+    voice_data?: string      // base64 encoded audio
+    voice_filename?: string  // filename with extension for MIME detection
   }
 
   // 2. Validate required fields
-  if (!message || !userId || !channel) {
+  if (!rawMessage && !voice_url && !voice_data) {
     return Response.json(
-      { error: 'Missing required fields: message, userId, channel' },
+      { error: 'Missing required fields: provide message, voice_url, or voice_data' },
       { status: 400 }
     )
+  }
+  if (!userId || !channel) {
+    return Response.json(
+      { error: 'Missing required fields: userId, channel' },
+      { status: 400 }
+    )
+  }
+
+  // 2b. Transcribe voice if provided
+  let message = rawMessage ?? ''
+  let transcription: string | null = null
+
+  if (voice_url || voice_data) {
+    try {
+      if (voice_url) {
+        transcription = await transcribeFromUrl(voice_url)
+      } else if (voice_data && voice_filename) {
+        const buffer = Buffer.from(voice_data, 'base64')
+        transcription = await transcribeVoice(buffer, voice_filename)
+      } else {
+        return Response.json(
+          { error: 'voice_data requires voice_filename' },
+          { status: 400 }
+        )
+      }
+      message = transcription
+    } catch (err) {
+      return Response.json(
+        { error: `Voice transcription failed: ${err instanceof Error ? err.message : 'unknown error'}` },
+        { status: 422 }
+      )
+    }
   }
 
   // 3. Validate channel
@@ -246,6 +291,7 @@ export async function POST(
         disclaimer_text: bot.disclaimer_text,
         max_response_length: bot.max_response_length,
         off_topic_message: bot.off_topic_message,
+        system_prompt: (bot as Record<string, unknown>).system_prompt as string | null,
       },
     })
 
@@ -300,16 +346,19 @@ export async function POST(
       },
     })
 
-    return new Response(readable, {
-      headers: {
-        'Content-Type': 'text/plain; charset=utf-8',
-        'Transfer-Encoding': 'chunked',
-        'X-Conversation-Id': conversationId,
-        'X-Intent': detection.intent,
-        'X-Language': detection.language,
-        'X-Rag-Found': String(retrieval.ragFound),
-      },
-    })
+    const responseHeaders: Record<string, string> = {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Transfer-Encoding': 'chunked',
+      'X-Conversation-Id': conversationId,
+      'X-Intent': detection.intent,
+      'X-Language': detection.language,
+      'X-Rag-Found': String(retrieval.ragFound),
+    }
+    if (transcription) {
+      responseHeaders['X-Transcription'] = transcription.slice(0, 500) // truncate for header safety
+    }
+
+    return new Response(readable, { headers: responseHeaders })
   } catch (error) {
     console.error('Chat endpoint error:', error)
     return Response.json(

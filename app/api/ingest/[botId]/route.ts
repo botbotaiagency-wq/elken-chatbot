@@ -26,14 +26,14 @@ export async function POST(
   try {
   const { botId } = await params
 
-  let body: { filename?: string; category?: string; subcategory?: string; contentType?: string }
+  let body: { filename?: string; category?: string; subcategory?: string; contentType?: string; parseMode?: string }
   try {
     body = await request.json()
   } catch {
     return Response.json({ error: 'Invalid JSON body' }, { status: 400 })
   }
 
-  const { filename, category, subcategory, contentType } = body
+  const { filename, category, subcategory, contentType, parseMode } = body
 
   if (!filename || typeof filename !== 'string') {
     return Response.json({ error: 'filename is required' }, { status: 400 })
@@ -56,6 +56,8 @@ export async function POST(
   const supabase = createServiceClient()
 
   // Insert document record with status=pending
+  const resolvedParseMode = parseMode === 'qna' ? 'qna' : 'chunks'
+
   const { data: doc, error: insertError } = await supabase
     .from('documents')
     .insert({
@@ -64,6 +66,7 @@ export async function POST(
       category: resolvedCategory,
       subcategory: subcategory?.trim() || null,
       status: 'pending',
+      parse_mode: resolvedParseMode,
     })
     .select()
     .single()

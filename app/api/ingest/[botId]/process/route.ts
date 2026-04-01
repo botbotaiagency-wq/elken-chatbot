@@ -60,9 +60,10 @@ export async function POST(
 
   try {
     // Dynamic imports — avoids module-level crash if a package fails to load on Vercel
-    const [{ extractText }, { chunkText }, { embedDocumentChunks }] = await Promise.all([
+    const [{ extractText }, { chunkText }, { embedDocumentChunks }, { embedQuery }] = await Promise.all([
       import('@/lib/ingest/extractor'),
       import('@/lib/ingest/chunker'),
+      import('@/lib/ingest/embedder'),
       import('@/lib/ingest/embedder'),
     ])
 
@@ -80,7 +81,47 @@ export async function POST(
     const buffer = Buffer.from(await blob.arrayBuffer())
     const text = await extractText(buffer, mimeType)
 
-    // Chunk the text
+    // ── Q&A parse mode ──
+    if (doc.parse_mode === 'qna') {
+      const { parseQnA } = await import('@/lib/ingest/qna-parser')
+      const pairs = parseQnA(text)
+
+      if (pairs.length === 0) {
+        await supabase
+          .from('documents')
+          .update({ status: 'failed', error_message: 'No Q&A pairs found — check script format (Q:/A: or Question:/Answer:)' })
+          .eq('id', documentId)
+        return Response.json({ error: 'No Q&A pairs found' }, { status: 422 })
+      }
+
+      // Delete any previously generated FAQs from this document (re-process support)
+      await supabase.from('faqs').delete().eq('source_document_id', documentId)
+
+      // Embed questions for semantic retrieval
+      const questions = pairs.map((p) => p.question)
+      const embeddings = await embedDocumentChunks(questions)
+
+      const faqRows = pairs.map((pair, i) => ({
+        bot_id: botId,
+        question: pair.question,
+        answer: pair.answer,
+        language: 'en' as const,
+        embedding: embeddings[i],
+        source_document_id: documentId,
+      }))
+
+      const { error: faqInsertError } = await supabase.from('faqs').insert(faqRows)
+      if (faqInsertError) throw new Error(faqInsertError.message)
+
+      await supabase
+        .from('documents')
+        .update({ status: 'ready', chunk_count: pairs.length, error_message: null })
+        .eq('id', documentId)
+
+      return Response.json({ success: true, chunkCount: pairs.length, mode: 'qna' })
+    }
+
+    // ── Default chunks mode ──
     const chunks = chunkText(text, 500, 50)
 
     if (chunks.length === 0) {

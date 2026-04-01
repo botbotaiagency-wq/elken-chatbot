@@ -12,7 +12,7 @@ export async function GET(
 
   const { data, error } = await supabase
     .from('bots')
-    .select('name, greeting_en, greeting_bm, greeting_zh, tone, fallback_message')
+    .select('name, greeting_en, greeting_bm, greeting_zh, tone, fallback_message, system_prompt')
     .eq('id', botId)
     .single()
 
@@ -36,6 +36,7 @@ export async function PATCH(
     greeting_zh?: string
     tone?: string
     fallback_message?: string
+    system_prompt?: string
   }
 
   try {
@@ -62,6 +63,7 @@ export async function PATCH(
       ...(body.greeting_zh !== undefined && { greeting_zh: body.greeting_zh }),
       ...(body.tone !== undefined && { tone: body.tone }),
       ...(body.fallback_message !== undefined && { fallback_message: body.fallback_message }),
+      ...(body.system_prompt !== undefined && { system_prompt: body.system_prompt || null }),
     })
     .eq('id', botId)
 

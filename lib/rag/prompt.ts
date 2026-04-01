@@ -13,6 +13,7 @@ export interface BotConfig {
   disclaimer_text?: string | null
   max_response_length?: number | null
   off_topic_message?: string | null
+  system_prompt?: string | null
 }
 
 export interface PromptContext {
@@ -27,53 +28,60 @@ export function buildSystemPrompt(ctx: PromptContext): string {
   const { retrieval, detection } = ctx
   const botName = ctx.botConfig?.name ?? ctx.botName ?? 'Assistant'
   const fallback = ctx.botConfig?.fallback_message ?? ctx.fallbackMessage ?? "I don't have specific information about that in my knowledge base. Let me try to help with what I know, or you can contact our team directly for more details."
-  const langInstruction = {
-    en: 'Respond in English.',
-    bm: 'Respond in Bahasa Malaysia.',
-    zh: 'Respond in Chinese (Simplified).',
-  }[detection.language]
 
   const sections: string[] = []
 
-  // Base persona
-  sections.push(`You are ${botName}, a helpful customer service assistant. ${langInstruction}`)
-  sections.push('Answer based ONLY on the context provided below. If the context does not contain enough information to answer, say so honestly.')
+  // If a custom system prompt is set, use it as the preamble instead of auto-generating
+  const customPrompt = ctx.botConfig?.system_prompt?.trim()
+  if (customPrompt) {
+    sections.push(customPrompt)
+  } else {
+    const langInstruction = {
+      en: 'Respond in English.',
+      bm: 'Respond in Bahasa Malaysia.',
+      zh: 'Respond in Chinese (Simplified).',
+    }[detection.language]
 
-  // Greeting for detected language
-  const greeting = ctx.botConfig?.[`greeting_${detection.language}` as keyof BotConfig] as string | null | undefined
-  if (greeting) {
-    sections.push(`Greeting message: "${greeting}"`)
-  }
+    // Base persona
+    sections.push(`You are ${botName}, a helpful customer service assistant. ${langInstruction}`)
+    sections.push('Answer based ONLY on the context provided below. If the context does not contain enough information to answer, say so honestly.')
 
-  // Tone instruction
-  const tone = ctx.botConfig?.tone ?? 'Professional'
-  sections.push(`Respond in a ${tone.toLowerCase()} tone.`)
+    // First message for detected language
+    const greeting = ctx.botConfig?.[`greeting_${detection.language}` as keyof BotConfig] as string | null | undefined
+    if (greeting) {
+      sections.push(`First message: "${greeting}"`)
+    }
 
-  // Guardrails injection
-  if (ctx.botConfig?.blocked_keywords) {
-    const keywords = ctx.botConfig.blocked_keywords
-      .split('\n')
-      .map((k) => k.trim())
-      .filter((k) => k.length > 0)
-    if (keywords.length > 0) {
+    // Tone instruction
+    const tone = ctx.botConfig?.tone ?? 'Professional'
+    sections.push(`Respond in a ${tone.toLowerCase()} tone.`)
+
+    // Guardrails injection
+    if (ctx.botConfig?.blocked_keywords) {
+      const keywords = ctx.botConfig.blocked_keywords
+        .split('\n')
+        .map((k) => k.trim())
+        .filter((k) => k.length > 0)
+      if (keywords.length > 0) {
+        sections.push(
+          `\n--- BLOCKED TOPICS ---\nIf the user's message contains any of these keywords: ${keywords.join(', ')}, respond with: "${ctx.botConfig.refuse_message ?? 'I cannot help with that topic.'}"`
+        )
+      }
+    }
+
+    if (ctx.botConfig?.disclaimer_text) {
       sections.push(
-        `\n--- BLOCKED TOPICS ---\nIf the user's message contains any of these keywords: ${keywords.join(', ')}, respond with: "${ctx.botConfig.refuse_message ?? 'I cannot help with that topic.'}"`
+        `\n--- MANDATORY DISCLAIMER ---\nAppend this disclaimer to every response: "${ctx.botConfig.disclaimer_text}"`
       )
     }
-  }
 
-  if (ctx.botConfig?.disclaimer_text) {
-    sections.push(
-      `\n--- MANDATORY DISCLAIMER ---\nAppend this disclaimer to every response: "${ctx.botConfig.disclaimer_text}"`
-    )
-  }
+    if (ctx.botConfig?.max_response_length) {
+      sections.push(`Keep your response under ${ctx.botConfig.max_response_length} characters.`)
+    }
 
-  if (ctx.botConfig?.max_response_length) {
-    sections.push(`Keep your response under ${ctx.botConfig.max_response_length} characters.`)
-  }
-
-  if (ctx.botConfig?.off_topic_message) {
-    sections.push(`If the message is off-topic or unrelated to the knowledge base, respond with: "${ctx.botConfig.off_topic_message}"`)
+    if (ctx.botConfig?.off_topic_message) {
+      sections.push(`If the message is off-topic or unrelated to the knowledge base, respond with: "${ctx.botConfig.off_topic_message}"`)
+    }
   }
 
   // FAQ priority context (injected ABOVE RAG chunks per RAG-04)
