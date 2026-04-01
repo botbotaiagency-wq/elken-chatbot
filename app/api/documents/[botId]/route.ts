@@ -11,7 +11,7 @@ export async function GET(
 
   const { data: documents, error } = await supabase
     .from('documents')
-    .select('id, filename, category, subcategory, status, chunk_count, error_message, created_at')
+    .select('id, filename, category, subcategory, status, chunk_count, error_message, created_at, parse_mode')
     .eq('bot_id', botId)
     .order('created_at', { ascending: false })
 

@@ -23,6 +23,11 @@ export async function GET(
     query = query.eq('language', language)
   }
 
+  const sourceDocumentId = url.searchParams.get('source_document_id')
+  if (sourceDocumentId) {
+    query = query.eq('source_document_id', sourceDocumentId)
+  }
+
   const { data, error } = await query
 
   if (error) {

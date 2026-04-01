@@ -13,7 +13,12 @@ import {
   LayoutList,
   LayoutGrid,
   RotateCcw,
+  MessageSquareText,
+  Pencil,
+  Check,
+  Plus,
 } from 'lucide-react'
+import { Textarea } from '@/components/ui/textarea'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -40,6 +45,15 @@ interface Document {
   chunk_count: number | null
   error_message: string | null
   created_at: string
+  parse_mode?: 'chunks' | 'qna'
+}
+
+interface Faq {
+  id: string
+  question: string
+  answer: string
+  language: string
+  source_document_id: string | null
 }
 
 interface StagedFile {
@@ -133,6 +147,7 @@ export default function KnowledgePage() {
   const [expandedSubcategories, setExpandedSubcategories] = useState<Set<string>>(new Set())
   const [deletingId, setDeletingId] = useState<string | null>(null)
   const [retryingId, setRetryingId] = useState<string | null>(null)
+  const [faqPanel, setFaqPanel] = useState<{ docId: string; filename: string } | null>(null)
 
   const fileInputRef = useRef<HTMLInputElement>(null)
   const folderInputRef = useRef<HTMLInputElement>(null)
@@ -742,6 +757,7 @@ export default function KnowledgePage() {
                             onDelete={handleDelete}
                             retryingId={retryingId}
                             onRetry={handleRetry}
+                            onViewFaqs={(id, name) => setFaqPanel({ docId: id, filename: name })}
                           />
                         ))}
                       </div>
@@ -836,6 +852,7 @@ export default function KnowledgePage() {
                                             onDelete={handleDelete}
                                             retryingId={retryingId}
                                             onRetry={handleRetry}
+                                            onViewFaqs={(id, name) => setFaqPanel({ docId: id, filename: name })}
                                             indent
                                           />
                                         ))}
@@ -864,6 +881,15 @@ export default function KnowledgePage() {
           </CardContent>
         </Card>
       )}
+
+      {faqPanel && (
+        <FaqPanel
+          botId={selectedBotId}
+          docId={faqPanel.docId}
+          filename={faqPanel.filename}
+          onClose={() => setFaqPanel(null)}
+        />
+      )}
     </div>
   )
 }
@@ -888,6 +914,7 @@ function DocRow({
   onDelete,
   retryingId,
   onRetry,
+  onViewFaqs,
   indent = false,
 }: {
   doc: Document
@@ -895,6 +922,7 @@ function DocRow({
   onDelete: (id: string) => void
   retryingId: string | null
   onRetry: (id: string) => void
+  onViewFaqs?: (docId: string, filename: string) => void
   indent?: boolean
 }) {
   const badge = STATUS_BADGE[doc.status] ?? STATUS_BADGE.pending
@@ -910,7 +938,7 @@ function DocRow({
           <p className="text-xs text-muted-foreground">
             {doc.category}
             {doc.subcategory && ` › ${doc.subcategory}`}
-            {doc.chunk_count != null && ` · ${doc.chunk_count} chunks`}
+            {doc.chunk_count != null && ` · ${doc.chunk_count} ${doc.parse_mode === 'qna' ? 'Q&A pairs' : 'chunks'}`}
             {doc.error_message && (
               <span className="text-red-500"> · {doc.error_message}</span>
             )}
@@ -921,6 +949,17 @@ function DocRow({
         <Badge className={`text-xs ${badge.className} hover:${badge.className}`}>
           {badge.label}
         </Badge>
+        {doc.parse_mode === 'qna' && doc.status === 'ready' && onViewFaqs && (
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-7 w-7 text-muted-foreground hover:text-primary"
+            onClick={() => onViewFaqs(doc.id, doc.filename)}
+            title="View & edit parsed FAQs"
+          >
+            <MessageSquareText className="h-4 w-4" />
+          </Button>
+        )}
         {canRetry && (
           <Button
             variant="ghost"
@@ -946,5 +985,290 @@ function DocRow({
         </Button>
       </div>
     </div>
+  )
+}
+
+// ── FAQ Panel (slide-over) ──────────────────────────────────────────────────
+
+function FaqPanel({
+  botId,
+  docId,
+  filename,
+  onClose,
+}: {
+  botId: string
+  docId: string
+  filename: string
+  onClose: () => void
+}) {
+  const [faqs, setFaqs] = useState<Faq[]>([])
+  const [loading, setLoading] = useState(true)
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [editQ, setEditQ] = useState('')
+  const [editA, setEditA] = useState('')
+  const [saving, setSaving] = useState(false)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
+  const [adding, setAdding] = useState(false)
+  const [newQ, setNewQ] = useState('')
+  const [newA, setNewA] = useState('')
+  const [addSaving, setAddSaving] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+    fetch(`/api/config/${botId}/faqs?source_document_id=${docId}`)
+      .then((r) => r.json())
+      .then((d) => setFaqs(d.faqs ?? []))
+      .catch(() => toast.error('Failed to load FAQs'))
+      .finally(() => setLoading(false))
+  }, [botId, docId])
+
+  function startEdit(faq: Faq) {
+    setEditingId(faq.id)
+    setEditQ(faq.question)
+    setEditA(faq.answer)
+  }
+
+  async function saveEdit(faqId: string, language: string) {
+    if (!editQ.trim() || !editA.trim()) return
+    setSaving(true)
+    try {
+      const res = await fetch(`/api/config/${botId}/faqs`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ faqId, question: editQ.trim(), answer: editA.trim(), language }),
+      })
+      if (!res.ok) throw new Error()
+      setFaqs((prev) =>
+        prev.map((f) => (f.id === faqId ? { ...f, question: editQ.trim(), answer: editA.trim() } : f))
+      )
+      setEditingId(null)
+      toast.success('FAQ updated')
+    } catch {
+      toast.error('Failed to save FAQ')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  async function deleteFaq(faqId: string) {
+    setDeletingId(faqId)
+    try {
+      const res = await fetch(`/api/config/${botId}/faqs`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ faqId }),
+      })
+      if (!res.ok) throw new Error()
+      setFaqs((prev) => prev.filter((f) => f.id !== faqId))
+      toast.success('FAQ deleted')
+    } catch {
+      toast.error('Failed to delete FAQ')
+    } finally {
+      setDeletingId(null)
+    }
+  }
+
+  async function addFaq() {
+    if (!newQ.trim() || !newA.trim()) return
+    setAddSaving(true)
+    try {
+      const res = await fetch(`/api/config/${botId}/faqs`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question: newQ.trim(), answer: newA.trim(), language: 'en' }),
+      })
+      if (!res.ok) throw new Error()
+      const created = await res.json()
+      setFaqs((prev) => [created, ...prev])
+      setNewQ('')
+      setNewA('')
+      setAdding(false)
+      toast.success('FAQ added')
+    } catch {
+      toast.error('Failed to add FAQ')
+    } finally {
+      setAddSaving(false)
+    }
+  }
+
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 bg-black/30 z-40"
+        onClick={onClose}
+      />
+
+      {/* Panel */}
+      <div className="fixed right-0 top-0 h-full w-full max-w-lg bg-background border-l shadow-xl z-50 flex flex-col">
+        {/* Header */}
+        <div className="flex items-start justify-between px-5 py-4 border-b">
+          <div className="min-w-0">
+            <h2 className="text-sm font-semibold truncate">FAQs — {filename}</h2>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              {loading ? 'Loading…' : `${faqs.length} Q&A pair${faqs.length !== 1 ? 's' : ''}`}
+            </p>
+          </div>
+          <Button variant="ghost" size="icon" className="h-8 w-8 flex-shrink-0" onClick={onClose}>
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+
+        {/* FAQ list */}
+        <div className="flex-1 overflow-y-auto">
+          {loading ? (
+            <div className="space-y-3 p-4">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="space-y-1.5">
+                  <div className="h-4 animate-pulse bg-muted rounded w-3/4" />
+                  <div className="h-8 animate-pulse bg-muted rounded" />
+                </div>
+              ))}
+            </div>
+          ) : faqs.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-16 text-center px-6">
+              <MessageSquareText className="h-8 w-8 text-muted-foreground mb-3" />
+              <p className="text-sm font-medium">No FAQs found</p>
+              <p className="text-xs text-muted-foreground mt-1">Add one below or re-process the document.</p>
+            </div>
+          ) : (
+            <div className="divide-y">
+              {faqs.map((faq, idx) => (
+                <div key={faq.id} className="px-5 py-4 group">
+                  {editingId === faq.id ? (
+                    <div className="space-y-2">
+                      <div className="space-y-1">
+                        <Label className="text-xs font-medium text-muted-foreground">Question</Label>
+                        <Textarea
+                          className="text-sm resize-none"
+                          rows={2}
+                          value={editQ}
+                          onChange={(e) => setEditQ(e.target.value)}
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <Label className="text-xs font-medium text-muted-foreground">Answer</Label>
+                        <Textarea
+                          className="text-sm resize-none"
+                          rows={3}
+                          value={editA}
+                          onChange={(e) => setEditA(e.target.value)}
+                        />
+                      </div>
+                      <div className="flex gap-2 justify-end">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setEditingId(null)}
+                          disabled={saving}
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          size="sm"
+                          onClick={() => saveEdit(faq.id, faq.language)}
+                          disabled={saving || !editQ.trim() || !editA.trim()}
+                        >
+                          {saving ? <RefreshCw className="h-3.5 w-3.5 animate-spin mr-1" /> : <Check className="h-3.5 w-3.5 mr-1" />}
+                          Save
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-1.5">
+                      <div className="flex items-start justify-between gap-2">
+                        <p className="text-xs font-medium text-muted-foreground">#{idx + 1}</p>
+                        <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-6 w-6 text-muted-foreground hover:text-primary"
+                            onClick={() => startEdit(faq)}
+                            title="Edit"
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-6 w-6 text-muted-foreground hover:text-destructive"
+                            disabled={deletingId === faq.id}
+                            onClick={() => deleteFaq(faq.id)}
+                            title="Delete"
+                          >
+                            {deletingId === faq.id
+                              ? <RefreshCw className="h-3.5 w-3.5 animate-spin" />
+                              : <Trash2 className="h-3.5 w-3.5" />
+                            }
+                          </Button>
+                        </div>
+                      </div>
+                      <p className="text-sm font-medium leading-snug">{faq.question}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{faq.answer}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Add FAQ */}
+        <div className="border-t px-5 py-4 space-y-3">
+          {adding ? (
+            <div className="space-y-2">
+              <div className="space-y-1">
+                <Label className="text-xs font-medium text-muted-foreground">Question</Label>
+                <Textarea
+                  className="text-sm resize-none"
+                  rows={2}
+                  placeholder="e.g. What is GenQi?"
+                  value={newQ}
+                  onChange={(e) => setNewQ(e.target.value)}
+                />
+              </div>
+              <div className="space-y-1">
+                <Label className="text-xs font-medium text-muted-foreground">Answer</Label>
+                <Textarea
+                  className="text-sm resize-none"
+                  rows={3}
+                  placeholder="e.g. GenQi is a wellness facility..."
+                  value={newA}
+                  onChange={(e) => setNewA(e.target.value)}
+                />
+              </div>
+              <div className="flex gap-2 justify-end">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => { setAdding(false); setNewQ(''); setNewA('') }}
+                  disabled={addSaving}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={addFaq}
+                  disabled={addSaving || !newQ.trim() || !newA.trim()}
+                >
+                  {addSaving ? <RefreshCw className="h-3.5 w-3.5 animate-spin mr-1" /> : <Plus className="h-3.5 w-3.5 mr-1" />}
+                  Add FAQ
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <Button
+              variant="outline"
+              size="sm"
+              className="w-full"
+              onClick={() => setAdding(true)}
+            >
+              <Plus className="h-4 w-4 mr-1" />
+              Add FAQ
+            </Button>
+          )}
+        </div>
+      </div>
+    </>
   )
 }
