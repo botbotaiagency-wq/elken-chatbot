@@ -35,6 +35,9 @@ export async function DELETE(
     }
   }
 
+  // Clean up associated script if this was a script-mode document
+  await supabase.from('scripts').delete().eq('document_id', documentId)
+
   // Delete document record — FK cascade removes all chunks automatically
   const { error: deleteError } = await supabase
     .from('documents')

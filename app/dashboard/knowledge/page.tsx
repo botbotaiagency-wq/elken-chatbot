@@ -45,7 +45,7 @@ interface Document {
   chunk_count: number | null
   error_message: string | null
   created_at: string
-  parse_mode?: 'chunks' | 'qna'
+  parse_mode?: 'chunks' | 'qna' | 'script'
 }
 
 interface Faq {
@@ -61,7 +61,7 @@ interface StagedFile {
   file: File
   category: string
   subcategory: string
-  parseMode: 'chunks' | 'qna'
+  parseMode: 'chunks' | 'qna' | 'script'
   progress: 'idle' | 'uploading' | 'done' | 'error'
   error?: string
 }
@@ -141,7 +141,7 @@ export default function KnowledgePage() {
   const [uploading, setUploading] = useState(false)
   const [bulkCategory, setBulkCategory] = useState('')
   const [bulkSubcategory, setBulkSubcategory] = useState('')
-  const [bulkParseMode, setBulkParseMode] = useState<'chunks' | 'qna'>('chunks')
+  const [bulkParseMode, setBulkParseMode] = useState<'chunks' | 'qna' | 'script'>('chunks')
   const [view, setView] = useState<'list' | 'tree'>('list')
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
   const [expandedSubcategories, setExpandedSubcategories] = useState<Set<string>>(new Set())
@@ -572,10 +572,11 @@ export default function KnowledgePage() {
                       <select
                         className="h-8 rounded-md border border-input bg-background px-2 text-xs"
                         value={bulkParseMode}
-                        onChange={(e) => setBulkParseMode(e.target.value as 'chunks' | 'qna')}
+                        onChange={(e) => setBulkParseMode(e.target.value as 'chunks' | 'qna' | 'script')}
                       >
                         <option value="chunks">Chunks (default)</option>
                         <option value="qna">Q&amp;A Script</option>
+                        <option value="script">Script</option>
                       </select>
                     </div>
                     <Button
@@ -640,13 +641,14 @@ export default function KnowledgePage() {
                             onChange={(e) =>
                               setStaged((prev) =>
                                 prev.map((s) =>
-                                  s.uid === sf.uid ? { ...s, parseMode: e.target.value as 'chunks' | 'qna' } : s
+                                  s.uid === sf.uid ? { ...s, parseMode: e.target.value as 'chunks' | 'qna' | 'script' } : s
                                 )
                               )
                             }
                           >
                             <option value="chunks">Chunks</option>
                             <option value="qna">Q&amp;A</option>
+                            <option value="script">Script</option>
                           </select>
                           <Button
                             variant="ghost"
@@ -938,7 +940,9 @@ function DocRow({
           <p className="text-xs text-muted-foreground">
             {doc.category}
             {doc.subcategory && ` › ${doc.subcategory}`}
-            {doc.chunk_count != null && ` · ${doc.chunk_count} ${doc.parse_mode === 'qna' ? 'Q&A pairs' : 'chunks'}`}
+            {doc.parse_mode === 'script'
+              ? ' · Always injected'
+              : doc.chunk_count != null && ` · ${doc.chunk_count} ${doc.parse_mode === 'qna' ? 'Q&A pairs' : 'chunks'}`}
             {doc.error_message && (
               <span className="text-red-500"> · {doc.error_message}</span>
             )}
@@ -949,6 +953,11 @@ function DocRow({
         <Badge className={`text-xs ${badge.className} hover:${badge.className}`}>
           {badge.label}
         </Badge>
+        {doc.parse_mode === 'script' && (
+          <Badge className="text-xs bg-purple-100 text-purple-800 hover:bg-purple-100">
+            Script
+          </Badge>
+        )}
         {doc.parse_mode === 'qna' && doc.status === 'ready' && onViewFaqs && (
           <Button
             variant="ghost"

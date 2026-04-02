@@ -22,6 +22,7 @@ export interface PromptContext {
   botName?: string          // keep for backward compat
   fallbackMessage?: string  // keep for backward compat
   botConfig?: BotConfig     // new: full config from DB
+  scripts?: Array<{ name: string; content: string }>
 }
 
 export function buildSystemPrompt(ctx: PromptContext): string {
@@ -81,6 +82,14 @@ export function buildSystemPrompt(ctx: PromptContext): string {
 
     if (ctx.botConfig?.off_topic_message) {
       sections.push(`If the message is off-topic or unrelated to the knowledge base, respond with: "${ctx.botConfig.off_topic_message}"`)
+    }
+  }
+
+  // Script injection — always present, injected before RAG context
+  if (ctx.scripts && ctx.scripts.length > 0) {
+    sections.push('\n--- CONVERSATION SCRIPTS (follow these exactly) ---')
+    for (const script of ctx.scripts) {
+      sections.push(`## ${script.name}\n${script.content}`)
     }
   }
 

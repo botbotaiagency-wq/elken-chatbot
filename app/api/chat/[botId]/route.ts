@@ -275,6 +275,14 @@ export async function POST(
     // 7. Retrieve context (FAQ priority, chunks, products)
     const retrieval = await retrieveContext(message, botId, detection.intent)
 
+    // 7b. Fetch active scripts for this bot (for system prompt injection)
+    const { data: scripts } = await supabase
+      .from('scripts')
+      .select('name, content')
+      .eq('bot_id', botId)
+      .eq('is_active', true)
+      .order('created_at', { ascending: true })
+
     // 8. Build system prompt
     const systemPrompt = buildSystemPrompt({
       retrieval,
@@ -293,6 +301,7 @@ export async function POST(
         off_topic_message: bot.off_topic_message,
         system_prompt: (bot as Record<string, unknown>).system_prompt as string | null,
       },
+      scripts: scripts ?? [],
     })
 
     // 9. Build source_chunks metadata for logging

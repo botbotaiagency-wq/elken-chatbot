@@ -81,6 +81,37 @@ export async function POST(
     const buffer = Buffer.from(await blob.arrayBuffer())
     const text = await extractText(buffer, mimeType)
 
+    // ── Script mode — inject full text into system prompt, no chunking/embedding ──
+    if (doc.parse_mode === 'script') {
+      if (!text || text.trim().length === 0) {
+        await supabase
+          .from('documents')
+          .update({ status: 'failed', error_message: 'No text content extracted from script file' })
+          .eq('id', documentId)
+        return Response.json({ error: 'No text content extracted' }, { status: 422 })
+      }
+
+      // Delete any previously generated script from this document (re-process support)
+      await supabase.from('scripts').delete().eq('document_id', documentId)
+
+      const { error: scriptInsertError } = await supabase.from('scripts').insert({
+        bot_id: botId,
+        document_id: documentId,
+        name: doc.filename,
+        content: text.trim(),
+        is_active: true,
+      })
+
+      if (scriptInsertError) throw new Error(scriptInsertError.message)
+
+      await supabase
+        .from('documents')
+        .update({ status: 'ready', chunk_count: 1, error_message: null })
+        .eq('id', documentId)
+
+      return Response.json({ success: true, chunkCount: 1, mode: 'script' })
+    }
+
     // ── Q&A parse mode ──
     if (doc.parse_mode === 'qna') {
       const { parseQnA } = await import('@/lib/ingest/qna-parser')

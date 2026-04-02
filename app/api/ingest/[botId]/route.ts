@@ -56,7 +56,11 @@ export async function POST(
   const supabase = createServiceClient()
 
   // Insert document record with status=pending
-  const resolvedParseMode = parseMode === 'qna' ? 'qna' : 'chunks'
+  const validParseModes = ['chunks', 'qna', 'script']
+  if (parseMode && !validParseModes.includes(parseMode)) {
+    return Response.json({ error: 'Invalid parse_mode' }, { status: 400 })
+  }
+  const resolvedParseMode = validParseModes.includes(parseMode ?? '') ? parseMode! : 'chunks'
 
   const { data: doc, error: insertError } = await supabase
     .from('documents')
