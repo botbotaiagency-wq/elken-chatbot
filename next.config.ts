@@ -1,8 +1,21 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  // voyageai, pdf-parse, mammoth use CJS/native modules — exclude from Turbopack/webpack bundling
-  serverExternalPackages: ['voyageai', 'pdf-parse', 'mammoth'],
-};
+  serverExternalPackages: [
+    'voyageai',
+    'pdf-parse',
+    'mammoth',
+    'sharp',
+    'cheerio'
+  ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*.supabase.co'
+      }
+    ]
+  }
+}
 
-export default nextConfig;
+export default nextConfig

@@ -12,6 +12,7 @@ const TABS = [
   { label: 'API Keys', path: 'api-keys' },
   { label: 'Integrations', path: 'integrations' },
   { label: 'Booking', path: 'booking' },
+  { label: 'Channels', path: 'channels' },
 ]
 
 export default function BotDetailLayout({
